@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff">
+
+    <include
+        android:id="@+id/common_actionbar"
+        layout="@layout/include_action_bar" />
+
+    <LinearLayout
+        android:layout_below="@id/common_actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        >
+
+        <RelativeLayout
+            android:id="@+id/activity_setting_user_avatar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:background="@drawable/selector_settings_item_down">
+
+            <TextView
+                android:id="@+id/activity_setting_user_icon_tips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextTheme.tipstheme"
+                android:text="头像"
+                android:layout_centerVertical="true" />
+
+            <ImageView
+                android:id="@+id/activity_setting_user_avatar_img"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:scaleType="centerInside"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#eeeeee" />
+
+        <RelativeLayout
+            android:id="@+id/activity_setting_user_nick_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:background="@drawable/selector_settings_item_down">
+
+            <TextView
+                android:id="@+id/activity_setting_user_nick_tips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextTheme.tipstheme"
+                android:text="昵称"
+                android:layout_centerVertical="true"
+                android:paddingTop="8dip"
+                android:paddingBottom="8dip" />
+
+            <TextView
+                android:id="@+id/activity_setting_user_nick_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextTheme.tipstheme_second"
+                android:text="点击登录"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:paddingTop="8dip"
+                android:paddingBottom="8dip" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#eeeeee" />
+
+        <RelativeLayout
+            android:id="@+id/activity_setting_user_account_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:background="@drawable/selector_settings_item_down">
+
+            <TextView
+                android:id="@+id/activity_setting_user_account_tips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextTheme.tipstheme"
+                android:text="点滴号"
+                android:layout_centerVertical="true"
+                android:paddingTop="8dip"
+                android:paddingBottom="8dip" />
+
+            <TextView
+                android:id="@+id/activity_setting_user_account_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextTheme.tipstheme_second"
+                android:text="点击登录"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:paddingTop="8dip"
+                android:paddingBottom="8dip" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#eeeeee" />
+
+        <RelativeLayout
+            android:id="@+id/activity_setting_sex_choice_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
+
+            <TextView
+                android:id="@+id/activity_setting_sex_choice_tips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextTheme.tipstheme"
+                android:text="性别"
+                android:layout_centerVertical="true"
+                android:paddingTop="8dip"
+                android:paddingBottom="8dip" />
+
+            <TextView
+                android:id="@+id/activity_setting_user_sex_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextTheme.tipstheme_second"
+                android:text="点击登录"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:paddingTop="8dip"
+                android:paddingBottom="8dip" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#eeeeee" />
+
+
+        <RelativeLayout
+            android:id="@+id/activity_setting_user_sign_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:background="@drawable/selector_settings_item_down">
+
+            <TextView
+                android:id="@+id/activity_setting_user_sign_tips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextTheme.tipstheme"
+                android:text="个性签名"
+                android:layout_centerVertical="true"
+                android:paddingTop="8dip"
+                android:paddingBottom="8dip" />
+
+            <TextView
+                android:id="@+id/activity_setting_user_sign_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextTheme.tipstheme_second"
+                android:text="点击填写"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:paddingTop="8dip"
+                android:paddingBottom="8dip"
+                android:layout_marginLeft="100dp"
+                android:maxLines="2"
+                android:ellipsize="end" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="20dp"
+            android:background="#eeeeee" />
+
+        <Button
+            android:id="@+id/activity_add_friend_btn"
+            style="@style/Smile.Button.theme"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:text="@string/add_friend"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/activity_setting_launch_chat_btn"
+            style="@style/Smile.Button.theme"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:text="@string/chat" />
+
+        <Button
+            android:id="@+id/activity_setting_add_black_btn"
+            style="@style/Smile.Button.logout"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:text="@string/blacklist" />
+
+
+    </LinearLayout>
+</RelativeLayout>
