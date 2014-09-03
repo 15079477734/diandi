@@ -38,6 +38,8 @@ public abstract class BaseFragment extends Fragment {
     public LayoutInflater inflater;
     private Handler handler = new Handler();
 
+    abstract void initView();
+
 
     abstract void findView();
 

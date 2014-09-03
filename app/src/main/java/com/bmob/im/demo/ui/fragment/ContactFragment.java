@@ -64,24 +64,29 @@ import com.bmob.im.demo.view.dialog.DialogTips;
 @SuppressLint("DefaultLocale")
 public class ContactFragment extends BaseFragment implements OnItemClickListener, OnItemLongClickListener {
 
-    ClearEditText mClearEditText;
-
-    TextView dialog;
+    private ClearEditText mClearEditText;
+    private TextView mTextDialog;
     private View mContentView;
-    ListView mFriendListView;
-    MyLetterView mRightLetters;
-    private ContactAdapter mUserAdapter;// 好友
-    List<User> mFriends = new ArrayList<User>();
+    private ListView mFriendListView;
+    private MyLetterView mRightLetters;
+    private ImageView mMsgTipImg;
+    private TextView mNewNameText;
+    LinearLayout mNewFriendLayout;
+    LinearLayout mNearPeopleLayout;
+
+    private ContactAdapter mUserAdapter;
+
+    private List<User> mFriends = new ArrayList<User>();
 
 
     /**
      * 汉字转换成拼音的类
      */
-    private CharacterParser characterParser;
+    private CharacterParser mCharacterParser;
     /**
      * 根据拼音来排列ListView里面的数据类
      */
-    private PinyinComparator pinyinComparator;
+    private PinyinComparator mPinyinComparator;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -93,6 +98,7 @@ public class ContactFragment extends BaseFragment implements OnItemClickListener
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        findView();
         initView();
     }
 
@@ -101,19 +107,35 @@ public class ContactFragment extends BaseFragment implements OnItemClickListener
         mClearEditText = (ClearEditText) mContentView.findViewById(R.id.et_msg_search);
         mFriendListView = (ListView) findViewById(R.id.list_friends);
         RelativeLayout headView = (RelativeLayout) inflater.inflate(R.layout.include_new_friend, null);
-        iv_msg_tips = (ImageView) headView.findViewById(R.id.iv_msg_tips);
-        layout_new = (LinearLayout) headView.findViewById(R.id.layout_new);
-        layout_near = (LinearLayout) headView.findViewById(R.id.layout_near);
+        mMsgTipImg = (ImageView) headView.findViewById(R.id.iv_msg_tips);
+        mNewFriendLayout = (LinearLayout) headView.findViewById(R.id.layout_new);
+        mNearPeopleLayout = (LinearLayout) headView.findViewById(R.id.layout_near);
         mFriendListView.addHeaderView(headView);
         mRightLetters = (MyLetterView) findViewById(R.id.right_letter);
-        dialog = (TextView) findViewById(R.id.dialog);
-        mRightLetters.setTextView(dialog);
+        mTextDialog = (TextView) findViewById(R.id.text_dialog);
+        mRightLetters.setTextView(mTextDialog);
+    }
+
+    public void initView() {
+        initData();
+        bindEvent();
+        initTopBarForRight("联系人", R.drawable.base_action_bar_add_bg_selector,
+                new onRightImageButtonClickListener() {
+                    @Override
+                    public void onClick() {
+                        startAnimActivity(AddFriendActivity.class);
+                    }
+                }
+        );
+
+        mFriendListView.setAdapter(mUserAdapter);
     }
 
     @Override
     void initData() {
-        characterParser = CharacterParser.getInstance();
-        pinyinComparator = new PinyinComparator();
+        mCharacterParser = CharacterParser.getInstance();
+        mPinyinComparator = new PinyinComparator();
+        mUserAdapter = new ContactAdapter(getActivity(), mFriends);
     }
 
     @Override
@@ -129,37 +151,30 @@ public class ContactFragment extends BaseFragment implements OnItemClickListener
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count,
                                           int after) {
-
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
 
-        layout_new.setOnClickListener(new OnClickListener() {
-
+        mNewFriendLayout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                // TODO Auto-generated method stub
                 Intent intent = new Intent(getActivity(), NewFriendActivity.class);
                 intent.putExtra("from", "contact");
                 startAnimActivity(intent);
             }
         });
-        layout_near.setOnClickListener(new OnClickListener() {
-
+        mNearPeopleLayout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                // TODO Auto-generated method stub
                 Intent intent = new Intent(getActivity(), NearPeopleActivity.class);
                 startAnimActivity(intent);
             }
         });
 
         mFriendListView.setOnTouchListener(new OnTouchListener() {
-
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 // 隐藏软键盘
@@ -178,22 +193,6 @@ public class ContactFragment extends BaseFragment implements OnItemClickListener
         mRightLetters.setOnTouchingLetterChangedListener(new LetterListViewListener());
     }
 
-    public void initView() {
-        initData();
-        findView();
-        bindEvent();
-        initTopBarForRight("联系人", R.drawable.base_action_bar_add_bg_selector,
-                new onRightImageButtonClickListener() {
-                    @Override
-                    public void onClick() {
-                        startAnimActivity(AddFriendActivity.class);
-                    }
-                }
-        );
-        mUserAdapter = new ContactAdapter(getActivity(), mFriends);
-        mFriendListView.setAdapter(mUserAdapter);
-    }
-
 
     /**
      * 根据输入框中的值来过滤数据并更新ListView
@@ -210,7 +209,7 @@ public class ContactFragment extends BaseFragment implements OnItemClickListener
                 String name = sortModel.getUsername();
                 if (name != null) {
                     if (name.indexOf(filterStr.toString()) != -1
-                            || characterParser.getSelling(name).startsWith(
+                            || mCharacterParser.getSelling(name).startsWith(
                             filterStr.toString())) {
                         filterDateList.add(sortModel);
                     }
@@ -218,7 +217,7 @@ public class ContactFragment extends BaseFragment implements OnItemClickListener
             }
         }
         // 根据a-z进行排序
-        Collections.sort(filterDateList, pinyinComparator);
+        Collections.sort(filterDateList, mPinyinComparator);
         mUserAdapter.updateListView(filterDateList);
     }
 
@@ -237,7 +236,7 @@ public class ContactFragment extends BaseFragment implements OnItemClickListener
             String username = sortModel.getUsername();
             // 若没有username
             if (username != null) {
-                String pinyin = characterParser.getSelling(sortModel.getUsername());
+                String pinyin = mCharacterParser.getSelling(sortModel.getUsername());
                 String sortString = pinyin.substring(0, 1).toUpperCase();
                 // 正则表达式，判断首字母是否是英文字母
                 if (sortString.matches("[A-Z]")) {
@@ -251,23 +250,16 @@ public class ContactFragment extends BaseFragment implements OnItemClickListener
             mFriends.add(sortModel);
         }
         // 根据a-z进行排序
-        Collections.sort(mFriends, pinyinComparator);
+        Collections.sort(mFriends, mPinyinComparator);
     }
-
-    ImageView iv_msg_tips;
-    TextView tv_new_name;
-    LinearLayout layout_new;//新朋友
-    LinearLayout layout_near;//附近的人
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
-        // TODO Auto-generated method stub
         if (isVisibleToUser) {
             queryMymFriends();
         }
         super.setUserVisibleHint(isVisibleToUser);
     }
-
 
     private class LetterListViewListener implements
             OnTouchingLetterChangedListener {
@@ -282,19 +274,12 @@ public class ContactFragment extends BaseFragment implements OnItemClickListener
         }
     }
 
-    /**
-     * 获取好友列表
-     * queryMymFriends
-     *
-     * @return void
-     * @throws
-     */
     private void queryMymFriends() {
         //是否有新的好友请求
         if (BmobDB.create(getActivity()).hasNewInvite()) {
-            iv_msg_tips.setVisibility(View.VISIBLE);
+            mMsgTipImg.setVisibility(View.VISIBLE);
         } else {
-            iv_msg_tips.setVisibility(View.GONE);
+            mMsgTipImg.setVisibility(View.GONE);
         }
         Map<String, BmobChatUser> users = CustomApplication.getInstance().getContactList();
         //组装新的User
@@ -308,12 +293,12 @@ public class ContactFragment extends BaseFragment implements OnItemClickListener
 
     }
 
-    private boolean hidden;
+    private boolean mHidden;
 
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        this.hidden = hidden;
+        this.mHidden = hidden;
         if (!hidden) {
             refresh();
         }
@@ -322,7 +307,7 @@ public class ContactFragment extends BaseFragment implements OnItemClickListener
     @Override
     public void onResume() {
         super.onResume();
-        if (!hidden) {
+        if (!mHidden) {
             refresh();
         }
     }
