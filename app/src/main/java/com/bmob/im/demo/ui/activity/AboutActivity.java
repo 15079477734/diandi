@@ -11,6 +11,8 @@ import android.widget.RelativeLayout;
 
 import com.bmob.im.demo.R;
 
+import cn.bmob.v3.update.BmobUpdateAgent;
+
 public class AboutActivity extends BaseActivity implements View.OnClickListener {
 
     private RelativeLayout mCheckUpdateLayout, mShareLayout, mFeedBackLayout;
@@ -44,11 +46,13 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener 
         mFeedBackLayout.setOnClickListener(this);
 
     }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.activity_about_check_update_layout:
-                ShowToast("您所使用的版本已是最新");
+                BmobUpdateAgent.forceUpdate(AboutActivity.this);
+
                 break;
             case R.id.activity_about_share_layout:
                 Intent localIntent1 = new Intent("android.intent.action.SEND");

@@ -21,7 +21,7 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile project(':library')
+    compile project(':bmoblibrary')
     compile files('C:/Users/Administrator/Desktop/diandi/diandi/libs/android-support-v4.jar')
     compile files('C:/Users/Administrator/Desktop/diandi/diandi/libs/baidumapapi_v3_0_0.jar')
     compile files('C:/Users/Administrator/Desktop/diandi/diandi/libs/Bmob_IMSDK_v1.1.1beta.jar')

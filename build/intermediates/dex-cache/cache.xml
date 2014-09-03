@@ -2,11 +2,11 @@
 <pre-dex-items>
 
     <item
-        dex="C:\Users\Administrator\Desktop\diandi\diandi\app\build\intermediates\pre-dexed\debug\classes-c45552fd513ac7298ea97bd443ab920ce346274e.jar"
-        jar="C:\Users\Administrator\Desktop\diandi\diandi\app\build\intermediates\exploded-aar\diandi\library\unspecified\classes.jar"
+        dex="C:\Users\Administrator\Desktop\diandi\diandi\app\build\intermediates\pre-dexed\debug\classes-ca7f32094bb6a208d7f7c8d0674f6a8a61a1a9d8.jar"
+        jar="C:\Users\Administrator\Desktop\diandi\diandi\app\build\intermediates\exploded-aar\diandi\bmoblibrary\unspecified\classes.jar"
         jumboMode="false"
         revision="19.1.0"
-        sha1="ad614cec04ae027b54afb3acba8281df7ddc12b0"/>
+        sha1="418b69d09bdcc8fba868be508e5a6b0328ff7d40"/>
     <item
         dex="C:\Users\Administrator\Desktop\diandi\diandi\app\build\intermediates\pre-dexed\debug\bmob_v3.1.8-5001fa7a4d26351a301dec377d1b8a6d489d2df6.jar"
         jar="C:\Users\Administrator\Desktop\diandi\diandi\libs\bmob_v3.1.8.jar"
@@ -80,17 +80,17 @@
         revision="19.1.0"
         sha1="5896b0a4e377ac4242eb2bc785220c1c4fc052f4"/>
     <item
-        dex="C:\Users\Administrator\Desktop\diandi\diandi\app\build\intermediates\pre-dexed\debug\baidumapapi_v3_0_0-637d54830f956bfe5804329de263e8e1f190a435.jar"
-        jar="C:\Users\Administrator\Desktop\diandi\diandi\libs\baidumapapi_v3_0_0.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="b39155228374e50c537705e9bfc10d3f69c2397a"/>
-    <item
         dex="C:\Users\Administrator\Desktop\diandi\3\BmobChatDemo\app\build\intermediates\pre-dexed\debug\locSDK_4.2-e6059b278f65c77b1fd6b3e3b20ffff103c2f7eb.jar"
         jar="C:\Users\Administrator\Desktop\diandi\3\BmobChatDemo\libs\locSDK_4.2.jar"
         jumboMode="false"
         revision="19.1.0"
         sha1="41b93335a2753c93f8b8f56741615cb81ea72437"/>
+    <item
+        dex="C:\Users\Administrator\Desktop\diandi\diandi\app\build\intermediates\pre-dexed\debug\baidumapapi_v3_0_0-637d54830f956bfe5804329de263e8e1f190a435.jar"
+        jar="C:\Users\Administrator\Desktop\diandi\diandi\libs\baidumapapi_v3_0_0.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="b39155228374e50c537705e9bfc10d3f69c2397a"/>
     <item
         dex="C:\Users\Administrator\Desktop\diandi\diandi\app\build\intermediates\pre-dexed\debug\universal-image-loader-1.9.2_sources-4b2dab6e118d5fffe719a0b08ddc0427f4923b6c.jar"
         jar="C:\Users\Administrator\Desktop\diandi\diandi\libs\universal-image-loader-1.9.2_sources.jar"

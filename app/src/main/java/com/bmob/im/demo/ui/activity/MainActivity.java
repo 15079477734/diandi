@@ -12,6 +12,7 @@ import cn.bmob.im.bean.BmobInvitation;
 import cn.bmob.im.bean.BmobMsg;
 import cn.bmob.im.db.BmobDB;
 import cn.bmob.im.inteface.EventListener;
+import cn.bmob.v3.update.BmobUpdateAgent;
 
 import com.bmob.im.demo.CustomApplication;
 import com.bmob.im.demo.MyMessageReceiver;
@@ -45,6 +46,7 @@ public class MainActivity extends ActivityBase implements EventListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        BmobUpdateAgent.update(this);
         initView();
         initTab();
     }

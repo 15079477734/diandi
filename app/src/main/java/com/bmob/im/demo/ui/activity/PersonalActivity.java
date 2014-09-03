@@ -8,20 +8,17 @@ import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bmob.im.demo.CustomApplication;
 import com.bmob.im.demo.R;
 import com.bmob.im.demo.adapter.PersonCenterContentAdapter;
-import com.bmob.im.demo.adapter.base.AIContentAdapter;
 import com.bmob.im.demo.bean.DianDi;
 import com.bmob.im.demo.bean.User;
 import com.bmob.im.demo.config.Constant;
 import com.bmob.im.demo.util.ActivityUtil;
 import com.bmob.im.demo.util.LogUtils;
 import com.bmob.im.demo.view.xlist.XListView;
-import com.charon.pulltorefreshlistview.PullToRefreshListView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 

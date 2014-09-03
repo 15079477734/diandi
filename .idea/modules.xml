@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/BmobChatDemo.iml" filepath="$PROJECT_DIR$/BmobChatDemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bmoblibrary/bmoblibrary.iml" filepath="$PROJECT_DIR$/bmoblibrary/bmoblibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/diandi.iml" filepath="$PROJECT_DIR$/diandi.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
     </modules>

@@ -71,7 +71,7 @@
     <orderEntry type="library" exported="" name="bmob_v3.1.8" level="project" />
     <orderEntry type="library" exported="" name="photoview-library-1.2.2" level="project" />
     <orderEntry type="library" exported="" name="baidumapapi_v3_0_0" level="project" />
-    <orderEntry type="module" module-name="library" exported="" />
+    <orderEntry type="module" module-name="bmoblibrary" exported="" />
   </component>
 </module>
 
