@@ -97,7 +97,7 @@
         <activity android:name=".ui.activity.NewFriendActivity" />
         <activity android:name=".ui.activity.NearPeopleActivity" />
         <activity android:name=".ui.activity.UpdateInfoActivity" />
-        <activity android:name=".ui.activity.EditActivity" />
+        <activity android:name=".ui.activity.NewDiandiActivity" />
         <activity android:name=".ui.activity.PersonalActivity" />
         <activity android:name=".ui.activity.CommentActivity" />
         <activity android:name=".ui.activity.SettingActivity" />

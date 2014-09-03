@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.bmob.im.demo.R;
 import com.bmob.im.demo.bean.User;
 import com.bmob.im.demo.util.ImageLoadOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 /** 好友列表
  * @ClassName: UserFriendAdapter
@@ -26,11 +28,11 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * @date 2014-6-12 下午3:03:40
  */
 @SuppressLint("DefaultLocale")
-public class UserFriendAdapter extends BaseAdapter implements SectionIndexer {
+public class ContactAdapter extends BaseAdapter implements SectionIndexer {
     private Context ct;
     private List<User> data;
 
-    public UserFriendAdapter(Context ct, List<User> datas) {
+    public ContactAdapter(Context ct, List<User> datas) {
         this.ct = ct;
         this.data = datas;
     }
@@ -85,14 +87,16 @@ public class UserFriendAdapter extends BaseAdapter implements SectionIndexer {
         }
 
         User friend = data.get(position);
-        final String name = friend.getUsername();
-        final String avatar = friend.getAvatar();
-
-        if (!TextUtils.isEmpty(avatar)) {
-            ImageLoader.getInstance().displayImage(avatar, viewHolder.avatar, CustomApplication.getInstance().getOptions());
-        } else {
-            viewHolder.avatar.setImageDrawable(ct.getResources().getDrawable(R.drawable.head));
+        final String name = friend.getNick();
+        String avatarUrl=null;
+        if(friend.getAvatarImg()!=null)
+        {
+            avatarUrl=friend.getAvatarImg().getFileUrl();
         }
+        ImageLoader.getInstance()
+                .displayImage(avatarUrl, viewHolder.avatar,
+                        CustomApplication.getInstance().getOptions()
+                       );
         viewHolder.name.setText(name);
 
         // 根据position获取分类的首字母的Char ascii值

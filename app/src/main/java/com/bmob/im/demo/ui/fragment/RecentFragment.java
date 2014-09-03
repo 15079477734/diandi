@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
+
 import cn.bmob.im.bean.BmobChatUser;
 import cn.bmob.im.bean.BmobRecent;
 import cn.bmob.im.db.BmobDB;
@@ -22,21 +23,25 @@ import com.bmob.im.demo.ui.activity.ChatActivity;
 import com.bmob.im.demo.view.ClearEditText;
 import com.bmob.im.demo.view.dialog.DialogTips;
 
-/** 最近会话
+/**
+ * 最近会话
+ *
+ * @author smile
  * @ClassName: ConversationFragment
  * @Description: TODO
- * @author smile
  * @date 2014-6-7 下午1:01:37
  */
-public class RecentFragment extends BaseFragment implements OnItemClickListener,OnItemLongClickListener{
+public class RecentFragment extends BaseFragment implements OnItemClickListener, OnItemLongClickListener {
 
     ClearEditText mClearEditText;
     ListView listview;
     MessageRecentAdapter adapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_recent, container, false);
     }
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -44,15 +49,18 @@ public class RecentFragment extends BaseFragment implements OnItemClickListener,
         initView();
     }
 
-    private void initView(){
+    public void initView() {
+        findView();
+        initData();
+        bindEvent();
         initTopBarForOnlyTitle("会话");
-        listview = (ListView)findViewById(R.id.list);
+        listview = (ListView) findViewById(R.id.list);
         listview.setOnItemClickListener(this);
         listview.setOnItemLongClickListener(this);
         adapter = new MessageRecentAdapter(getActivity(), R.layout.item_conversation, BmobDB.create(getActivity()).queryRecents());
         listview.setAdapter(adapter);
 
-        mClearEditText = (ClearEditText)findViewById(R.id.et_msg_search);
+        mClearEditText = (ClearEditText) findViewById(R.id.et_msg_search);
         mClearEditText.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -74,13 +82,30 @@ public class RecentFragment extends BaseFragment implements OnItemClickListener,
 
     }
 
-    /** 删除会话
+    @Override
+    void findView() {
+
+    }
+
+    @Override
+    void initData() {
+
+    }
+
+    @Override
+    void bindEvent() {
+
+    }
+
+    /**
+     * 删除会话
      * deleteRecent
+     *
      * @param @param recent
      * @return void
      * @throws
      */
-    private void deleteRecent(BmobRecent recent){
+    private void deleteRecent(BmobRecent recent) {
         adapter.remove(recent);
         BmobDB.create(getActivity()).deleteRecent(recent.getTargetid());
         BmobDB.create(getActivity()).deleteMessages(recent.getTargetid());
@@ -96,7 +121,7 @@ public class RecentFragment extends BaseFragment implements OnItemClickListener,
     }
 
     public void showDeleteDialog(final BmobRecent recent) {
-        DialogTips dialog = new DialogTips(getActivity(),recent.getUserName(),"删除会话", "确定",true,true);
+        DialogTips dialog = new DialogTips(getActivity(), recent.getUserName(), "删除会话", "确定", true, true);
         // 设置成功事件
         dialog.SetOnSuccessListener(new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialogInterface, int userId) {
@@ -126,16 +151,17 @@ public class RecentFragment extends BaseFragment implements OnItemClickListener,
     }
 
     private boolean hidden;
+
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         this.hidden = hidden;
-        if(!hidden){
+        if (!hidden) {
             refresh();
         }
     }
 
-    public void refresh(){
+    public void refresh() {
         try {
             getActivity().runOnUiThread(new Runnable() {
                 public void run() {
@@ -151,7 +177,7 @@ public class RecentFragment extends BaseFragment implements OnItemClickListener,
     @Override
     public void onResume() {
         super.onResume();
-        if(!hidden){
+        if (!hidden) {
             refresh();
         }
     }

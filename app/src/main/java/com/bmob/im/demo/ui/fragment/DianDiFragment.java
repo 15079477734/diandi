@@ -25,13 +25,12 @@ import android.widget.TextView;
 import com.bmob.im.demo.CustomApplication;
 import com.bmob.im.demo.R;
 
-import com.bmob.im.demo.adapter.NearPeopleAdapter;
 import com.bmob.im.demo.adapter.base.AIContentAdapter;
 import com.bmob.im.demo.bean.DianDi;
 import com.bmob.im.demo.config.Constant;
 import com.bmob.im.demo.db.DatabaseUtil;
 import com.bmob.im.demo.ui.activity.CommentActivity;
-import com.bmob.im.demo.ui.activity.EditActivity;
+import com.bmob.im.demo.ui.activity.NewDiandiActivity;
 import com.bmob.im.demo.util.ActivityUtil;
 import com.bmob.im.demo.util.LogUtils;
 import com.bmob.im.demo.view.HeaderLayout.onRightImageButtonClickListener;
@@ -75,24 +74,23 @@ public class DianDiFragment extends BaseFragment implements XListView.IXListView
         super.onActivityCreated(savedInstanceState);
         findView();
         initView();
-        loadData();
     }
 
-    private void findView() {
+    void findView() {
         mListView = (XListView) findViewById(R.id.fragment_diandi_list);
         networkTips = (TextView) findViewById(R.id.networkTips);
     }
 
-    private void initView() {
+    public void initView() {
         initData();
+        initMenu();
         initTopBarForRight("点滴", R.drawable.actionbar_more_icon, new onRightImageButtonClickListener() {
             @Override
             public void onClick() {
-                    mPieMenu.show(mView);
+                mPieMenu.show(mView);
             }
         });
         initXListView();
-        initMenu();
         bindEvent();
     }
 
@@ -126,7 +124,7 @@ public class DianDiFragment extends BaseFragment implements XListView.IXListView
     }
 
 
-    private void initData() {
+    void initData() {
         mListItems = new ArrayList<DianDi>();
         pageNum = 0;
     }
@@ -141,18 +139,18 @@ public class DianDiFragment extends BaseFragment implements XListView.IXListView
         mListView.setAdapter(mAdapter);
     }
 
-    private void bindEvent() {
+    void bindEvent() {
         mNormalMenu.setOnMenuItemPressed(new RadialMenuItem.RadialMenuItemClickListener() {
             @Override
             public void execute() {
                 mPieMenu.dismiss();
-                startAnimActivity(EditActivity.class);
+                startAnimActivity(NewDiandiActivity.class);
             }
         });
         mEditItem.setOnMenuItemPressed(new RadialMenuItem.RadialMenuItemClickListener() {
             @Override
             public void execute() {
-                startAnimActivity(EditActivity.class);
+                startAnimActivity(NewDiandiActivity.class);
                 mPieMenu.dismiss();
             }
         });

@@ -58,25 +58,40 @@ public class SettingsFragment extends BaseFragment implements OnClickListener {
         initData();
     }
 
-    private void initView() {
+    public void initView() {
+        findView();
+        initData();
+        bindEvent();
         initTopBarForOnlyTitle("设置");
+
+
+
+    }
+
+    @Override
+    void findView() {
         layout_blacklist = (RelativeLayout) findViewById(R.id.layout_blacklist);
         layout_info = (RelativeLayout) findViewById(R.id.layout_info);
         layout_about = (RelativeLayout) findViewById(R.id.fragment_setting_about_layout);
         tv_set_name = (TextView) findViewById(R.id.tv_set_name);
         btn_logout = (Button) findViewById(R.id.btn_logout);
-
         layout_msgreciver = (RelativeLayout) findViewById(R.id.fragment_setting_msg_reciver);
+
+    }
+
+    void initData() {
+        tv_set_name.setText(BmobUserManager.getInstance(getActivity())
+                .getCurrentUser().getNick());
+    }
+
+    @Override
+    void bindEvent() {
         btn_logout.setOnClickListener(this);
         layout_info.setOnClickListener(this);
         layout_blacklist.setOnClickListener(this);
         layout_msgreciver.setOnClickListener(this);
         layout_about.setOnClickListener(this);
-    }
 
-    private void initData() {
-        tv_set_name.setText(BmobUserManager.getInstance(getActivity())
-                .getCurrentUser().getNick());
     }
 
     @Override

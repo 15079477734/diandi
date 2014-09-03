@@ -2,14 +2,44 @@
 <pre-dex-items>
 
     <item
+        dex="C:\Users\Administrator\Desktop\diandi\diandi\app\build\intermediates\pre-dexed\debug\classes-c45552fd513ac7298ea97bd443ab920ce346274e.jar"
+        jar="C:\Users\Administrator\Desktop\diandi\diandi\app\build\intermediates\exploded-aar\diandi\library\unspecified\classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="ad614cec04ae027b54afb3acba8281df7ddc12b0"/>
+    <item
+        dex="C:\Users\Administrator\Desktop\diandi\diandi\app\build\intermediates\pre-dexed\debug\bmob_v3.1.8-5001fa7a4d26351a301dec377d1b8a6d489d2df6.jar"
+        jar="C:\Users\Administrator\Desktop\diandi\diandi\libs\bmob_v3.1.8.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="b2b2386e7a5145b476012732b1ecbba90fa297b8"/>
+    <item
         dex="C:\Users\Administrator\Desktop\diandi\3\BmobChatDemo\app\build\intermediates\pre-dexed\debug\radial-menu-v4-36ca2e3b44fe824ab5c70392d6d4951c84bcb1c0.jar"
         jar="C:\Users\Administrator\Desktop\diandi\3\BmobChatDemo\libs\radial-menu-v4.jar"
         jumboMode="false"
         revision="19.1.0"
         sha1="5d8365e03c7b428815d3d8584332b1df298cbb9c"/>
     <item
+        dex="C:\Users\Administrator\Desktop\diandi\diandi\app\build\intermediates\pre-dexed\debug\locSDK_4.2-805a72d48fa4d8b1f26a7277cab6984b7e04d735.jar"
+        jar="C:\Users\Administrator\Desktop\diandi\diandi\libs\locSDK_4.2.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="41b93335a2753c93f8b8f56741615cb81ea72437"/>
+    <item
         dex="C:\Users\Administrator\Desktop\diandi\3\BmobChatDemo\app\build\intermediates\pre-dexed\debug\Bmob_IMSDK_v1.1.1beta-2262a0b2ccfc36ff0d653054264768f899bb5e1d.jar"
         jar="C:\Users\Administrator\Desktop\diandi\3\BmobChatDemo\libs\Bmob_IMSDK_v1.1.1beta.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="0789a75b69a42bfa298a28526ff2a15a0569d8d4"/>
+    <item
+        dex="C:\Users\Administrator\Desktop\diandi\diandi\app\build\intermediates\pre-dexed\debug\photoview-library-1.2.2-91f98c17b94453a70ea18ea9d3b62e330654ab31.jar"
+        jar="C:\Users\Administrator\Desktop\diandi\diandi\libs\photoview-library-1.2.2.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="b9000943d77c17d231bf3141a712828f2636c2ea"/>
+    <item
+        dex="C:\Users\Administrator\Desktop\diandi\diandi\app\build\intermediates\pre-dexed\debug\Bmob_IMSDK_v1.1.1beta-823ef5cc03a756f2ce135dffe916c03d3dcf64af.jar"
+        jar="C:\Users\Administrator\Desktop\diandi\diandi\libs\Bmob_IMSDK_v1.1.1beta.jar"
         jumboMode="false"
         revision="19.1.0"
         sha1="0789a75b69a42bfa298a28526ff2a15a0569d8d4"/>
@@ -19,6 +49,18 @@
         jumboMode="false"
         revision="19.1.0"
         sha1="af16b82c753e70cfea1761c8d43581287887e734"/>
+    <item
+        dex="C:\Users\Administrator\Desktop\diandi\diandi\app\build\intermediates\pre-dexed\debug\open_sdk-1406dd98a72ee80f4f66a9e2be2a5ccb4a74651e.jar"
+        jar="C:\Users\Administrator\Desktop\diandi\diandi\libs\open_sdk.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="af16b82c753e70cfea1761c8d43581287887e734"/>
+    <item
+        dex="C:\Users\Administrator\Desktop\diandi\diandi\app\build\intermediates\pre-dexed\debug\radial-menu-v4-3cd7f5fa8475ad01ba3e3c4b07d5fb0382192f08.jar"
+        jar="C:\Users\Administrator\Desktop\diandi\diandi\libs\radial-menu-v4.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="5d8365e03c7b428815d3d8584332b1df298cbb9c"/>
     <item
         dex="C:\Users\Administrator\Desktop\diandi\3\BmobChatDemo\app\build\intermediates\pre-dexed\debug\baidumapapi_v3_0_0-163fa617f89333486262ca49bc6de71d5eecd463.jar"
         jar="C:\Users\Administrator\Desktop\diandi\3\BmobChatDemo\libs\baidumapapi_v3_0_0.jar"
@@ -38,11 +80,29 @@
         revision="19.1.0"
         sha1="5896b0a4e377ac4242eb2bc785220c1c4fc052f4"/>
     <item
+        dex="C:\Users\Administrator\Desktop\diandi\diandi\app\build\intermediates\pre-dexed\debug\baidumapapi_v3_0_0-637d54830f956bfe5804329de263e8e1f190a435.jar"
+        jar="C:\Users\Administrator\Desktop\diandi\diandi\libs\baidumapapi_v3_0_0.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="b39155228374e50c537705e9bfc10d3f69c2397a"/>
+    <item
         dex="C:\Users\Administrator\Desktop\diandi\3\BmobChatDemo\app\build\intermediates\pre-dexed\debug\locSDK_4.2-e6059b278f65c77b1fd6b3e3b20ffff103c2f7eb.jar"
         jar="C:\Users\Administrator\Desktop\diandi\3\BmobChatDemo\libs\locSDK_4.2.jar"
         jumboMode="false"
         revision="19.1.0"
         sha1="41b93335a2753c93f8b8f56741615cb81ea72437"/>
+    <item
+        dex="C:\Users\Administrator\Desktop\diandi\diandi\app\build\intermediates\pre-dexed\debug\universal-image-loader-1.9.2_sources-4b2dab6e118d5fffe719a0b08ddc0427f4923b6c.jar"
+        jar="C:\Users\Administrator\Desktop\diandi\diandi\libs\universal-image-loader-1.9.2_sources.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="e33324b770223932d467e4ec39639b0c15f3b94e"/>
+    <item
+        dex="C:\Users\Administrator\Desktop\diandi\diandi\app\build\intermediates\pre-dexed\debug\mta-sdk-1.0.0-b9b3c0b9150de4c102cced64f52521946528a007.jar"
+        jar="C:\Users\Administrator\Desktop\diandi\diandi\libs\mta-sdk-1.0.0.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="1d1a215c3acd13ef011b8391cab495f7760c2a1d"/>
     <item
         dex="C:\Users\Administrator\Desktop\diandi\3\BmobChatDemo\app\build\intermediates\pre-dexed\debug\classes-2bc181917acd0f5fc1acc5c1d355487f54c68f1b.jar"
         jar="C:\Users\Administrator\Desktop\diandi\3\BmobChatDemo\app\build\intermediates\exploded-aar\BmobChatDemo\library\unspecified\classes.jar"
@@ -67,5 +127,11 @@
         jumboMode="false"
         revision="19.1.0"
         sha1="b2b2386e7a5145b476012732b1ecbba90fa297b8"/>
+    <item
+        dex="C:\Users\Administrator\Desktop\diandi\diandi\app\build\intermediates\pre-dexed\debug\android-support-v4-b00cd36ba60b0004f967ab4c5ccdff4f0dfb926e.jar"
+        jar="C:\Users\Administrator\Desktop\diandi\diandi\libs\android-support-v4.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="5896b0a4e377ac4242eb2bc785220c1c4fc052f4"/>
 
 </pre-dex-items>

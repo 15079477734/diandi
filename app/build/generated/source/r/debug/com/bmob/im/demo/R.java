@@ -343,7 +343,7 @@ public final class R {
         public static final int voice_right3=0x7f020104;
     }
     public static final class id {
-        public static final int action_settings=0x7f0b00d8;
+        public static final int action_settings=0x7f0b00d9;
         public static final int activity_about_check_update_layout=0x7f0b0001;
         public static final int activity_about_feedback_layout=0x7f0b0004;
         public static final int activity_about_share_layout=0x7f0b0003;
@@ -401,15 +401,15 @@ public final class R {
         public static final int content_image=0x7f0b0062;
         public static final int content_text=0x7f0b0061;
         public static final int dialog=0x7f0b0075;
-        public static final int dialog_bottom=0x7f0b00c9;
+        public static final int dialog_bottom=0x7f0b00ca;
         public static final int dialog_contentPanel=0x7f0b00c6;
-        public static final int dialog_custom=0x01010000;
+        public static final int dialog_custom=0x7f0b00c9;
         public static final int dialog_customPanel=0x7f0b00c8;
-        public static final int dialog_leftspacer=0x7f0b00ca;
+        public static final int dialog_leftspacer=0x7f0b00cb;
         public static final int dialog_message=0x7f0b00c7;
-        public static final int dialog_negativebutton=0x7f0b00cb;
-        public static final int dialog_positivebutton=0x7f0b00cc;
-        public static final int dialog_rightspacer=0x7f0b00cd;
+        public static final int dialog_negativebutton=0x7f0b00cc;
+        public static final int dialog_positivebutton=0x7f0b00cd;
+        public static final int dialog_rightspacer=0x7f0b00ce;
         public static final int dialog_title=0x7f0b00c4;
         public static final int dialog_titleicon=0x7f0b00c3;
         public static final int dialog_top=0x7f0b00c2;
@@ -551,16 +551,16 @@ public final class R {
         public static final int view1=0x7f0b0033;
         public static final int view2=0x7f0b0037;
         public static final int view_helper=0x7f0b0016;
-        public static final int xlistview_footer_content=0x7f0b00ce;
-        public static final int xlistview_footer_hint_textview=0x7f0b00d0;
-        public static final int xlistview_footer_progressbar=0x7f0b00cf;
-        public static final int xlistview_header_arrow=0x7f0b00d6;
-        public static final int xlistview_header_content=0x7f0b00d1;
-        public static final int xlistview_header_hint_textview=0x7f0b00d3;
-        public static final int xlistview_header_progressbar=0x7f0b00d7;
-        public static final int xlistview_header_text=0x7f0b00d2;
-        public static final int xlistview_header_time=0x7f0b00d5;
-        public static final int xlistview_header_time_label=0x7f0b00d4;
+        public static final int xlistview_footer_content=0x7f0b00cf;
+        public static final int xlistview_footer_hint_textview=0x7f0b00d1;
+        public static final int xlistview_footer_progressbar=0x7f0b00d0;
+        public static final int xlistview_header_arrow=0x7f0b00d7;
+        public static final int xlistview_header_content=0x7f0b00d2;
+        public static final int xlistview_header_hint_textview=0x7f0b00d4;
+        public static final int xlistview_header_progressbar=0x7f0b00d8;
+        public static final int xlistview_header_text=0x7f0b00d3;
+        public static final int xlistview_header_time=0x7f0b00d6;
+        public static final int xlistview_header_time_label=0x7f0b00d5;
     }
     public static final class layout {
         public static final int activity_about=0x7f030000;

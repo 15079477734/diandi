@@ -48,7 +48,7 @@ import cn.bmob.v3.listener.UploadFileListener;
  * TODO
  */
 
-public class EditActivity extends ActivityBase implements OnClickListener {
+public class NewDiandiActivity extends ActivityBase implements OnClickListener {
 
 
     private static final int REQUEST_CODE_ALBUM = 1;
@@ -89,15 +89,17 @@ public class EditActivity extends ActivityBase implements OnClickListener {
             public void onClick() {
                 String commitContent = content.getText().toString().trim();
                 if (TextUtils.isEmpty(commitContent)) {
-                    ActivityUtil.show(EditActivity.this, "内容不能为空");
+                    ActivityUtil.show(NewDiandiActivity.this, "内容不能为空");
                     return;
                 }
                 if (targeturl == null) {
                     publishWithoutFigure(commitContent, null);
+
                 } else {
                     publish(commitContent);
-                }
 
+                }
+                finish();
             }
         });
         bindEvent();
@@ -106,7 +108,6 @@ public class EditActivity extends ActivityBase implements OnClickListener {
     protected void bindEvent() {
         openLayout.setOnClickListener(this);
         takeLayout.setOnClickListener(this);
-
         albumPic.setOnClickListener(this);
         takePic.setOnClickListener(this);
     }
@@ -210,16 +211,15 @@ public class EditActivity extends ActivityBase implements OnClickListener {
             @Override
             public void onSuccess() {
                 // TODO Auto-generated method stub
-                ActivityUtil.show(EditActivity.this, "发表成功！");
+                ActivityUtil.show(NewDiandiActivity.this, "发表成功！");
                 LogUtils.i(TAG, "创建成功。");
                 setResult(RESULT_OK);
-                finish();
             }
 
             @Override
             public void onFailure(int arg0, String arg1) {
                 // TODO Auto-generated method stub
-                ActivityUtil.show(EditActivity.this, "发表失败！yg" + arg1);
+                ActivityUtil.show(NewDiandiActivity.this, "发表失败！yg" + arg1);
                 LogUtils.i(TAG, "创建失败。" + arg1);
             }
         });

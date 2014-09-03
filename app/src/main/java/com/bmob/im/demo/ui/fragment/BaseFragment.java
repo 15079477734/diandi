@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import cn.bmob.im.BmobChatManager;
@@ -31,17 +32,18 @@ public abstract class BaseFragment extends Fragment {
     public final String TAG = getClass().getName();
     public BmobUserManager userManager;
     public BmobChatManager manager;
-
-    /**
-     * 公用的Header布局
-     */
+    public CustomApplication mApplication;
     public HeaderLayout mHeaderLayout;
-
     protected View contentView;
-
-    public LayoutInflater mInflater;
-
+    public LayoutInflater inflater;
     private Handler handler = new Handler();
+
+
+    abstract void findView();
+
+    abstract void initData();
+
+    abstract void bindEvent();
 
     public void runOnWorkThread(Runnable action) {
         new Thread(action).start();
@@ -53,13 +55,24 @@ public abstract class BaseFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
         mApplication = CustomApplication.getInstance();
         userManager = BmobUserManager.getInstance(getActivity());
         manager = BmobChatManager.getInstance(getActivity());
-        mInflater = LayoutInflater.from(getActivity());
+        inflater = LayoutInflater.from(getActivity());
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return super.onCreateView(inflater, container, savedInstanceState);
+
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
     }
 
 
@@ -83,14 +96,6 @@ public abstract class BaseFragment extends Fragment {
         mToast.show();
     }
 
-
-    /**
-     * 打Log
-     * ShowLog
-     *
-     * @return void
-     * @throws
-     */
     public void ShowLog(String msg) {
         BmobLog.i(msg);
     }
@@ -99,26 +104,12 @@ public abstract class BaseFragment extends Fragment {
         return getView().findViewById(paramInt);
     }
 
-    public CustomApplication mApplication;
-
-    /**
-     * 只有title initTopBarLayoutByTitle
-     *
-     * @throws
-     * @Title: initTopBarLayoutByTitle
-     */
     public void initTopBarForOnlyTitle(String titleName) {
         mHeaderLayout = (HeaderLayout) findViewById(R.id.common_actionbar);
         mHeaderLayout.init(HeaderStyle.DEFAULT_TITLE);
         mHeaderLayout.setDefaultTitle(titleName);
     }
 
-    /**
-     * 初始化标题栏-带左右按钮
-     *
-     * @return void
-     * @throws
-     */
     public void initTopBarForBoth(String titleName, int rightDrawableId,
                                   onRightImageButtonClickListener listener) {
         mHeaderLayout = (HeaderLayout) findViewById(R.id.common_actionbar);
@@ -130,11 +121,6 @@ public abstract class BaseFragment extends Fragment {
                 listener);
     }
 
-    /**
-     * 只有左边按钮和Title initTopBarLayout
-     *
-     * @throws
-     */
     public void initTopBarForLeft(String titleName) {
         mHeaderLayout = (HeaderLayout) findViewById(R.id.common_actionbar);
         mHeaderLayout.init(HeaderStyle.TITLE_LIFT_IMAGEBUTTON);
@@ -143,13 +129,6 @@ public abstract class BaseFragment extends Fragment {
                 new OnLeftButtonClickListener());
     }
 
-    /**
-     * 右边+title
-     * initTopBarForRight
-     *
-     * @return void
-     * @throws
-     */
     public void initTopBarForRight(String titleName, int rightDrawableId,
                                    onRightImageButtonClickListener listener) {
         mHeaderLayout = (HeaderLayout) findViewById(R.id.common_actionbar);
@@ -158,21 +137,14 @@ public abstract class BaseFragment extends Fragment {
                 listener);
     }
 
-    // 左边按钮的点击事件
     public class OnLeftButtonClickListener implements
             onLeftImageButtonClickListener {
-
         @Override
         public void onClick() {
             getActivity().finish();
         }
     }
 
-    /**
-     * 动画启动页面 startAnimActivity
-     *
-     * @throws
-     */
     public void startAnimActivity(Intent intent) {
         this.startActivity(intent);
     }
