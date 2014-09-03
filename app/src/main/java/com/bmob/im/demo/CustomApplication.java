@@ -83,6 +83,7 @@ public class CustomApplication extends Application {
                 .imageScaleType(ImageScaleType.EXACTLY)
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .displayer(new RoundedBitmapDisplayer(90))
+                .considerExifParams(true)
                 .build();
     }
 
@@ -97,6 +98,7 @@ public class CustomApplication extends Application {
                 .imageScaleType(ImageScaleType.EXACTLY)
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .displayer(new RoundedBitmapDisplayer(90))
+                .considerExifParams(true)
                 .build();
     }
 

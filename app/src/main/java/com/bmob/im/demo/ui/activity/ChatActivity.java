@@ -58,7 +58,7 @@ import com.bmob.im.demo.MyMessageReceiver;
 import com.bmob.im.demo.R;
 import com.bmob.im.demo.adapter.EmoViewPagerAdapter;
 import com.bmob.im.demo.adapter.EmoteAdapter;
-import com.bmob.im.demo.adapter.MessageChatAdapter;
+import com.bmob.im.demo.adapter.ChatAdapter;
 import com.bmob.im.demo.adapter.NewRecordPlayClickListener;
 import com.bmob.im.demo.bean.FaceText;
 import com.bmob.im.demo.config.Constant;
@@ -364,7 +364,7 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
                 mAdapter.notifyDataSetChanged();
             }
         } else {
-            mAdapter = new MessageChatAdapter(this, initMsgData());
+            mAdapter = new ChatAdapter(this, initMsgData());
             mListView.setAdapter(mAdapter);
         }
     }
@@ -502,7 +502,7 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
         return view;
     }
 
-    MessageChatAdapter mAdapter;
+    ChatAdapter mAdapter;
 
     private void initXListView() {
         // 首先不允许加载更多
@@ -533,7 +533,7 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
 
         // 重发按钮的点击事件
         mAdapter.setOnInViewClickListener(R.id.iv_fail_resend,
-                new MessageChatAdapter.onInternalClickListener() {
+                new ChatAdapter.onInternalClickListener() {
 
                     @Override
                     public void OnClickListener(View parentV, View v,
@@ -1108,7 +1108,7 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         // TODO Auto-generated method stub
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (layout_more.getVisibility() == 0) {
+            if (layout_more.getVisibility() == View.VISIBLE) {
                 layout_more.setVisibility(View.GONE);
                 return false;
             } else {

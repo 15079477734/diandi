@@ -52,7 +52,6 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener 
         switch (view.getId()) {
             case R.id.activity_about_check_update_layout:
                 BmobUpdateAgent.forceUpdate(AboutActivity.this);
-
                 break;
             case R.id.activity_about_share_layout:
                 Intent localIntent1 = new Intent("android.intent.action.SEND");

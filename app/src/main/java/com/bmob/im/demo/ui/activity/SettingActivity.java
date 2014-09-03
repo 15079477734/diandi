@@ -521,6 +521,7 @@ public class SettingActivity extends ActivityBase implements View.OnClickListene
                 public void onSuccess() {
                     User currentUser = BmobUser.getCurrentUser(mContext, User.class);
                     currentUser.setAvatarImg(file);
+                    currentUser.setAvatar(file.getFileUrl());
                     currentUser.update(mContext, new UpdateListener() {
 
                         @Override

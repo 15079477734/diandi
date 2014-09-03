@@ -112,8 +112,10 @@ public class SettingsFragment extends BaseFragment implements OnClickListener {
                 break;
             case R.id.fragment_setting_msg_reciver:
                 startActivity(new Intent(getActivity(), MsgReciverSetActivity.class));
+                break;
             case R.id.fragment_setting_about_layout:
                 startActivity(new Intent(getActivity(), AboutActivity.class));
+                break;
         }
     }
 

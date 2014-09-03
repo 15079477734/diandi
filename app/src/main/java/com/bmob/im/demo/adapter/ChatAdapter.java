@@ -47,7 +47,7 @@ import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListene
  * @author smile
  * @date 2014-5-28 下午5:34:07
  */
-public class MessageChatAdapter extends BaseListAdapter<BmobMsg> {
+public class ChatAdapter extends BaseListAdapter<BmobMsg> {
 
     //8种Item的类型
     //文本
@@ -69,7 +69,7 @@ public class MessageChatAdapter extends BaseListAdapter<BmobMsg> {
 
     private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
 
-    public MessageChatAdapter(Context context,List<BmobMsg> msgList) {
+    public ChatAdapter(Context context, List<BmobMsg> msgList) {
         // TODO Auto-generated constructor stub
         super(context, msgList);
         currentObjectId = BmobUserManager.getInstance(context).getCurrentUserObjectId();
@@ -263,7 +263,7 @@ public class MessageChatAdapter extends BaseListAdapter<BmobMsg> {
                 try {
                     if (text != null && !text.equals("")) {
                         String address  = text.split("&")[0];
-                        final String latitude = text.split("&")[1];//维度
+                        final String latitude = text.split("&")[1];//维度-
                         final String longtitude = text.split("&")[2];//经度
                         tv_location.setText(address);
                         tv_location.setOnClickListener(new OnClickListener() {
