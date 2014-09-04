@@ -63,6 +63,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="Bmob_IMSDK_v1.1.1beta" level="project" />
     <orderEntry type="library" exported="" name="locSDK_4.2" level="project" />
+    <orderEntry type="library" exported="" name="bmob_v3.2.1" level="project" />
     <orderEntry type="library" exported="" name="open_sdk" level="project" />
     <orderEntry type="library" exported="" name="android-support-v4" level="project" />
     <orderEntry type="library" exported="" name="mta-sdk-1.0.0" level="project" />

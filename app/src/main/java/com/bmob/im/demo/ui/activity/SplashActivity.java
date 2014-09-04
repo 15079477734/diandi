@@ -10,7 +10,6 @@ import android.os.Handler;
 import android.os.Message;
 import cn.bmob.im.BmobChat;
 import cn.bmob.v3.Bmob;
-import cn.bmob.v3.update.BmobUpdateAgent;
 
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
@@ -58,8 +57,6 @@ public class SplashActivity extends BaseActivity {
         } else {
             mHandler.sendEmptyMessageDelayed(GO_LOGIN, 1000);
         }
-
-
 
     }
 

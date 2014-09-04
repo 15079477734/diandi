@@ -20,6 +20,7 @@ import cn.bmob.im.db.BmobDB;
 import cn.bmob.im.util.BmobLog;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobGeoPoint;
+import cn.bmob.v3.update.BmobUpdateAgent;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -132,6 +133,7 @@ public class CustomApplication extends Application {
         // 是否开启debug模式--默认开启状态
         BmobChat.DEBUG_MODE = true;
         mInstance = this;
+        BmobUpdateAgent.forceUpdate(this);
         init();
     }
 
