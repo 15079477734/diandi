@@ -38,7 +38,20 @@ public class BlackListActivity extends ActivityBase implements OnItemClickListen
         initView();
     }
 
-    private void initView() {
+    @Override
+    void findView() {
+
+    }
+    @Override
+    void initData() {
+
+    }
+
+    @Override
+    void bindEvent() {
+
+    }
+    void initView() {
         mHeaderLayout = (HeaderLayout) findViewById(R.id.common_actionbar);
         initTopBarForLeft("黑名单");
         adapter = new BlackListAdapter(this, BmobDB.create(this).getBlackList());
@@ -46,6 +59,8 @@ public class BlackListActivity extends ActivityBase implements OnItemClickListen
         listview.setOnItemClickListener(this);
         listview.setAdapter(adapter);
     }
+
+
 
     /** 显示移除黑名单对话框
      * @Title: showRemoveBlackDialog

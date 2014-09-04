@@ -35,7 +35,7 @@ public class NewFriendActivity extends ActivityBase implements OnItemLongClickLi
         initView();
     }
 
-    private void initView(){
+  void initView(){
         initTopBarForLeft("新朋友");
         listview = (ListView)findViewById(R.id.list_newfriend);
         listview.setOnItemLongClickListener(this);
@@ -45,7 +45,19 @@ public class NewFriendActivity extends ActivityBase implements OnItemLongClickLi
             listview.setSelection(adapter.getCount());
         }
     }
+    @Override
+    void findView() {
 
+    }
+    @Override
+    void initData() {
+
+    }
+
+    @Override
+    void bindEvent() {
+
+    }
     @Override
     public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int position,
                                    long arg3) {

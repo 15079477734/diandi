@@ -7,8 +7,10 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -49,6 +51,20 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 
 
     }
+    @Override
+    void findView() {
+
+    }
+    @Override
+    void initData() {
+
+    }
+
+    @Override
+    void bindEvent() {
+
+    }
+    void initView(){};
 
 
     private void init() {
@@ -58,6 +74,20 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
         btn_register = (TextView) findViewById(R.id.btn_register);
         btn_login.setOnClickListener(this);
         btn_register.setOnClickListener(this);
+        et_password.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if (actionId == EditorInfo.IME_ACTION_DONE ) {
+                    boolean isNetConnected = CommonUtils.isNetworkAvailable(LoginActivity.this);
+                    if (!isNetConnected) {
+                        ShowToast(R.string.network_tips);
+                        return true;
+                    }
+                    login();
+                }
+                return false;
+            }
+        });
     }
 
     public class MyBroadcastReceiver extends BroadcastReceiver {
@@ -73,6 +103,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 
     @Override
     public void onClick(View v) {
+
+
         if (v == btn_register) {
             Intent intent = new Intent(LoginActivity.this,
                     RegisterActivity.class);

@@ -22,13 +22,13 @@ public class UpdateInfoActivity extends ActivityBase {
         initView();
     }
 
-    private void findView() {
+    void findView() {
         setContentView(R.layout.activity_set_updateinfo);
         mEditText = (EditText) findViewById(R.id.activity_updateinfo_edittext);
         mTextView = (TextView) findViewById(R.id.activity_updateinfo_text);
     }
 
-    private void initView() {
+    void initView() {
         Intent intent = getIntent();
         String actionbarName = intent.getStringExtra(Constant.UPDATE_ACTIONBAR_NAME);
         mTextView.setText(intent.getStringExtra(Constant.UPDATE_TEXT));
@@ -49,5 +49,15 @@ public class UpdateInfoActivity extends ActivityBase {
                     }
                 }
         );
+    }
+
+    @Override
+    void initData() {
+
+    }
+
+    @Override
+    void bindEvent() {
+
     }
 }

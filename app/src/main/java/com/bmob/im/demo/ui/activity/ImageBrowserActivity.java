@@ -3,6 +3,7 @@ package com.bmob.im.demo.ui.activity;
 import java.util.ArrayList;
 
 import uk.co.senab.photoview.PhotoView;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -21,17 +22,19 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
-/**图片浏览
+/**
+ * 图片浏览
+ *
+ * @author smile
  * @ClassName: ImageBrowserActivity
  * @Description: TODO
- * @author smile
  * @date 2014-6-19 下午8:22:49
  */
-public class ImageBrowserActivity extends BaseActivity implements OnPageChangeListener{
+public class ImageBrowserActivity extends BaseActivity implements OnPageChangeListener {
 
+    LinearLayout layout_image;
     private CustomViewPager mSvpPager;
     private ImageBrowserAdapter mAdapter;
-    LinearLayout layout_image;
     private int mPosition;
 
     private ArrayList<String> mPhotos;
@@ -44,12 +47,32 @@ public class ImageBrowserActivity extends BaseActivity implements OnPageChangeLi
         initViews();
     }
 
+    @Override
+    void findView() {
+
+    }
+
+    @Override
+    void initView() {
+
+    }
+
+    @Override
+    void initData() {
+
+    }
+
+    @Override
+    void bindEvent() {
+
+    }
+
     private void init() {
         mPhotos = getIntent().getStringArrayListExtra("photos");
         mPosition = getIntent().getIntExtra("position", 0);
     }
 
-    protected void initViews() {
+    void initViews() {
         mSvpPager = (CustomViewPager) findViewById(R.id.pagerview);
         mAdapter = new ImageBrowserAdapter(this);
         mSvpPager.setAdapter(mAdapter);
@@ -73,11 +96,11 @@ public class ImageBrowserActivity extends BaseActivity implements OnPageChangeLi
         mPosition = arg0;
     }
 
-    private class ImageBrowserAdapter extends PagerAdapter{
+    private class ImageBrowserAdapter extends PagerAdapter {
 
         private LayoutInflater inflater;
 
-        public ImageBrowserAdapter (Context context){
+        public ImageBrowserAdapter(Context context) {
             this.inflater = LayoutInflater.from(context);
         }
 
@@ -100,10 +123,10 @@ public class ImageBrowserActivity extends BaseActivity implements OnPageChangeLi
                     container, false);
             final PhotoView photoView = (PhotoView) imageLayout
                     .findViewById(R.id.photoview);
-            final ProgressBar progress = (ProgressBar)imageLayout.findViewById(R.id.progress);
+            final ProgressBar progress = (ProgressBar) imageLayout.findViewById(R.id.progress);
 
             final String imgUrl = mPhotos.get(position);
-            ImageLoader.getInstance().displayImage(imgUrl, photoView, ImageLoadOptions.getOptions(),new SimpleImageLoadingListener() {
+            ImageLoader.getInstance().displayImage(imgUrl, photoView, ImageLoadOptions.getOptions(), new SimpleImageLoadingListener() {
 
                 @Override
                 public void onLoadingStarted(String imageUri, View view) {

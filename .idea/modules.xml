@@ -7,7 +7,6 @@
       <module fileurl="file://$PROJECT_DIR$/bmoblibrary/bmoblibrary.iml" filepath="$PROJECT_DIR$/bmoblibrary/bmoblibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/diandi.iml" filepath="$PROJECT_DIR$/diandi.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
-      <module fileurl="file://$PROJECT_DIR$/mywidgetlibrary/mywidgetlibrary.iml" filepath="$PROJECT_DIR$/mywidgetlibrary/mywidgetlibrary.iml" />
     </modules>
   </component>
 </project>

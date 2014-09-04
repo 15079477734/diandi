@@ -1,17 +1,18 @@
 package com.bmob.im.demo.ui.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.bmob.im.demo.R;
 
+import cn.bmob.v3.listener.BmobUpdateListener;
 import cn.bmob.v3.update.BmobUpdateAgent;
+import cn.bmob.v3.update.UpdateResponse;
+import cn.bmob.v3.update.UpdateStatus;
+
 
 public class AboutActivity extends BaseActivity implements View.OnClickListener {
 
@@ -24,26 +25,28 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener 
         initView();
     }
 
-    private void findView() {
+    void findView() {
         setContentView(R.layout.activity_about);
         initTopBarForLeft("关于点滴");
         mCheckUpdateLayout = (RelativeLayout) findViewById(R.id.activity_about_check_update_layout);
         mShareLayout = (RelativeLayout) findViewById(R.id.activity_about_share_layout);
         mFeedBackLayout = (RelativeLayout) findViewById(R.id.activity_about_feedback_layout);
+
     }
 
-    private void initView() {
+    void initView() {
         initData();
         bindEvent();
     }
 
-    private void initData() {
+    void initData() {
     }
 
-    private void bindEvent() {
+    void bindEvent() {
         mCheckUpdateLayout.setOnClickListener(this);
         mShareLayout.setOnClickListener(this);
         mFeedBackLayout.setOnClickListener(this);
+
 
     }
 
@@ -52,6 +55,8 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener 
         switch (view.getId()) {
             case R.id.activity_about_check_update_layout:
                 BmobUpdateAgent.forceUpdate(AboutActivity.this);
+                BmobUpdateAgent.silentUpdate(this);
+                BmobUpdateAgent.update(this);
                 break;
             case R.id.activity_about_share_layout:
                 Intent localIntent1 = new Intent("android.intent.action.SEND");
@@ -68,4 +73,6 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener 
                 break;
         }
     }
+
+
 }

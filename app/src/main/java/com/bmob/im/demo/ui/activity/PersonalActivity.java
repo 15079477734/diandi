@@ -60,7 +60,7 @@ public class PersonalActivity extends ActivityBase implements XListView.IXListVi
         loadData();
     }
 
-    protected void findView() {
+ void findView() {
         // TODO Auto-generated method stub
         setContentView(R.layout.fragment_personal);
         personalIcon = (ImageView) findViewById(R.id.personal_icon);
@@ -71,7 +71,7 @@ public class PersonalActivity extends ActivityBase implements XListView.IXListVi
         mListView = (XListView) findViewById(R.id.pull_refresh_list_personal);
     }
 
-    protected void initView() {
+   void initView() {
         initData();
         initTopBarForLeft("个人中心");
         initMyPublish();
@@ -79,7 +79,7 @@ public class PersonalActivity extends ActivityBase implements XListView.IXListVi
         bindEvent();
     }
 
-    private void initData() {
+  void initData() {
         mUser = CustomApplication.getInstance().getCurrentDianDi().getAuthor();
         updatePersonalInfo(mUser);
     }

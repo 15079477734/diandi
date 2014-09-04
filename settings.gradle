@@ -1,1 +1,1 @@
-include ':app', ':library', ':bmoblibrary', ':mywidgetlibrary'
+include ':app', ':library', ':bmoblibrary'

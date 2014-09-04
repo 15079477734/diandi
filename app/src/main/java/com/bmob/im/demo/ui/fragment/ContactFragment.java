@@ -39,10 +39,9 @@ import com.bmob.im.demo.CustomApplication;
 import com.bmob.im.demo.R;
 import com.bmob.im.demo.adapter.ContactAdapter;
 import com.bmob.im.demo.bean.User;
-import com.bmob.im.demo.ui.activity.AddFriendActivity;
+import com.bmob.im.demo.ui.activity.AddContaceActivity;
 import com.bmob.im.demo.ui.activity.NearPeopleActivity;
 import com.bmob.im.demo.ui.activity.NewFriendActivity;
-import com.bmob.im.demo.ui.activity.SetMyInfoActivity;
 import com.bmob.im.demo.ui.activity.SettingActivity;
 import com.bmob.im.demo.util.CharacterParser;
 import com.bmob.im.demo.util.CollectionUtils;
@@ -123,7 +122,7 @@ public class ContactFragment extends BaseFragment implements OnItemClickListener
                 new onRightImageButtonClickListener() {
                     @Override
                     public void onClick() {
-                        startAnimActivity(AddFriendActivity.class);
+                        startAnimActivity(AddContaceActivity.class);
                     }
                 }
         );

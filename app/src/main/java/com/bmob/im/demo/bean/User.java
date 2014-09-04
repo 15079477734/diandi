@@ -1,5 +1,6 @@
 package com.bmob.im.demo.bean;
 
+
 import cn.bmob.im.bean.BmobChatUser;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.datatype.BmobGeoPoint;
@@ -51,8 +52,18 @@ public class User extends BmobChatUser {
     private String sex;
     private BmobGeoPoint location;
     private String signature;
+    private String school;
     private BmobRelation favorite;
     private BmobFile avatarImg;
+
+    public String getSchool() {
+        return school;
+    }
+
+    public void setSchool(String school) {
+        this.school = school;
+    }
+
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -91,7 +102,7 @@ public class User extends BmobChatUser {
         this.location = location;
     }
 
-    public String  getSex() {
+    public String getSex() {
         return sex;
     }
 

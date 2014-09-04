@@ -90,7 +90,7 @@ public class SetMyInfoActivity extends ActivityBase implements OnClickListener {
         initView();
     }
 
-    private void initView() {
+    void initView() {
         layout_all = (LinearLayout) findViewById(R.id.layout_all);
         iv_set_avator = (ImageView) findViewById(R.id.iv_set_avator);
         iv_arraw = (ImageView) findViewById(R.id.iv_arraw);

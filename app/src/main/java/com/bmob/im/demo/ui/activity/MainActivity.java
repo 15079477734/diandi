@@ -46,12 +46,11 @@ public class MainActivity extends ActivityBase implements EventListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        BmobUpdateAgent.update(this);
         initView();
         initTab();
     }
 
-    private void initView(){
+    void initView(){
         mTabs = new Button[4];
         mTabs[0] = (Button) findViewById(R.id.btn_diandi);
         mTabs[1] = (Button) findViewById(R.id.btn_message);

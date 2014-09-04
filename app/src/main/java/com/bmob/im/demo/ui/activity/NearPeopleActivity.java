@@ -45,9 +45,24 @@ public class NearPeopleActivity extends ActivityBase implements IXListViewListen
         initView();
     }
 
-    private void initView() {
+    @Override
+    void findView() {
+        super.findView();
+    }
+
+    void initView() {
         initTopBarForLeft("附近的人");
         initXListView();
+    }
+
+    @Override
+    void initData() {
+        super.initData();
+    }
+
+    @Override
+    void bindEvent() {
+        super.bindEvent();
     }
 
     private void initXListView() {

@@ -42,7 +42,7 @@ import com.bmob.im.demo.view.dialog.DialogTips;
  * @Description: TODO
  * @date 2014-6-13 下午5:05:38
  */
-public class BaseActivity extends FragmentActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
+abstract class BaseActivity extends FragmentActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
     public final String TAG = getClass().getName();
 
     BmobUserManager userManager;
@@ -74,6 +74,14 @@ public class BaseActivity extends FragmentActivity implements SharedPreferences.
         mScreenHeight = metric.heightPixels;
         initConfigure();
     }
+
+    abstract void findView();
+
+    abstract void initView();
+
+    abstract void initData();
+
+    abstract void bindEvent();
 
     private void initConfigure() {
         mContext = this;
@@ -256,7 +264,6 @@ public class BaseActivity extends FragmentActivity implements SharedPreferences.
         //查询该用户的好友列表(这个好友列表是去除黑名单用户的哦),目前支持的查询好友个数为100，如需修改请在调用这个方法前设置BmobConfig.LIMIT_CONTACTS即可。
         //这里默认采取的是登陆成功之后即将好于列表存储到数据库中，并更新到当前内存中,
         userManager.queryCurrentContactList(new FindListener<BmobChatUser>() {
-
             @Override
             public void onError(int arg0, String arg1) {
                 // TODO Auto-generated method stub

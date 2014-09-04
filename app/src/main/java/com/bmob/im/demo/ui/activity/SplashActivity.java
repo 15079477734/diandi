@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.Message;
 import cn.bmob.im.BmobChat;
 import cn.bmob.v3.Bmob;
+import cn.bmob.v3.update.BmobUpdateAgent;
 
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
@@ -34,7 +35,6 @@ public class SplashActivity extends BaseActivity {
 
     // 定位获取当前用户的地理位置
     private LocationClient mLocationClient;
-
     private BaiduReceiver mReceiver;// 注册广播接收器，用于监听网络以及验证key
 
     @Override
@@ -58,6 +58,28 @@ public class SplashActivity extends BaseActivity {
         } else {
             mHandler.sendEmptyMessageDelayed(GO_LOGIN, 1000);
         }
+
+
+
+    }
+
+    @Override
+    void findView() {
+
+    }
+
+    @Override
+    void initView() {
+
+    }
+
+    @Override
+    void initData() {
+
+    }
+
+    @Override
+    void bindEvent() {
 
     }
 

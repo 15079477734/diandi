@@ -52,14 +52,14 @@ public class MsgReciverSetActivity extends BaseActivity implements View.OnClickL
     }
 
 
-    private void initView() {
+ void initView() {
         initTopBarForLeft("消息提醒设置");
         initData();
         bindEvent();
 
     }
 
-    private void initData() {
+void initData() {
         mSharedUtil = mApplication.getSpUtil();
         boolean isAllowNotify = mSharedUtil.isAllowPushNotify();
         if (isAllowNotify) {
@@ -87,7 +87,7 @@ public class MsgReciverSetActivity extends BaseActivity implements View.OnClickL
         }
     }
 
-    private void bindEvent() {
+void bindEvent() {
         rl_switch_notification.setOnClickListener(this);
         rl_switch_voice.setOnClickListener(this);
         rl_switch_vibrate.setOnClickListener(this);

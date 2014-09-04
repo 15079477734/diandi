@@ -40,6 +40,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import cn.bmob.im.BmobChatManager;
 import cn.bmob.im.BmobNotifyManager;
 import cn.bmob.im.BmobRecordManager;
@@ -78,10 +79,11 @@ import com.bmob.im.demo.view.xlist.XListView.IXListViewListener;
  * @author smile
  * @date 2014-6-3 下午4:33:11
  */
+
 /**
+ * @author smile
  * @ClassName: ChatActivity
  * @Description: TODO
- * @author smile
  * @date 2014-6-23 下午3:28:49
  */
 public class ChatActivity extends ActivityBase implements OnClickListener,
@@ -129,7 +131,7 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
         initView();
     }
 
-    private void initRecordManager(){
+    private void initRecordManager() {
         // 语音相关管理器
         recordManager = BmobRecordManager.getInstance(this);
         // 设置音量大小监听--在这里开发者可以自己实现：当剩余10秒情况下的给用户的提示，类似微信的语音那样
@@ -162,14 +164,14 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
                             btn_speak.setClickable(true);
                         }
                     }, 1000);
-                }else{
+                } else {
 
                 }
             }
         });
     }
 
-    private void initView() {
+    void initView() {
         mHeaderLayout = (HeaderLayout) findViewById(R.id.common_actionbar);
         mListView = (XListView) findViewById(R.id.mListView);
         initTopBarForLeft("与" + targetUser.getUsername() + "对话");
@@ -181,11 +183,11 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
     /**
      * 初始化语音布局
      *
-     * @Title: initVoiceView
-     * @Description: TODO
      * @param
      * @return void
      * @throws
+     * @Title: initVoiceView
+     * @Description: TODO
      */
     private void initVoiceView() {
         layout_record = (RelativeLayout) findViewById(R.id.layout_record);
@@ -198,9 +200,10 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
 
     /**
      * 长按说话
+     *
+     * @author smile
      * @ClassName: VoiceTouchListen
      * @Description: TODO
-     * @author smile
      * @date 2014-7-1 下午6:10:16
      */
     class VoiceTouchListen implements View.OnTouchListener {
@@ -264,11 +267,12 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
 
     /**
      * 发送语音消息
-     * @Title: sendImageMessage
-     * @Description: TODO
+     *
      * @param @param localPath
      * @return void
      * @throws
+     * @Title: sendImageMessage
+     * @Description: TODO
      */
     private void sendVoiceMessage(String local, int length) {
         chatManager.sendVoiceMessage(targetUser, local, length,
@@ -292,7 +296,8 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
                         ShowLog("上传语音失败 -->arg1：" + arg1);
                         mAdapter.notifyDataSetChanged();
                     }
-                });
+                }
+        );
     }
 
     Toast toast;
@@ -300,9 +305,9 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
     /**
      * 显示录音时间过短的Toast
      *
-     * @Title: showShortToast
      * @return void
      * @throws
+     * @Title: showShortToast
      */
     private Toast showShortToast() {
         if (toast == null) {
@@ -319,19 +324,19 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
     /**
      * 初始化语音动画资源
      *
-     * @Title: initVoiceAnimRes
-     * @Description: TODO
      * @param
      * @return void
      * @throws
+     * @Title: initVoiceAnimRes
+     * @Description: TODO
      */
     private void initVoiceAnimRes() {
-        drawable_Anims = new Drawable[] {
+        drawable_Anims = new Drawable[]{
                 getResources().getDrawable(R.drawable.chat_icon_voice2),
                 getResources().getDrawable(R.drawable.chat_icon_voice3),
                 getResources().getDrawable(R.drawable.chat_icon_voice4),
                 getResources().getDrawable(R.drawable.chat_icon_voice5),
-                getResources().getDrawable(R.drawable.chat_icon_voice6) };
+                getResources().getDrawable(R.drawable.chat_icon_voice6)};
     }
 
     /**
@@ -345,19 +350,20 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
 
     /**
      * 界面刷新
-     * @Title: initOrRefresh
-     * @Description: TODO
+     *
      * @param
      * @return void
      * @throws
+     * @Title: initOrRefresh
+     * @Description: TODO
      */
     private void initOrRefresh() {
         if (mAdapter != null) {
             if (MyMessageReceiver.mNewNum != 0) {// 用于更新当在聊天界面锁屏期间来了消息，这时再回到聊天页面的时候需要显示新来的消息
-                int news=  MyMessageReceiver.mNewNum;//有可能锁屏期间，来了N条消息,因此需要倒叙显示在界面上
+                int news = MyMessageReceiver.mNewNum;//有可能锁屏期间，来了N条消息,因此需要倒叙显示在界面上
                 int size = initMsgData().size();
-                for(int i=(news-1);i>=0;i--){
-                    mAdapter.add(initMsgData().get(size-(i+1)));// 添加最后一条消息到界面显示
+                for (int i = (news - 1); i >= 0; i--) {
+                    mAdapter.add(initMsgData().get(size - (i + 1)));// 添加最后一条消息到界面显示
                 }
                 mListView.setSelection(mAdapter.getCount() - 1);
             } else {
@@ -443,11 +449,11 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
     /**
      * 初始化表情布局
      *
-     * @Title: initEmoView
-     * @Description: TODO
      * @param
      * @return void
      * @throws
+     * @Title: initEmoView
+     * @Description: TODO
      */
     private void initEmoView() {
         pager_emo = (ViewPager) findViewById(R.id.pager_emo);
@@ -541,16 +547,18 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
                         // 重发消息
                         showResendDialog(parentV, v, values);
                     }
-                });
+                }
+        );
     }
 
     /**
      * 显示重发按钮 showResendDialog
-     * @Title: showResendDialog
-     * @Description: TODO
+     *
      * @param @param recent
      * @return void
      * @throws
+     * @Title: showResendDialog
+     * @Description: TODO
      */
     public void showResendDialog(final View parentV, View v, final Object values) {
         DialogTips dialog = new DialogTips(this, "确定重发该消息", "确定", "取消", "提示",
@@ -608,19 +616,20 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
                         parentV.findViewById(R.id.tv_send_status)
                                 .setVisibility(View.INVISIBLE);
                     }
-                });
+                }
+        );
         mAdapter.notifyDataSetChanged();
     }
 
     /**
      * 重发图片消息
      *
-     * @Title: resendImageMsg
-     * @Description: TODO
      * @param @param parentV
      * @param @param values
      * @return void
      * @throws
+     * @Title: resendImageMsg
+     * @Description: TODO
      */
     private void resendFileMsg(final View parentV, final Object values) {
         BmobChatManager.getInstance(ChatActivity.this).resendFileMessage(
@@ -666,7 +675,8 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
                         parentV.findViewById(R.id.tv_send_status)
                                 .setVisibility(View.INVISIBLE);
                     }
-                });
+                }
+        );
         mAdapter.notifyDataSetChanged();
     }
 
@@ -758,11 +768,11 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
     /**
      * 启动地图
      *
-     * @Title: selectLocationFromMap
-     * @Description: TODO
      * @param
      * @return void
      * @throws
+     * @Title: selectLocationFromMap
+     * @Description: TODO
      */
     private void selectLocationFromMap() {
         Intent intent = new Intent(this, LocationActivity.class);
@@ -775,8 +785,8 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
     /**
      * 启动相机拍照 startCamera
      *
-     * @Title: startCamera
      * @throws
+     * @Title: startCamera
      */
     public void selectImageFromCamera() {
         Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -796,11 +806,11 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
     /**
      * 选择图片
      *
-     * @Title: selectImage
-     * @Description: TODO
      * @param
      * @return void
      * @throws
+     * @Title: selectImage
+     * @Description: TODO
      */
     public void selectImageFromLocal() {
         Intent intent;
@@ -860,13 +870,13 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
     /**
      * 发送位置信息
      *
-     * @Title: sendLocationMessage
-     * @Description: TODO
      * @param @param address
      * @param @param latitude
      * @param @param longtitude
      * @return void
      * @throws
+     * @Title: sendLocationMessage
+     * @Description: TODO
      */
     private void sendLocationMessage(String address, double latitude,
                                      double longtitude) {
@@ -887,11 +897,11 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
     /**
      * 默认先上传本地图片，之后才显示出来 sendImageMessage
      *
-     * @Title: sendImageMessage
-     * @Description: TODO
      * @param @param localPath
      * @return void
      * @throws
+     * @Title: sendImageMessage
+     * @Description: TODO
      */
     private void sendImageMessage(String local) {
         if (layout_more.getVisibility() == View.VISIBLE) {
@@ -927,11 +937,11 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
     /**
      * 刷新界面
      *
-     * @Title: refreshMessage
-     * @Description: TODO
      * @param @param message
      * @return void
      * @throws
+     * @Title: refreshMessage
+     * @Description: TODO
      */
     private void refreshMessage(BmobMsg msg) {
         // 更新界面
@@ -943,11 +953,11 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
     /**
      * 根据是否点击笑脸来显示文本输入框的状态
      *
-     * @Title: showEditState
-     * @Description: TODO
      * @param @param isEmo: 用于区分文字和表情
      * @return void
      * @throws
+     * @Title: showEditState
+     * @Description: TODO
      */
     private void showEditState(boolean isEmo) {
         edit_user_comment.setVisibility(View.VISIBLE);
@@ -987,7 +997,7 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
         BmobNotifyManager.getInstance(this).cancelNotify();
         BmobDB.create(this).resetUnread(targetId);
         //清空消息未读数-这个要在刷新之后
-        MyMessageReceiver.mNewNum=0;
+        MyMessageReceiver.mNewNum = 0;
     }
 
     @Override

@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 19
-    buildToolsVersion "19.1.0"
+    buildToolsVersion '19.1.0'
 
     defaultConfig {
         applicationId "com.bmob.im.demo"
@@ -24,12 +24,12 @@ dependencies {
     compile project(':bmoblibrary')
     compile files('C:/Users/Administrator/Desktop/diandi/diandi/libs/android-support-v4.jar')
     compile files('C:/Users/Administrator/Desktop/diandi/diandi/libs/baidumapapi_v3_0_0.jar')
-    compile files('C:/Users/Administrator/Desktop/diandi/diandi/libs/Bmob_IMSDK_v1.1.1beta.jar')
-    compile files('C:/Users/Administrator/Desktop/diandi/diandi/libs/bmob_v3.1.8.jar')
     compile files('C:/Users/Administrator/Desktop/diandi/diandi/libs/locSDK_4.2.jar')
     compile files('C:/Users/Administrator/Desktop/diandi/diandi/libs/mta-sdk-1.0.0.jar')
     compile files('C:/Users/Administrator/Desktop/diandi/diandi/libs/open_sdk.jar')
     compile files('C:/Users/Administrator/Desktop/diandi/diandi/libs/photoview-library-1.2.2.jar')
     compile files('C:/Users/Administrator/Desktop/diandi/diandi/libs/radial-menu-v4.jar')
     compile files('C:/Users/Administrator/Desktop/diandi/diandi/libs/universal-image-loader-1.9.2_sources.jar')
+    compile files('C:/Users/Administrator/Desktop/diandi/diandi/libs/Bmob_IMSDK_v1.1.1beta.jar')
+    compile files('C:/Users/Administrator/Desktop/diandi/diandi/libs/bmob_v3.1.8.jar')
 }

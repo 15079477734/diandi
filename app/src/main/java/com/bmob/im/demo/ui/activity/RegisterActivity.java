@@ -51,7 +51,25 @@ public class RegisterActivity extends BaseActivity implements UserProxy.ISignUpL
             }
         });
     }
+    @Override
+    void findView() {
 
+    }
+
+    @Override
+    void initView() {
+
+    }
+
+    @Override
+    void initData() {
+
+    }
+
+    @Override
+    void bindEvent() {
+
+    }
     private void register() {
         String name = et_username.getText().toString();
         String password = et_password.getText().toString();

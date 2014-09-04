@@ -19,14 +19,33 @@ public class ActivityBase extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
-        //自动登陆状态下检测是否在其他设备登陆
         checkLogin();
     }
+
+    @Override
+    void findView() {
+
+    }
+
+    @Override
+    void initView() {
+
+    }
+
+    @Override
+    void initData() {
+
+    }
+
+    @Override
+    void bindEvent() {
+
+    }
+
     @Override
     protected void onResume() {
         // TODO Auto-generated method stub
         super.onResume();
-        //锁屏状态下的检测
         checkLogin();
     }
 

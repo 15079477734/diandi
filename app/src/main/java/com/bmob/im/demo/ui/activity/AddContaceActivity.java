@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+
 import cn.bmob.im.bean.BmobChatUser;
 import cn.bmob.im.task.BRequest;
 import cn.bmob.im.util.BmobLog;
@@ -24,13 +25,15 @@ import com.bmob.im.demo.util.CollectionUtils;
 import com.bmob.im.demo.view.xlist.XListView;
 import com.bmob.im.demo.view.xlist.XListView.IXListViewListener;
 
-/** 添加好友
+/**
+ * 添加好友
+ *
+ * @author smile
  * @ClassName: AddFriendActivity
  * @Description: TODO
- * @author smile
  * @date 2014-6-5 下午5:26:41
  */
-public class AddFriendActivity extends ActivityBase implements OnClickListener,IXListViewListener,OnItemClickListener{
+public class AddContaceActivity extends ActivityBase implements OnClickListener, IXListViewListener, OnItemClickListener {
 
     EditText et_find_name;
     Button btn_search;
@@ -38,24 +41,43 @@ public class AddFriendActivity extends ActivityBase implements OnClickListener,I
     List<BmobChatUser> users = new ArrayList<BmobChatUser>();
     XListView mListView;
     AddFriendAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_contact);
+        findView();
         initView();
     }
 
-    private void initView(){
-        initTopBarForLeft("查找好友");
-        et_find_name = (EditText)findViewById(R.id.et_find_name);
-        btn_search = (Button)findViewById(R.id.btn_search);
+    @Override
+    void findView() {
+        setContentView(R.layout.activity_add_contact);
+        et_find_name = (EditText) findViewById(R.id.et_find_name);
+        btn_search = (Button) findViewById(R.id.btn_search);
         btn_search.setOnClickListener(this);
+        mListView = (XListView) findViewById(R.id.list_search);
+
+    }
+
+
+    void initView() {
+        initTopBarForLeft("查找好友");
         initXListView();
     }
 
+    @Override
+    void bindEvent() {
+
+    }
+
+
+    @Override
+    void initData() {
+
+    }
+
     private void initXListView() {
-        mListView = (XListView) findViewById(R.id.list_search);
+
         // 首先不允许加载更多
         mListView.setPullLoadEnable(false);
         // 不允许下拉
@@ -72,10 +94,11 @@ public class AddFriendActivity extends ActivityBase implements OnClickListener,I
     }
 
     int curPage = 0;
-    ProgressDialog progress ;
-    private void initSearchList(final boolean isUpdate){
-        if(!isUpdate){
-            progress = new ProgressDialog(AddFriendActivity.this);
+    ProgressDialog progress;
+
+    private void initSearchList(final boolean isUpdate) {
+        if (!isUpdate) {
+            progress = new ProgressDialog(AddContaceActivity.this);
             progress.setMessage("正在搜索...");
             progress.setCanceledOnTouchOutside(true);
             progress.show();
@@ -85,8 +108,8 @@ public class AddFriendActivity extends ActivityBase implements OnClickListener,I
             @Override
             public void onError(int arg0, String arg1) {
                 // TODO Auto-generated method stub
-                BmobLog.i("查询错误:"+arg1);
-                if(users!=null){
+                BmobLog.i("查询错误:" + arg1);
+                if (users != null) {
                     users.clear();
                 }
                 ShowToast("用户不存在");
@@ -100,26 +123,26 @@ public class AddFriendActivity extends ActivityBase implements OnClickListener,I
             public void onSuccess(List<BmobChatUser> arg0) {
                 // TODO Auto-generated method stub
                 if (CollectionUtils.isNotNull(arg0)) {
-                    if(isUpdate){
+                    if (isUpdate) {
                         users.clear();
                     }
                     adapter.addAll(arg0);
-                    if(arg0.size()<BRequest.QUERY_LIMIT_COUNT){
+                    if (arg0.size() < BRequest.QUERY_LIMIT_COUNT) {
                         mListView.setPullLoadEnable(false);
                         ShowToast("用户搜索完成!");
-                    }else{
+                    } else {
                         mListView.setPullLoadEnable(true);
                     }
-                }else{
+                } else {
                     BmobLog.i("查询成功:无返回值");
-                    if(users!=null){
+                    if (users != null) {
                         users.clear();
                     }
                     ShowToast("用户不存在");
                 }
-                if(!isUpdate){
+                if (!isUpdate) {
                     progress.dismiss();
-                }else{
+                } else {
                     refreshPull();
                 }
                 //这样能保证每次查询都是从头开始
@@ -129,14 +152,16 @@ public class AddFriendActivity extends ActivityBase implements OnClickListener,I
 
     }
 
-    /** 查询更多
-     * @Title: queryMoreNearList
-     * @Description: TODO
+    /**
+     * 查询更多
+     *
      * @param @param page
      * @return void
      * @throws
+     * @Title: queryMoreNearList
+     * @Description: TODO
      */
-    private void queryMoreSearchList(int page){
+    private void queryMoreSearchList(int page) {
         userManager.queryUserByPage(true, page, searchName, new FindListener<BmobChatUser>() {
 
             @Override
@@ -151,7 +176,7 @@ public class AddFriendActivity extends ActivityBase implements OnClickListener,I
             @Override
             public void onError(int arg0, String arg1) {
                 // TODO Auto-generated method stub
-                ShowLog("搜索更多用户出错:"+arg1);
+                ShowLog("搜索更多用户出错:" + arg1);
                 mListView.setPullLoadEnable(false);
                 refreshLoad();
             }
@@ -162,14 +187,15 @@ public class AddFriendActivity extends ActivityBase implements OnClickListener,I
     @Override
     public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
         // TODO Auto-generated method stub
-        BmobChatUser user = (BmobChatUser) adapter.getItem(position-1);
-        Intent intent =new Intent(this,SettingActivity.class);
+        BmobChatUser user = (BmobChatUser) adapter.getItem(position - 1);
+        Intent intent = new Intent(this, SettingActivity.class);
         intent.putExtra("from", "add");
         intent.putExtra("username", user.getUsername());
         startAnimActivity(intent);
     }
 
-    String searchName ="";
+    String searchName = "";
+
     @Override
     public void onClick(View arg0) {
         // TODO Auto-generated method stub
@@ -177,9 +203,9 @@ public class AddFriendActivity extends ActivityBase implements OnClickListener,I
             case R.id.btn_search://搜索
                 users.clear();
                 searchName = et_find_name.getText().toString();
-                if(searchName!=null && !searchName.equals("")){
+                if (searchName != null && !searchName.equals("")) {
                     initSearchList(false);
-                }else{
+                } else {
                     ShowToast("请输入用户名");
                 }
                 break;
@@ -203,10 +229,10 @@ public class AddFriendActivity extends ActivityBase implements OnClickListener,I
             @Override
             public void onSuccess(int arg0) {
                 // TODO Auto-generated method stub
-                if(arg0 >users.size()){
+                if (arg0 > users.size()) {
                     curPage++;
                     queryMoreSearchList(curPage);
-                }else{
+                } else {
                     ShowToast("数据加载完成");
                     mListView.setPullLoadEnable(false);
                     refreshLoad();
@@ -216,19 +242,19 @@ public class AddFriendActivity extends ActivityBase implements OnClickListener,I
             @Override
             public void onFailure(int arg0, String arg1) {
                 // TODO Auto-generated method stub
-                ShowLog("查询附近的人总数失败"+arg1);
+                ShowLog("查询附近的人总数失败" + arg1);
                 refreshLoad();
             }
         });
     }
 
-    private void refreshLoad(){
+    private void refreshLoad() {
         if (mListView.getPullLoading()) {
             mListView.stopLoadMore();
         }
     }
 
-    private void refreshPull(){
+    private void refreshPull() {
         if (mListView.getPullRefreshing()) {
             mListView.stopRefresh();
         }

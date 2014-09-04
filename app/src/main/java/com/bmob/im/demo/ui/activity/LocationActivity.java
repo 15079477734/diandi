@@ -66,6 +66,26 @@ public class LocationActivity extends BaseActivity implements
         initBaiduMap();
     }
 
+    @Override
+    void findView() {
+
+    }
+
+    @Override
+    void initView() {
+
+    }
+
+    @Override
+    void initData() {
+
+    }
+
+    @Override
+    void bindEvent() {
+
+    }
+
     private void initBaiduMap() {
         // 地图初始化
         mMapView = (MapView) findViewById(R.id.bmapView);

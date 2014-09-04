@@ -175,18 +175,6 @@
     </style>
     
     <!-- dialog -->
-     <style name="TextAppearance">
-        <item name="android:textColor">#000000</item>
-        <item name="android:textColorHighlight">#FFFFFF</item>
-        <item name="android:textColorHint">#FFFFFF</item>
-        <item name="android:textColorLink">#FFFFFF</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:textStyle">normal</item>
-    </style>
-
-    <style name="TextAppearance.DialogWindowTitle">
-        <item name="android:textSize">18sp</item>
-    </style>
 
     <style name="DialogWindowTitle">
         <item name="android:maxLines">1</item>
@@ -202,11 +190,27 @@
         <item name="android:windowFrame">@null</item>
         <item name="android:windowNoTitle">true</item>
     </style>
+    <style name="TextAppearance">
+        <item name="android:textColor">#000000</item>
+        <item name="android:textColorHighlight">#FFFFFF</item>
+        <item name="android:textColorHint">#FFFFFF</item>
+        <item name="android:textColorLink">#FFFFFF</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="TextAppearance.DialogWindowTitle">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+
+
     <style name="TextTheme.tipstheme">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">#000000</item>
         <item name="android:textStyle">normal</item>
     </style>
+
 
 </resources>
 

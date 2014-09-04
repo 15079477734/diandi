@@ -14,8 +14,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -27,11 +25,9 @@ import com.bmob.im.demo.config.Constant;
 import com.bmob.im.demo.util.ActivityUtil;
 import com.bmob.im.demo.util.CacheUtils;
 import com.bmob.im.demo.util.CollectionUtils;
-import com.bmob.im.demo.util.ImageLoadOptions;
 import com.bmob.im.demo.util.LogUtils;
 import com.bmob.im.demo.view.dialog.DialogTips;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -43,7 +39,6 @@ import java.util.List;
 import cn.bmob.im.BmobChatManager;
 import cn.bmob.im.db.BmobDB;
 import cn.bmob.im.inteface.MsgTag;
-import cn.bmob.im.util.BmobLog;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.listener.FindListener;
@@ -104,7 +99,7 @@ public class SettingActivity extends ActivityBase implements View.OnClickListene
         }
     }
 
-    private void findView() {
+    void findView() {
         setContentView(R.layout.activity_settings);
         mAvatarLayout = (RelativeLayout) findViewById(R.id.activity_setting_user_avatar_layout);
         mNickLayout = (RelativeLayout) findViewById(R.id.activity_setting_user_nick_layout);
@@ -123,7 +118,7 @@ public class SettingActivity extends ActivityBase implements View.OnClickListene
 
     }
 
-    private void initView() {
+    void initView() {
         initData();
         mAddBlackBtn.setEnabled(false);
         mLaunchChatBtn.setEnabled(false);
@@ -164,9 +159,14 @@ public class SettingActivity extends ActivityBase implements View.OnClickListene
 
     }
 
-    private void initData() {
+    void initData() {
         from = getIntent().getStringExtra("from");
         username = getIntent().getStringExtra("username");
+    }
+
+    @Override
+    void bindEvent() {
+        super.bindEvent();
     }
 
     private void loadData(User user) {
