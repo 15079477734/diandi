@@ -1,9 +1,5 @@
 package com.bmob.im.demo.ui.activity;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -41,6 +37,26 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bmob.im.demo.MyMessageReceiver;
+import com.bmob.im.demo.R;
+import com.bmob.im.demo.adapter.ChatAdapter;
+import com.bmob.im.demo.adapter.EmoViewPagerAdapter;
+import com.bmob.im.demo.adapter.EmoteAdapter;
+import com.bmob.im.demo.adapter.NewRecordPlayClickListener;
+import com.bmob.im.demo.bean.FaceText;
+import com.bmob.im.demo.config.Constant;
+import com.bmob.im.demo.util.CommonUtils;
+import com.bmob.im.demo.util.FaceTextUtils;
+import com.bmob.im.demo.view.EmoticonsEditText;
+import com.bmob.im.demo.view.HeaderLayout;
+import com.bmob.im.demo.view.dialog.DialogTips;
+import com.bmob.im.demo.view.xlist.XListView;
+import com.bmob.im.demo.view.xlist.XListView.IXListViewListener;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 import cn.bmob.im.BmobChatManager;
 import cn.bmob.im.BmobNotifyManager;
 import cn.bmob.im.BmobRecordManager;
@@ -55,70 +71,57 @@ import cn.bmob.im.inteface.UploadListener;
 import cn.bmob.im.util.BmobLog;
 import cn.bmob.v3.listener.PushListener;
 
-import com.bmob.im.demo.MyMessageReceiver;
-import com.bmob.im.demo.R;
-import com.bmob.im.demo.adapter.EmoViewPagerAdapter;
-import com.bmob.im.demo.adapter.EmoteAdapter;
-import com.bmob.im.demo.adapter.ChatAdapter;
-import com.bmob.im.demo.adapter.NewRecordPlayClickListener;
-import com.bmob.im.demo.bean.FaceText;
-import com.bmob.im.demo.config.Constant;
-import com.bmob.im.demo.util.CommonUtils;
-import com.bmob.im.demo.util.FaceTextUtils;
-import com.bmob.im.demo.view.EmoticonsEditText;
-import com.bmob.im.demo.view.HeaderLayout;
-import com.bmob.im.demo.view.dialog.DialogTips;
-import com.bmob.im.demo.view.xlist.XListView;
-import com.bmob.im.demo.view.xlist.XListView.IXListViewListener;
-
 /**
  * 聊天界面
- *
- * @ClassName: ChatActivity
- * @Description: TODO
- * @author smile
- * @date 2014-6-3 下午4:33:11
  */
 
-/**
- * @author smile
- * @ClassName: ChatActivity
- * @Description: TODO
- * @date 2014-6-23 下午3:28:49
- */
 public class ChatActivity extends ActivityBase implements OnClickListener,
         IXListViewListener, EventListener {
 
-    private Button btn_chat_emo, btn_chat_send, btn_chat_add,
-            btn_chat_keyboard, btn_speak, btn_chat_voice;
-
-    XListView mListView;
-
-    EmoticonsEditText edit_user_comment;
-
-    String targetId = "";
-    BmobChatUser targetUser;
-
+    public static final int NEW_MESSAGE = 0x001;// 收到消息
     private static int MsgPagerNum;
-
-    private LinearLayout layout_more, layout_emo, layout_add;
-
-    private ViewPager pager_emo;
-
-    private TextView tv_picture, tv_camera, tv_location;
-
+    XListView mListView;
+    EmoticonsEditText edit_user_comment;
+    String targetId = "";
+    @SuppressLint("HandlerLeak")
+    private Handler handler = new Handler() {
+        public void handleMessage(Message msg) {
+            if (msg.what == NEW_MESSAGE) {
+                BmobMsg message = (BmobMsg) msg.obj;
+                String uid = message.getBelongId();
+                if (!uid.equals(targetId))// 如果不是当前正在聊天对象的消息，不处理
+                    return;
+                mAdapter.add(message);
+                // 在聊天页面收到的消息均是已读状态
+                message.setIsReaded(BmobConfig.STATE_READED);
+                // 保存接收到的消息-并发送已读回执给对方
+                BmobChatManager.getInstance(ChatActivity.this)
+                        .saveReceiveMessage(true, message);
+                // 定位
+                mListView.setSelection(mAdapter.getCount() - 1);
+            }
+        }
+    };
+    BmobChatUser targetUser;
     // 语音有关
     RelativeLayout layout_record;
     TextView tv_voice_tips;
     ImageView iv_record;
-
-    private Drawable[] drawable_Anims;// 话筒动画
-
     BmobRecordManager recordManager;
+    Toast toast;
+    List<FaceText> emos;
+    ChatAdapter mAdapter;
+    private Button btn_chat_emo, btn_chat_send, btn_chat_add,
+            btn_chat_keyboard, btn_speak, btn_chat_voice;
+    private LinearLayout layout_more, layout_emo, layout_add;
+    private ViewPager pager_emo;
+    private TextView tv_picture, tv_camera, tv_location;
+    private Drawable[] drawable_Anims;// 话筒动画
+    private String localCameraPath = "";// 拍照后得到的图片地址
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         chatManager = BmobChatManager.getInstance(this);
@@ -139,13 +142,13 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
 
             @Override
             public void onVolumnChanged(int value) {
-                // TODO Auto-generated method stub
+
                 iv_record.setImageDrawable(drawable_Anims[value]);
             }
 
             @Override
             public void onTimeChanged(int recordTime, String localPath) {
-                // TODO Auto-generated method stub
+
                 BmobLog.i("voice", "已录音长度:" + recordTime);
                 if (recordTime >= BmobRecordManager.MAX_RECORD_TIME) {// 1分钟结束，发送消息
                     // 需要重置按钮
@@ -160,7 +163,7 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
 
                         @Override
                         public void run() {
-                            // TODO Auto-generated method stub
+
                             btn_speak.setClickable(true);
                         }
                     }, 1000);
@@ -199,80 +202,12 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
     }
 
     /**
-     * 长按说话
-     *
-     * @author smile
-     * @ClassName: VoiceTouchListen
-     * @Description: TODO
-     * @date 2014-7-1 下午6:10:16
-     */
-    class VoiceTouchListen implements View.OnTouchListener {
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN:
-                    if (!CommonUtils.checkSdCard()) {
-                        ShowToast("发送语音需要sdcard支持！");
-                        return false;
-                    }
-                    try {
-                        v.setPressed(true);
-                        layout_record.setVisibility(View.VISIBLE);
-                        tv_voice_tips.setText(getString(R.string.voice_cancel_tips));
-                        // 开始录音
-                        recordManager.startRecording(targetId);
-                    } catch (Exception e) {
-                    }
-                    return true;
-                case MotionEvent.ACTION_MOVE: {
-                    if (event.getY() < 0) {
-                        tv_voice_tips
-                                .setText(getString(R.string.voice_cancel_tips));
-                        tv_voice_tips.setTextColor(Color.RED);
-                    } else {
-                        tv_voice_tips.setText(getString(R.string.voice_up_tips));
-                        tv_voice_tips.setTextColor(Color.WHITE);
-                    }
-                    return true;
-                }
-                case MotionEvent.ACTION_UP:
-                    v.setPressed(false);
-                    layout_record.setVisibility(View.INVISIBLE);
-                    try {
-                        if (event.getY() < 0) {// 放弃录音
-                            recordManager.cancelRecording();
-                            BmobLog.i("voice", "放弃发送语音");
-                        } else {
-                            int recordTime = recordManager.stopRecording();
-                            if (recordTime > 1) {
-                                // 发送语音文件
-                                BmobLog.i("voice", "发送语音");
-                                sendVoiceMessage(
-                                        recordManager.getRecordFilePath(targetId),
-                                        recordTime);
-                            } else {// 录音时间过短，则提示录音过短的提示
-                                layout_record.setVisibility(View.GONE);
-                                showShortToast().show();
-                            }
-                        }
-                    } catch (Exception e) {
-                        // TODO: handle exception
-                    }
-                    return true;
-                default:
-                    return false;
-            }
-        }
-    }
-
-    /**
      * 发送语音消息
      *
      * @param @param localPath
      * @return void
      * @throws
      * @Title: sendImageMessage
-     * @Description: TODO
      */
     private void sendVoiceMessage(String local, int length) {
         chatManager.sendVoiceMessage(targetUser, local, length,
@@ -280,27 +215,25 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
 
                     @Override
                     public void onStart(BmobMsg msg) {
-                        // TODO Auto-generated method stub
+
                         refreshMessage(msg);
                     }
 
                     @Override
                     public void onSuccess() {
-                        // TODO Auto-generated method stub
+
                         mAdapter.notifyDataSetChanged();
                     }
 
                     @Override
                     public void onFailure(int error, String arg1) {
-                        // TODO Auto-generated method stub
+
                         ShowLog("上传语音失败 -->arg1：" + arg1);
                         mAdapter.notifyDataSetChanged();
                     }
                 }
         );
     }
-
-    Toast toast;
 
     /**
      * 显示录音时间过短的Toast
@@ -415,7 +348,7 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
             @Override
             public void onTextChanged(CharSequence s, int start, int before,
                                       int count) {
-                // TODO Auto-generated method stub
+
                 if (!TextUtils.isEmpty(s)) {
                     btn_chat_send.setVisibility(View.VISIBLE);
                     btn_chat_keyboard.setVisibility(View.GONE);
@@ -432,19 +365,17 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count,
                                           int after) {
-                // TODO Auto-generated method stub
+
 
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                // TODO Auto-generated method stub
+
             }
         });
 
     }
-
-    List<FaceText> emos;
 
     /**
      * 初始化表情布局
@@ -508,8 +439,6 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
         return view;
     }
 
-    ChatAdapter mAdapter;
-
     private void initXListView() {
         // 首先不允许加载更多
         mListView.setPullLoadEnable(false);
@@ -526,7 +455,7 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
 
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
-                // TODO Auto-generated method stub
+
                 hideSoftInputView();
                 layout_more.setVisibility(View.GONE);
                 layout_add.setVisibility(View.GONE);
@@ -589,7 +518,7 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
 
                     @Override
                     public void onSuccess() {
-                        // TODO Auto-generated method stub
+
                         ShowLog("发送成功");
                         ((BmobMsg) values)
                                 .setStatus(BmobConfig.STATUS_SEND_SUCCESS);
@@ -605,7 +534,7 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
 
                     @Override
                     public void onFailure(int arg0, String arg1) {
-                        // TODO Auto-generated method stub
+
                         ShowLog("发送失败:" + arg1);
                         ((BmobMsg) values)
                                 .setStatus(BmobConfig.STATUS_SEND_FAIL);
@@ -637,12 +566,12 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
 
                     @Override
                     public void onStart(BmobMsg msg) {
-                        // TODO Auto-generated method stub
+
                     }
 
                     @Override
                     public void onSuccess() {
-                        // TODO Auto-generated method stub
+
                         ((BmobMsg) values)
                                 .setStatus(BmobConfig.STATUS_SEND_SUCCESS);
                         parentV.findViewById(R.id.progress_load).setVisibility(
@@ -665,7 +594,7 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
 
                     @Override
                     public void onFailure(int arg0, String arg1) {
-                        // TODO Auto-generated method stub
+
                         ((BmobMsg) values)
                                 .setStatus(BmobConfig.STATUS_SEND_FAIL);
                         parentV.findViewById(R.id.progress_load).setVisibility(
@@ -682,7 +611,7 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
 
     @Override
     public void onClick(View v) {
-        // TODO Auto-generated method stub
+
         switch (v.getId()) {
             case R.id.edit_user_comment:// 点击文本输入框
                 mListView.setSelection(mListView.getCount() - 1);
@@ -779,8 +708,6 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
         intent.putExtra("type", "select");
         startActivityForResult(intent, Constant.REQUESTCODE_TAKE_LOCATION);
     }
-
-    private String localCameraPath = "";// 拍照后得到的图片地址
 
     /**
      * 启动相机拍照 startCamera
@@ -913,7 +840,7 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
 
             @Override
             public void onStart(BmobMsg msg) {
-                // TODO Auto-generated method stub
+
                 ShowLog("开始上传onStart：" + msg.getContent() + ",状态："
                         + msg.getStatus());
                 refreshMessage(msg);
@@ -921,13 +848,13 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
 
             @Override
             public void onSuccess() {
-                // TODO Auto-generated method stub
+
                 mAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onFailure(int error, String arg1) {
-                // TODO Auto-generated method stub
+
                 ShowLog("上传失败 -->arg1：" + arg1);
                 mAdapter.notifyDataSetChanged();
             }
@@ -988,7 +915,7 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
 
     @Override
     protected void onResume() {
-        // TODO Auto-generated method stub
+
         super.onResume();
         // 新消息到达，重新刷新界面
         initOrRefresh();
@@ -1002,7 +929,7 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
 
     @Override
     protected void onPause() {
-        // TODO Auto-generated method stub
+
         super.onPause();
         MyMessageReceiver.ehList.remove(this);// 监听推送的消息
         // 停止录音
@@ -1018,31 +945,9 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
 
     }
 
-    @SuppressLint("HandlerLeak")
-    private Handler handler = new Handler() {
-        public void handleMessage(Message msg) {
-            if (msg.what == NEW_MESSAGE) {
-                BmobMsg message = (BmobMsg) msg.obj;
-                String uid = message.getBelongId();
-                if (!uid.equals(targetId))// 如果不是当前正在聊天对象的消息，不处理
-                    return;
-                mAdapter.add(message);
-                // 在聊天页面收到的消息均是已读状态
-                message.setIsReaded(BmobConfig.STATE_READED);
-                // 保存接收到的消息-并发送已读回执给对方
-                BmobChatManager.getInstance(ChatActivity.this)
-                        .saveReceiveMessage(true, message);
-                // 定位
-                mListView.setSelection(mAdapter.getCount() - 1);
-            }
-        }
-    };
-
-    public static final int NEW_MESSAGE = 0x001;// 收到消息
-
     @Override
     public void onMessage(BmobMsg message) {
-        // TODO Auto-generated method stub
+
         Message handlerMsg = handler.obtainMessage(NEW_MESSAGE);
         handlerMsg.obj = message;
         handler.sendMessage(handlerMsg);
@@ -1050,7 +955,7 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
 
     @Override
     public void onNetChange(boolean isNetConnected) {
-        // TODO Auto-generated method stub
+
         if (!isNetConnected) {
             ShowToast(R.string.network_tips);
         }
@@ -1058,19 +963,19 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
 
     @Override
     public void onAddUser(BmobInvitation invite) {
-        // TODO Auto-generated method stub
+
 
     }
 
     @Override
     public void onOffline() {
-        // TODO Auto-generated method stub
+
         showOfflineDialog(this);
     }
 
     @Override
     public void onReaded(String conversionId, String msgTime) {
-        // TODO Auto-generated method stub
+
         // 此处应该过滤掉不是和当前用户的聊天的回执消息界面的刷新
         if (conversionId.split("&")[1].equals(targetId)) {
             // 修改界面上指定消息的阅读状态
@@ -1085,12 +990,12 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
     }
 
     public void onRefresh() {
-        // TODO Auto-generated method stub
+
         handler.postDelayed(new Runnable() {
 
             @Override
             public void run() {
-                // TODO Auto-generated method stub
+
                 MsgPagerNum++;
                 int total = BmobDB.create(ChatActivity.this)
                         .queryChatTotalCount(targetId);
@@ -1110,13 +1015,13 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
 
     @Override
     public void onLoadMore() {
-        // TODO Auto-generated method stub
+
 
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        // TODO Auto-generated method stub
+
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if (layout_more.getVisibility() == View.VISIBLE) {
                 layout_more.setVisibility(View.GONE);
@@ -1131,9 +1036,75 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
 
     @Override
     protected void onDestroy() {
-        // TODO Auto-generated method stub
+
         super.onDestroy();
         hideSoftInputView();
+    }
+
+    /**
+     * 长按说话
+     *
+     * @author smile
+     * @ClassName: VoiceTouchListen
+     * @date 2014-7-1 下午6:10:16
+     */
+    class VoiceTouchListen implements View.OnTouchListener {
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    if (!CommonUtils.checkSdCard()) {
+                        ShowToast("发送语音需要sdcard支持！");
+                        return false;
+                    }
+                    try {
+                        v.setPressed(true);
+                        layout_record.setVisibility(View.VISIBLE);
+                        tv_voice_tips.setText(getString(R.string.voice_cancel_tips));
+                        // 开始录音
+                        recordManager.startRecording(targetId);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    return true;
+                case MotionEvent.ACTION_MOVE: {
+                    if (event.getY() < 0) {
+                        tv_voice_tips
+                                .setText(getString(R.string.voice_cancel_tips));
+                        tv_voice_tips.setTextColor(Color.RED);
+                    } else {
+                        tv_voice_tips.setText(getString(R.string.voice_up_tips));
+                        tv_voice_tips.setTextColor(Color.WHITE);
+                    }
+                    return true;
+                }
+                case MotionEvent.ACTION_UP:
+                    v.setPressed(false);
+                    layout_record.setVisibility(View.INVISIBLE);
+                    try {
+                        if (event.getY() < 0) {// 放弃录音
+                            recordManager.cancelRecording();
+                            BmobLog.i("voice", "放弃发送语音");
+                        } else {
+                            int recordTime = recordManager.stopRecording();
+                            if (recordTime > 1) {
+                                // 发送语音文件
+                                BmobLog.i("voice", "发送语音");
+                                sendVoiceMessage(
+                                        recordManager.getRecordFilePath(targetId),
+                                        recordTime);
+                            } else {// 录音时间过短，则提示录音过短的提示
+                                layout_record.setVisibility(View.GONE);
+                                showShortToast().show();
+                            }
+                        }
+                    } catch (Exception e) {
+                    }
+                    return true;
+                default:
+                    return false;
+            }
+        }
     }
 
 }

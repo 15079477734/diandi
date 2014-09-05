@@ -395,6 +395,7 @@ public final class R {
         public static final int activity_add_contact_search_listview=0x7f0b0007;
         public static final int activity_add_contact_search_name_edit=0x7f0b0005;
         public static final int activity_add_friend_btn=0x7f0b005b;
+        public static final int activity_black_black_list=0x7f0b0008;
         public static final int activity_setting_add_black_btn=0x7f0b005d;
         public static final int activity_setting_launch_chat_btn=0x7f0b005c;
         public static final int activity_setting_sex_choice_layout=0x7f0b0055;
@@ -535,7 +536,6 @@ public final class R {
         public static final int layout_voice=0x7f0b00b0;
         public static final int line=0x7f0b00a3;
         public static final int list=0x7f0b0088;
-        public static final int list_blacklist=0x7f0b0008;
         public static final int list_friends=0x7f0b007c;
         public static final int list_near=0x7f0b0039;
         public static final int list_newfriend=0x7f0b003a;
