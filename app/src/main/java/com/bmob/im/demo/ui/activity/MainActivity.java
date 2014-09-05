@@ -21,7 +21,6 @@ import com.bmob.im.demo.ui.fragment.ContactFragment;
 import com.bmob.im.demo.ui.fragment.DianDiFragment;
 import com.bmob.im.demo.ui.fragment.RecentFragment;
 import com.bmob.im.demo.ui.fragment.SettingsFragment;
-import com.umeng.update.UmengUpdateAgent;
 
 /**
  * 登陆
@@ -32,6 +31,8 @@ import com.umeng.update.UmengUpdateAgent;
  */
 public class MainActivity extends ActivityBase implements EventListener{
 
+    private static long firstTime;
+    ImageView iv_recent_tips, iv_contact_tips, iv_diandi_tips;//消息提示
     private Button[] mTabs;
     private DianDiFragment mDianDiFragment;
     private ContactFragment contactFragment;
@@ -41,42 +42,37 @@ public class MainActivity extends ActivityBase implements EventListener{
     private int index;
     private int currentTabIndex;
 
-    ImageView iv_recent_tips,iv_contact_tips,iv_diandi_tips;//消息提示
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
         initTab();
-        UmengUpdateAgent.update(this);
     }
 
-    void initView(){
+    void initView() {
         mTabs = new Button[4];
         mTabs[0] = (Button) findViewById(R.id.btn_diandi);
         mTabs[1] = (Button) findViewById(R.id.btn_message);
         mTabs[2] = (Button) findViewById(R.id.btn_contract);
         mTabs[3] = (Button) findViewById(R.id.btn_set);
-        iv_diandi_tips=(ImageView)findViewById(R.id.iv_diandi_tips);
-        iv_recent_tips = (ImageView)findViewById(R.id.iv_recent_tips);
-        iv_contact_tips = (ImageView)findViewById(R.id.iv_contact_tips);
+        iv_diandi_tips = (ImageView) findViewById(R.id.iv_diandi_tips);
+        iv_recent_tips = (ImageView) findViewById(R.id.iv_recent_tips);
+        iv_contact_tips = (ImageView) findViewById(R.id.iv_contact_tips);
         //把第一个tab设为选中状态
         mTabs[0].setSelected(true);
     }
 
-    private void initTab(){
-        mDianDiFragment= new DianDiFragment();
+    private void initTab() {
+        mDianDiFragment = new DianDiFragment();
         contactFragment = new ContactFragment();
         recentFragment = new RecentFragment();
         settingFragment = new SettingsFragment();
-        fragments = new Fragment[] {  mDianDiFragment,recentFragment, contactFragment, settingFragment };
+        fragments = new Fragment[]{mDianDiFragment, recentFragment, contactFragment, settingFragment};
         // 添加显示第一个fragment
         getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, mDianDiFragment).
                 add(R.id.fragment_container, contactFragment).hide(contactFragment).show(mDianDiFragment).commit();
     }
-
-
 
     /**
      * button点击事件
@@ -116,21 +112,21 @@ public class MainActivity extends ActivityBase implements EventListener{
         // TODO Auto-generated method stub
         super.onResume();
         //小圆点提示
-        if(BmobDB.create(this).hasUnReadMsg()){
+        if (BmobDB.create(this).hasUnReadMsg()) {
             iv_recent_tips.setVisibility(View.VISIBLE);
 
-        }else{
+        } else {
             iv_recent_tips.setVisibility(View.GONE);
         }
-        if(BmobDB.create(this).hasNewInvite()){
+        if (BmobDB.create(this).hasNewInvite()) {
             iv_contact_tips.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             iv_contact_tips.setVisibility(View.GONE);
         }
         iv_diandi_tips.setVisibility(View.GONE);
         MyMessageReceiver.ehList.add(this);// 监听推送的消息
         //清空
-        MyMessageReceiver.mNewNum=0;
+        MyMessageReceiver.mNewNum = 0;
 
     }
 
@@ -146,15 +142,15 @@ public class MainActivity extends ActivityBase implements EventListener{
         // TODO Auto-generated method stub
         // 声音提示
         boolean isAllow = CustomApplication.getInstance().getSpUtil().isAllowVoice();
-        if(isAllow){
+        if (isAllow) {
             CustomApplication.getInstance().getMediaPlayer().start();
         }
         iv_recent_tips.setVisibility(View.VISIBLE);
         //保存接收到的消息-并发送已读回执给对方
-        BmobChatManager.getInstance(this).saveReceiveMessage(true,message);
-        if(currentTabIndex==0){
+        BmobChatManager.getInstance(this).saveReceiveMessage(true, message);
+        if (currentTabIndex == 0) {
             //当前页面如果为会话页面，刷新此页面
-            if(recentFragment != null){
+            if (recentFragment != null) {
                 recentFragment.refresh();
             }
         }
@@ -164,7 +160,7 @@ public class MainActivity extends ActivityBase implements EventListener{
     @Override
     public void onNetChange(boolean isNetConnected) {
         // TODO Auto-generated method stub
-        if(isNetConnected){
+        if (isNetConnected) {
             ShowToast(R.string.network_tips);
         }
     }
@@ -174,19 +170,19 @@ public class MainActivity extends ActivityBase implements EventListener{
         // TODO Auto-generated method stub
         // 声音提示
         boolean isAllow = CustomApplication.getInstance().getSpUtil().isAllowVoice();
-        if(isAllow){
+        if (isAllow) {
             CustomApplication.getInstance().getMediaPlayer().start();
         }
         iv_contact_tips.setVisibility(View.VISIBLE);
-        if(currentTabIndex==1){
-            if(contactFragment != null){
+        if (currentTabIndex == 1) {
+            if (contactFragment != null) {
                 contactFragment.refresh();
             }
-        }else{
+        } else {
             //同时提醒通知
-            String tickerText = message.getFromname()+"请求添加好友";
+            String tickerText = message.getFromname() + "请求添加好友";
             boolean isAllowVibrate = CustomApplication.getInstance().getSpUtil().isAllowVibrate();
-            BmobNotifyManager.getInstance(this).showNotify(isAllow,isAllowVibrate,R.drawable.ic_launcher, tickerText, message.getFromname(), tickerText.toString(),NewFriendActivity.class);
+            BmobNotifyManager.getInstance(this).showNotify(isAllow, isAllowVibrate, R.drawable.ic_launcher, tickerText, message.getFromname(), tickerText.toString(), NewFriendActivity.class);
         }
     }
 
@@ -201,8 +197,6 @@ public class MainActivity extends ActivityBase implements EventListener{
         // TODO Auto-generated method stub
     }
 
-
-    private static long firstTime;
     /**
      * 连续按两次返回键就退出
      */

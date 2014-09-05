@@ -52,17 +52,49 @@ import com.nostra13.universalimageloader.utils.StorageUtils;
  */
 public class CustomApplication extends Application {
 
+    public static final String PREFERENCE_NAME = "_sharedinfo";
     public static String TAG;
-
     public static CustomApplication mInstance;
+    public static BmobGeoPoint lastPoint = null;// 上一次定位到的经纬度
+    public final String PREF_LONGTITUDE = "longtitude";// 经度
+    public final String PREF_LATITUDE = "latitude";// 经度
     public LocationClient mLocationClient;
     public MyLocationListener mMyLocationListener;
+    // 单例模式，才能及时返回数据
+    SharePreferenceUtil mSpUtil;
+    NotificationManager mNotificationManager;
+    MediaPlayer mMediaPlayer;
     private DianDi currentDianDi;
-
-    public static BmobGeoPoint lastPoint = null;// 上一次定位到的经纬度
+    private String longtitude = "";
+    private String latitude = "";
+    private Map<String, BmobChatUser> contactList = new HashMap<String, BmobChatUser>();
 
     public static CustomApplication getInstance() {
         return mInstance;
+    }
+
+    /**
+     * 初始化ImageLoader
+     */
+    public static void initImageLoader(Context context) {
+        File cacheDir = StorageUtils.getOwnCacheDirectory(context,
+                "bmobim/Cache");// 获取到缓存的目录地址
+        // 创建配置ImageLoader(所有的选项都是可选的,只使用那些你真的想定制)，这个可以设定在APPLACATION里面，设置为全局的配置参数
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
+                context)
+                // 线程池内加载的数量
+                .threadPoolSize(3).threadPriority(Thread.NORM_PRIORITY - 2)
+                .memoryCache(new WeakMemoryCache())
+                .denyCacheImageMultipleSizesInMemory()
+                .discCacheFileNameGenerator(new Md5FileNameGenerator())
+                        // 将保存的时候的URI名称用MD5 加密
+                .tasksProcessingOrder(QueueProcessingType.LIFO)
+                .discCache(new UnlimitedDiscCache(cacheDir))// 自定义缓存路径
+                        // .defaultDisplayImageOptions(DisplayImageOptions.createSimple())
+                .writeDebugLogs() // Remove for release app
+                .build();
+        // Initialize ImageLoader with configuration.
+        ImageLoader.getInstance().init(config);// 全局初始化此配置
     }
 
     public User getCurrentUser() {
@@ -103,7 +135,6 @@ public class CustomApplication extends Application {
                 .build();
     }
 
-
     public DianDi getCurrentDianDi() {
         return currentDianDi;
     }
@@ -112,18 +143,17 @@ public class CustomApplication extends Application {
         this.currentDianDi = currentQiangYu;
     }
 
-    public void addActivity(Activity ac){
+    public void addActivity(Activity ac) {
         ActivityManagerUtils.getInstance().addActivity(ac);
     }
 
-    public void exit(){
+    public void exit() {
         ActivityManagerUtils.getInstance().removeAllActivity();
     }
 
-    public Activity getTopActivity(){
+    public Activity getTopActivity() {
         return ActivityManagerUtils.getInstance().getTopActivity();
     }
-
 
     @Override
     public void onCreate() {
@@ -182,57 +212,6 @@ public class CustomApplication extends Application {
         mLocationClient.registerLocationListener(mMyLocationListener);
     }
 
-    /**
-     * 实现实位回调监听
-     */
-    public class MyLocationListener implements BDLocationListener {
-
-        @Override
-        public void onReceiveLocation(BDLocation location) {
-            // Receive Location
-            double latitude = location.getLatitude();
-            double longtitude = location.getLongitude();
-            if (lastPoint != null) {
-                if (lastPoint.getLatitude() == location.getLatitude()
-                        && lastPoint.getLongitude() == location.getLongitude()) {
-                    BmobLog.i("两次获取坐标相同");// 若两次请求获取到的地理位置坐标是相同的，则不再定位
-                    mLocationClient.stop();
-                    return;
-                }
-            }
-            lastPoint = new BmobGeoPoint(longtitude, latitude);
-        }
-    }
-
-    /**
-     * 初始化ImageLoader
-     */
-    public static void initImageLoader(Context context) {
-        File cacheDir = StorageUtils.getOwnCacheDirectory(context,
-                "bmobim/Cache");// 获取到缓存的目录地址
-        // 创建配置ImageLoader(所有的选项都是可选的,只使用那些你真的想定制)，这个可以设定在APPLACATION里面，设置为全局的配置参数
-        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
-                context)
-                // 线程池内加载的数量
-                .threadPoolSize(3).threadPriority(Thread.NORM_PRIORITY - 2)
-                .memoryCache(new WeakMemoryCache())
-                .denyCacheImageMultipleSizesInMemory()
-                .discCacheFileNameGenerator(new Md5FileNameGenerator())
-                        // 将保存的时候的URI名称用MD5 加密
-                .tasksProcessingOrder(QueueProcessingType.LIFO)
-                .discCache(new UnlimitedDiscCache(cacheDir))// 自定义缓存路径
-                        // .defaultDisplayImageOptions(DisplayImageOptions.createSimple())
-                .writeDebugLogs() // Remove for release app
-                .build();
-        // Initialize ImageLoader with configuration.
-        ImageLoader.getInstance().init(config);// 全局初始化此配置
-    }
-
-
-    // 单例模式，才能及时返回数据
-    SharePreferenceUtil mSpUtil;
-    public static final String PREFERENCE_NAME = "_sharedinfo";
-
     public synchronized SharePreferenceUtil getSpUtil() {
         if (mSpUtil == null) {
             String currentId = BmobUserManager.getInstance(
@@ -243,24 +222,17 @@ public class CustomApplication extends Application {
         return mSpUtil;
     }
 
-    NotificationManager mNotificationManager;
-
     public NotificationManager getNotificationManager() {
         if (mNotificationManager == null)
             mNotificationManager = (NotificationManager) getSystemService(android.content.Context.NOTIFICATION_SERVICE);
         return mNotificationManager;
     }
 
-    MediaPlayer mMediaPlayer;
-
     public synchronized MediaPlayer getMediaPlayer() {
         if (mMediaPlayer == null)
             mMediaPlayer = MediaPlayer.create(this, R.raw.notify);
         return mMediaPlayer;
     }
-
-    public final String PREF_LONGTITUDE = "longtitude";// 经度
-    private String longtitude = "";
 
     /**
      * 获取经度
@@ -274,11 +246,6 @@ public class CustomApplication extends Application {
         return longtitude;
     }
 
-    /**
-     * 设置经度
-     *
-     * @param pwd
-     */
     public void setLongtitude(String lon) {
         SharedPreferences preferences = PreferenceManager
                 .getDefaultSharedPreferences(this);
@@ -288,13 +255,8 @@ public class CustomApplication extends Application {
         }
     }
 
-    public final String PREF_LATITUDE = "latitude";// 经度
-    private String latitude = "";
-
     /**
      * 获取纬度
-     *
-     * @return
      */
     public String getLatitude() {
         SharedPreferences preferences = PreferenceManager
@@ -305,8 +267,6 @@ public class CustomApplication extends Application {
 
     /**
      * 设置维度
-     *
-     * @param pwd
      */
     public void setLatitude(String lat) {
         SharedPreferences preferences = PreferenceManager
@@ -316,8 +276,6 @@ public class CustomApplication extends Application {
             latitude = lat;
         }
     }
-
-    private Map<String, BmobChatUser> contactList = new HashMap<String, BmobChatUser>();
 
     /**
      * 获取内存中好友user list
@@ -348,6 +306,28 @@ public class CustomApplication extends Application {
         setContactList(null);
         setLatitude(null);
         setLongtitude(null);
+    }
+
+    /**
+     * 实现实位回调监听
+     */
+    public class MyLocationListener implements BDLocationListener {
+
+        @Override
+        public void onReceiveLocation(BDLocation location) {
+            // Receive Location
+            double latitude = location.getLatitude();
+            double longtitude = location.getLongitude();
+            if (lastPoint != null) {
+                if (lastPoint.getLatitude() == location.getLatitude()
+                        && lastPoint.getLongitude() == location.getLongitude()) {
+                    BmobLog.i("两次获取坐标相同");// 若两次请求获取到的地理位置坐标是相同的，则不再定位
+                    mLocationClient.stop();
+                    return;
+                }
+            }
+            lastPoint = new BmobGeoPoint(longtitude, latitude);
+        }
     }
 
 }

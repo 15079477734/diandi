@@ -391,6 +391,9 @@ public final class R {
         public static final int activity_about_check_update_layout=0x7f0b0001;
         public static final int activity_about_feedback_layout=0x7f0b0004;
         public static final int activity_about_share_layout=0x7f0b0003;
+        public static final int activity_add_contact_search_btn=0x7f0b0006;
+        public static final int activity_add_contact_search_listview=0x7f0b0007;
+        public static final int activity_add_contact_search_name_edit=0x7f0b0005;
         public static final int activity_add_friend_btn=0x7f0b005b;
         public static final int activity_setting_add_black_btn=0x7f0b005d;
         public static final int activity_setting_launch_chat_btn=0x7f0b005c;
@@ -438,7 +441,6 @@ public final class R {
         public static final int btn_logout=0x7f0b008d;
         public static final int btn_message=0x7f0b0027;
         public static final int btn_register=0x7f0b0022;
-        public static final int btn_search=0x7f0b0006;
         public static final int btn_set=0x7f0b002b;
         public static final int btn_speak=0x7f0b0094;
         public static final int camera_pic=0x7f0b0079;
@@ -466,7 +468,6 @@ public final class R {
         public static final int edit_content=0x7f0b0014;
         public static final int edit_user_comment=0x7f0b0093;
         public static final int et_email=0x7f0b003b;
-        public static final int et_find_name=0x7f0b0005;
         public static final int et_msg_search=0x7f0b007b;
         public static final int et_password=0x7f0b0020;
         public static final int et_username=0x7f0b001f;
@@ -538,7 +539,6 @@ public final class R {
         public static final int list_friends=0x7f0b007c;
         public static final int list_near=0x7f0b0039;
         public static final int list_newfriend=0x7f0b003a;
-        public static final int list_search=0x7f0b0007;
         public static final int listview=0x7f0b002d;
         public static final int loadmore=0x7f0b0010;
         public static final int mListView=0x7f0b0009;
