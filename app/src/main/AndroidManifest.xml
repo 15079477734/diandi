@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.bmob.im.demo"
+<manifest package="com.bmob.im.demo"
+          xmlns:android="http://schemas.android.com/apk/res/android"
       >
 
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -59,7 +59,7 @@
             android:name=".ui.activity.MainActivity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
-        <activity android:name=".ui.activity.AddContaceActivity"/>
+        <activity android:name=".ui.activity.AddContactActivity"/>
         <activity android:name=".ui.activity.ChatActivity"/>
         <activity android:name=".ui.activity.SetMyInfoActivity"/>
         <activity android:name=".ui.activity.RegisterActivity"/>

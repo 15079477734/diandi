@@ -39,7 +39,7 @@ import com.bmob.im.demo.CustomApplication;
 import com.bmob.im.demo.R;
 import com.bmob.im.demo.adapter.ContactAdapter;
 import com.bmob.im.demo.bean.User;
-import com.bmob.im.demo.ui.activity.AddContaceActivity;
+import com.bmob.im.demo.ui.activity.AddContactActivity;
 import com.bmob.im.demo.ui.activity.NearPeopleActivity;
 import com.bmob.im.demo.ui.activity.NewFriendActivity;
 import com.bmob.im.demo.ui.activity.SettingActivity;
@@ -63,6 +63,8 @@ import com.bmob.im.demo.view.dialog.DialogTips;
 @SuppressLint("DefaultLocale")
 public class ContactFragment extends BaseFragment implements OnItemClickListener, OnItemLongClickListener {
 
+    LinearLayout mNewFriendLayout;
+    LinearLayout mNearPeopleLayout;
     private ClearEditText mClearEditText;
     private TextView mTextDialog;
     private View mContentView;
@@ -70,9 +72,6 @@ public class ContactFragment extends BaseFragment implements OnItemClickListener
     private MyLetterView mRightLetters;
     private ImageView mMsgTipImg;
     private TextView mNewNameText;
-    LinearLayout mNewFriendLayout;
-    LinearLayout mNearPeopleLayout;
-
     private ContactAdapter mUserAdapter;
 
     private List<User> mFriends = new ArrayList<User>();
@@ -86,6 +85,7 @@ public class ContactFragment extends BaseFragment implements OnItemClickListener
      * 根据拼音来排列ListView里面的数据类
      */
     private PinyinComparator mPinyinComparator;
+    private boolean mHidden;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -122,7 +122,7 @@ public class ContactFragment extends BaseFragment implements OnItemClickListener
                 new onRightImageButtonClickListener() {
                     @Override
                     public void onClick() {
-                        startAnimActivity(AddContaceActivity.class);
+                        startAnimActivity(AddContactActivity.class);
                     }
                 }
         );
@@ -192,7 +192,6 @@ public class ContactFragment extends BaseFragment implements OnItemClickListener
         mRightLetters.setOnTouchingLetterChangedListener(new LetterListViewListener());
     }
 
-
     /**
      * 根据输入框中的值来过滤数据并更新ListView
      *
@@ -260,19 +259,6 @@ public class ContactFragment extends BaseFragment implements OnItemClickListener
         super.setUserVisibleHint(isVisibleToUser);
     }
 
-    private class LetterListViewListener implements
-            OnTouchingLetterChangedListener {
-
-        @Override
-        public void onTouchingLetterChanged(String s) {
-            // 该字母首次出现的位置
-            int position = mUserAdapter.getPositionForSection(s.charAt(0));
-            if (position != -1) {
-                mFriendListView.setSelection(position);
-            }
-        }
-    }
-
     private void queryMymFriends() {
         //是否有新的好友请求
         if (BmobDB.create(getActivity()).hasNewInvite()) {
@@ -291,8 +277,6 @@ public class ContactFragment extends BaseFragment implements OnItemClickListener
         }
 
     }
-
-    private boolean mHidden;
 
     @Override
     public void onHiddenChanged(boolean hidden) {
@@ -393,6 +377,19 @@ public class ContactFragment extends BaseFragment implements OnItemClickListener
                 progress.dismiss();
             }
         });
+    }
+
+    private class LetterListViewListener implements
+            OnTouchingLetterChangedListener {
+
+        @Override
+        public void onTouchingLetterChanged(String s) {
+            // 该字母首次出现的位置
+            int position = mUserAdapter.getPositionForSection(s.charAt(0));
+            if (position != -1) {
+                mFriendListView.setSelection(position);
+            }
+        }
     }
 
 }

@@ -15,7 +15,7 @@
         android:orientation="horizontal" >
 
         <EditText
-            android:id="@+id/et_find_name"
+            android:id="@+id/activity_add_contact_search_name_edit"
             android:layout_width="0dp"
             android:layout_height="39dp"
             android:layout_margin="10dp"
@@ -28,7 +28,7 @@
             android:textSize="18sp" />
 
         <Button
-            android:id="@+id/btn_search"
+            android:id="@+id/activity_add_contact_search_btn"
             style="@style/Smile.TextView._White"
             android:layout_width="60dp"
             android:layout_height="39dp"
@@ -40,7 +40,7 @@
     </LinearLayout>
 
     <com.bmob.im.demo.view.xlist.XListView
-        android:id="@+id/list_search"
+        android:id="@+id/activity_add_contact_search_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:cacheColorHint="@android:color/transparent"
