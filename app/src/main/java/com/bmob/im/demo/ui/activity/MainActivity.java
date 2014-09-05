@@ -21,6 +21,7 @@ import com.bmob.im.demo.ui.fragment.ContactFragment;
 import com.bmob.im.demo.ui.fragment.DianDiFragment;
 import com.bmob.im.demo.ui.fragment.RecentFragment;
 import com.bmob.im.demo.ui.fragment.SettingsFragment;
+import com.umeng.update.UmengUpdateAgent;
 
 /**
  * 登陆
@@ -48,6 +49,7 @@ public class MainActivity extends ActivityBase implements EventListener{
         setContentView(R.layout.activity_main);
         initView();
         initTab();
+        UmengUpdateAgent.update(this);
     }
 
     void initView(){

@@ -31,6 +31,6 @@ dependencies {
     compile files('C:/Users/Administrator/Desktop/diandi/diandi/libs/radial-menu-v4.jar')
     compile files('C:/Users/Administrator/Desktop/diandi/diandi/libs/universal-image-loader-1.9.2_sources.jar')
     compile files('C:/Users/Administrator/Desktop/diandi/diandi/libs/Bmob_IMSDK_v1.1.1beta.jar')
-    compile files('C:/Users/Administrator/Desktop/diandi/diandi/libs/bmob_v3.2.1.jar')
     compile files('C:/Users/Administrator/Desktop/diandi/diandi/libs/bmob_v3.1.8.jar')
+    compile files('C:/Users/Administrator/Desktop/diandi/diandi/libs/umeng-update-v2.4.2.jar')
 }

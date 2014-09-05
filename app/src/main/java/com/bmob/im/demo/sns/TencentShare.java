@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.bmob.im.demo.R;
+import com.bmob.im.demo.config.Config;
 import com.bmob.im.demo.config.Constant;
 import com.bmob.im.demo.util.ActivityUtil;
 import com.bmob.im.demo.util.LogUtils;
@@ -80,15 +81,8 @@ public class TencentShare implements TencentShareConstants {
      * @return
      */
     private String getAppId() {
-        String appId="";
-        try {
-            ApplicationInfo appInfo=
-                mContext.getPackageManager().getApplicationInfo(mContext.getPackageName(), PackageManager.GET_META_DATA);
-            appId=appInfo.metaData.getString("TA_APPKEY");
-            // LogUtil.i(TAG,appId.substring(3));
-        } catch(NameNotFoundException e) {
-            e.printStackTrace();
-        }
+        String appId= Config.appId;
+
         return appId.substring(3);
     }
 
@@ -110,13 +104,7 @@ public class TencentShare implements TencentShareConstants {
         }
     }
 
-    /**
-     * QQ分享实际操作
-     * @param title
-     * @param imgUrl
-     * @param targetUrl
-     * @param summary
-     */
+
     private void doShareToQQ(TencentShareEntity entity) {
         System.out.println(entity);
         Bundle params=new Bundle();

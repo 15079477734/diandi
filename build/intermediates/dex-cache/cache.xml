@@ -8,6 +8,12 @@
         revision="19.1.0"
         sha1="5e2a14a5f1d9d3f863771a38f3d6b260fc9f4a52"/>
     <item
+        dex="C:\Users\Administrator\Desktop\diandi\diandi\app\build\intermediates\pre-dexed\debug\umeng-update-v2.4.2-4df6a1aed11fbe84f4b238fed9927ff4f48aaa44.jar"
+        jar="C:\Users\Administrator\Desktop\diandi\diandi\libs\umeng-update-v2.4.2.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="ee700e317f574886dc0a236b801f219df6fbd26d"/>
+    <item
         dex="C:\Users\Administrator\Desktop\diandi\diandi\app\build\intermediates\pre-dexed\debug\bmob_v3.1.8-5001fa7a4d26351a301dec377d1b8a6d489d2df6.jar"
         jar="C:\Users\Administrator\Desktop\diandi\diandi\libs\bmob_v3.1.8.jar"
         jumboMode="false"

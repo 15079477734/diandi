@@ -3,10 +3,13 @@ package com.bmob.im.demo.ui.activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.test.UiThreadTest;
 import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.bmob.im.demo.R;
+
+import java.util.logging.Handler;
 
 import cn.bmob.v3.listener.BmobUpdateListener;
 import cn.bmob.v3.update.BmobUpdateAgent;
@@ -23,6 +26,13 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         findView();
         initView();
+      runOnUiThread(new Runnable() {
+          @Override
+          public void run() {
+              BmobUpdateAgent.forceUpdate(AboutActivity.this);
+          }
+      });
+
     }
 
     void findView() {
@@ -31,7 +41,6 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener 
         mCheckUpdateLayout = (RelativeLayout) findViewById(R.id.activity_about_check_update_layout);
         mShareLayout = (RelativeLayout) findViewById(R.id.activity_about_share_layout);
         mFeedBackLayout = (RelativeLayout) findViewById(R.id.activity_about_feedback_layout);
-
     }
 
     void initView() {
@@ -52,7 +61,7 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener 
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.activity_about_check_update_layout:
-                BmobUpdateAgent.forceUpdate(AboutActivity.this);
+
 
                 break;
             case R.id.activity_about_share_layout:

@@ -9,4 +9,5 @@ package com.bmob.im.demo.config;
 public class Config {
 
     public static String applicationId = "72b239a9eec267ae49cac1074292ef63";
+    public static String appId="Aqc100548485";
 }
