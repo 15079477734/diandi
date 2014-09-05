@@ -1,7 +1,5 @@
 package com.bmob.im.demo.ui.activity;
 
-import java.util.List;
-
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,14 +11,6 @@ import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.Toast;
-
-import cn.bmob.im.BmobChatManager;
-import cn.bmob.im.BmobUserManager;
-import cn.bmob.im.bean.BmobChatUser;
-import cn.bmob.im.config.BmobConfig;
-import cn.bmob.im.util.BmobLog;
-import cn.bmob.v3.listener.FindListener;
-import cn.bmob.v3.listener.UpdateListener;
 
 import com.bmob.im.demo.CustomApplication;
 import com.bmob.im.demo.R;
@@ -34,6 +24,16 @@ import com.bmob.im.demo.view.HeaderLayout.onLeftImageButtonClickListener;
 import com.bmob.im.demo.view.HeaderLayout.onRightImageButtonClickListener;
 import com.bmob.im.demo.view.dialog.DialogTips;
 
+import java.util.List;
+
+import cn.bmob.im.BmobChatManager;
+import cn.bmob.im.BmobUserManager;
+import cn.bmob.im.bean.BmobChatUser;
+import cn.bmob.im.config.BmobConfig;
+import cn.bmob.im.util.BmobLog;
+import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.UpdateListener;
+
 /**
  * 基类
  *
@@ -45,8 +45,9 @@ import com.bmob.im.demo.view.dialog.DialogTips;
 abstract class BaseActivity extends FragmentActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
     public final String TAG = getClass().getName();
 
-    BmobUserManager userManager;
-    BmobChatManager chatManager;
+    protected BmobUserManager userManager;
+    protected BmobChatManager chatManager;
+    protected Sputil sputil;
 
 
     protected HeaderLayout mHeaderLayout;
@@ -55,12 +56,11 @@ abstract class BaseActivity extends FragmentActivity implements SharedPreference
 
     protected CustomApplication mApplication;
     protected Context mContext;
-    protected Sputil sputil;
     protected Resources mResources;
+    Toast mToast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         if (userManager == null)
             userManager = BmobUserManager.getInstance(this);
@@ -99,11 +99,7 @@ abstract class BaseActivity extends FragmentActivity implements SharedPreference
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
                                           String key) {
-        // TODO Auto-generated method stub
-        //可用于监听设置参数，然后作出响应
     }
-
-    Toast mToast;
 
     public void ShowToast(final String text) {
         if (!TextUtils.isEmpty(text)) {
@@ -111,7 +107,6 @@ abstract class BaseActivity extends FragmentActivity implements SharedPreference
 
                 @Override
                 public void run() {
-                    // TODO Auto-generated method stub
                     if (mToast == null) {
                         mToast = Toast.makeText(getApplicationContext(), text,
                                 Toast.LENGTH_LONG);
@@ -131,7 +126,6 @@ abstract class BaseActivity extends FragmentActivity implements SharedPreference
 
             @Override
             public void run() {
-                // TODO Auto-generated method stub
                 if (mToast == null) {
                     mToast = Toast.makeText(BaseActivity.this.getApplicationContext(), resId,
                             Toast.LENGTH_LONG);
@@ -144,35 +138,17 @@ abstract class BaseActivity extends FragmentActivity implements SharedPreference
         });
     }
 
-    /**
-     * 打Log
-     * ShowLog
-     *
-     * @return void
-     * @throws
-     */
+
     public void ShowLog(String msg) {
         BmobLog.i(msg);
     }
 
-    /**
-     * 只有title initTopBarLayoutByTitle
-     *
-     * @throws
-     * @Title: initTopBarLayoutByTitle
-     */
     public void initTopBarForOnlyTitle(String titleName) {
         mHeaderLayout = (HeaderLayout) findViewById(R.id.common_actionbar);
         mHeaderLayout.init(HeaderStyle.DEFAULT_TITLE);
         mHeaderLayout.setDefaultTitle(titleName);
     }
 
-    /**
-     * 初始化标题栏-带左右按钮
-     *
-     * @return void
-     * @throws
-     */
     public void initTopBarForBoth(String titleName, int rightDrawableId, String text,
                                   onRightImageButtonClickListener listener) {
         mHeaderLayout = (HeaderLayout) findViewById(R.id.common_actionbar);
@@ -195,11 +171,6 @@ abstract class BaseActivity extends FragmentActivity implements SharedPreference
                 listener);
     }
 
-    /**
-     * 只有左边按钮和Title initTopBarLayout
-     *
-     * @throws
-     */
     public void initTopBarForLeft(String titleName) {
         mHeaderLayout = (HeaderLayout) findViewById(R.id.common_actionbar);
         mHeaderLayout.init(HeaderStyle.TITLE_DOUBLE_IMAGEBUTTON);
@@ -208,15 +179,11 @@ abstract class BaseActivity extends FragmentActivity implements SharedPreference
                 new OnLeftButtonClickListener());
     }
 
-    /**
-     * 显示下线的对话框
-     * showOfflineDialog
-     *
-     * @return void
-     * @throws
-     */
+
     public void showOfflineDialog(final Context context) {
         DialogTips dialog = new DialogTips(this, "您的账号已在其他设备上登录!", "重新登录");
+
+
         // 设置成功事件
         dialog.SetOnSuccessListener(new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialogInterface, int userId) {
@@ -226,19 +193,8 @@ abstract class BaseActivity extends FragmentActivity implements SharedPreference
                 dialogInterface.dismiss();
             }
         });
-        // 显示确认对话框
         dialog.show();
         dialog = null;
-    }
-
-    // 左边按钮的点击事件
-    public class OnLeftButtonClickListener implements
-            onLeftImageButtonClickListener {
-
-        @Override
-        public void onClick() {
-            finish();
-        }
     }
 
     public void startAnimActivity(Class<?> cla) {
@@ -249,15 +205,6 @@ abstract class BaseActivity extends FragmentActivity implements SharedPreference
         this.startActivity(intent);
     }
 
-    /**
-     * 用于登陆或者自动登陆情况下的用户资料及好友资料的检测更新
-     *
-     * @param
-     * @return void
-     * @throws
-     * @Title: updateUserInfos
-     * @Description: TODO
-     */
     public void updateUserInfos() {
         //更新地理位置信息
         updateUserLocation();
@@ -266,7 +213,6 @@ abstract class BaseActivity extends FragmentActivity implements SharedPreference
         userManager.queryCurrentContactList(new FindListener<BmobChatUser>() {
             @Override
             public void onError(int arg0, String arg1) {
-                // TODO Auto-generated method stub
                 if (arg0 == BmobConfig.CODE_COMMON_NONE) {
                     ShowLog(arg1);
                 } else {
@@ -276,7 +222,7 @@ abstract class BaseActivity extends FragmentActivity implements SharedPreference
 
             @Override
             public void onSuccess(List<BmobChatUser> arg0) {
-                // TODO Auto-generated method stub
+
                 // 保存到application中方便比较
                 ShowLog("查询好友列表成功");
                 CustomApplication.getInstance().setContactList(CollectionUtils.list2map(arg0));
@@ -286,12 +232,6 @@ abstract class BaseActivity extends FragmentActivity implements SharedPreference
 
     /**
      * 更新用户的经纬度信息
-     *
-     * @param
-     * @return void
-     * @throws
-     * @Title: uploadLocation
-     * @Description: TODO
      */
     public void updateUserLocation() {
         if (CustomApplication.lastPoint != null) {
@@ -307,7 +247,6 @@ abstract class BaseActivity extends FragmentActivity implements SharedPreference
                 user.update(this, new UpdateListener() {
                     @Override
                     public void onSuccess() {
-                        // TODO Auto-generated method stub
                         CustomApplication.getInstance().setLatitude(String.valueOf(user.getLocation().getLatitude()));
                         CustomApplication.getInstance().setLongtitude(String.valueOf(user.getLocation().getLongitude()));
 //						ShowLog("经纬度更新成功");
@@ -315,13 +254,21 @@ abstract class BaseActivity extends FragmentActivity implements SharedPreference
 
                     @Override
                     public void onFailure(int code, String msg) {
-                        // TODO Auto-generated method stub
 //						ShowLog("经纬度更新 失败:"+msg);
                     }
                 });
             } else {
 //				ShowLog("用户位置未发生过变化");
             }
+        }
+    }
+
+    public class OnLeftButtonClickListener implements
+            onLeftImageButtonClickListener {
+
+        @Override
+        public void onClick() {
+            finish();
         }
     }
 }

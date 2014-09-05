@@ -10,7 +10,7 @@
         layout="@layout/include_action_bar" />
 
     <ListView
-        android:id="@+id/list_blacklist"
+        android:id="@+id/activity_black_black_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/transparent"
@@ -19,4 +19,5 @@
         android:divider="@drawable/base_horizontal_line"
         android:dividerHeight="1dp"
         android:fastScrollEnabled="false" />
-</LinearLayout>
+
+</LinearLayout>

@@ -1,8 +1,5 @@
 package com.bmob.im.demo.ui.activity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,17 +9,20 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 
-import cn.bmob.im.bean.BmobChatUser;
-import cn.bmob.im.task.BRequest;
-import cn.bmob.im.util.BmobLog;
-import cn.bmob.v3.listener.CountListener;
-import cn.bmob.v3.listener.FindListener;
-
 import com.bmob.im.demo.R;
 import com.bmob.im.demo.adapter.AddFriendAdapter;
 import com.bmob.im.demo.util.CollectionUtils;
 import com.bmob.im.demo.view.xlist.XListView;
 import com.bmob.im.demo.view.xlist.XListView.IXListViewListener;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import cn.bmob.im.bean.BmobChatUser;
+import cn.bmob.im.task.BRequest;
+import cn.bmob.im.util.BmobLog;
+import cn.bmob.v3.listener.CountListener;
+import cn.bmob.v3.listener.FindListener;
 
 /**
  * 添加好友
@@ -34,14 +34,15 @@ import com.bmob.im.demo.view.xlist.XListView.IXListViewListener;
  */
 public class AddContactActivity extends ActivityBase implements OnClickListener, IXListViewListener, AdapterView.OnItemClickListener {
 
-    int curPage = 0;
-    ProgressDialog progress;
-    String searchName = "";
-    private EditText mSearchNameEdit;
+
+    private EditText mmSearchNameEdit;
     private Button mSearchBtn;
     private List<BmobChatUser> mUsers = new ArrayList<BmobChatUser>();
     private XListView mSearcgListView;
     private AddFriendAdapter mAddFriendAdapter;
+
+    private int curPage = 0;
+    private String mSearchName = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +54,7 @@ public class AddContactActivity extends ActivityBase implements OnClickListener,
     @Override
     void findView() {
         setContentView(R.layout.activity_add_contact);
-        mSearchNameEdit = (EditText) findViewById(R.id.activity_add_contact_search_name_edit);
+        mmSearchNameEdit = (EditText) findViewById(R.id.activity_add_contact_search_name_edit);
         mSearchBtn = (Button) findViewById(R.id.activity_add_contact_search_btn);
         mSearcgListView = (XListView) findViewById(R.id.activity_add_contact_search_listview);
     }
@@ -89,13 +90,13 @@ public class AddContactActivity extends ActivityBase implements OnClickListener,
     }
 
     private void initSearchList(final boolean isUpdate) {
+        final ProgressDialog progressDialog = new ProgressDialog(AddContactActivity.this);
         if (!isUpdate) {
-            progress = new ProgressDialog(AddContactActivity.this);
-            progress.setMessage("正在搜索...");
-            progress.setCanceledOnTouchOutside(true);
-            progress.show();
+            progressDialog.setMessage("正在搜索...");
+            progressDialog.setCanceledOnTouchOutside(true);
+            progressDialog.show();
         }
-        userManager.queryUserByPage(isUpdate, 0, searchName, new FindListener<BmobChatUser>() {
+        userManager.queryUserByPage(isUpdate, 0, mSearchName, new FindListener<BmobChatUser>() {
 
             @Override
             public void onError(int arg0, String arg1) {
@@ -131,7 +132,7 @@ public class AddContactActivity extends ActivityBase implements OnClickListener,
                     ShowToast("用户不存在");
                 }
                 if (!isUpdate) {
-                    progress.dismiss();
+                    progressDialog.dismiss();
                 } else {
                     refreshPull();
                 }
@@ -143,7 +144,7 @@ public class AddContactActivity extends ActivityBase implements OnClickListener,
     }
 
     private void queryMoreSearchList(int page) {
-        userManager.queryUserByPage(true, page, searchName, new FindListener<BmobChatUser>() {
+        userManager.queryUserByPage(true, page, mSearchName, new FindListener<BmobChatUser>() {
             @Override
             public void onSuccess(List<BmobChatUser> arg0) {
                 if (CollectionUtils.isNotNull(arg0)) {
@@ -176,8 +177,8 @@ public class AddContactActivity extends ActivityBase implements OnClickListener,
         switch (arg0.getId()) {
             case R.id.activity_add_contact_search_btn://搜索
                 mUsers.clear();
-                searchName = mSearchNameEdit.getText().toString();
-                if (searchName != null && !searchName.equals("")) {
+                mSearchName = mmSearchNameEdit.getText().toString();
+                if (mSearchName != null && !mSearchName.equals("")) {
                     initSearchList(false);
                 } else {
                     ShowToast("请输入用户名");
@@ -196,7 +197,7 @@ public class AddContactActivity extends ActivityBase implements OnClickListener,
 
     @Override
     public void onLoadMore() {
-        userManager.querySearchTotalCount(searchName, new CountListener() {
+        userManager.querySearchTotalCount(mSearchName, new CountListener() {
 
             @Override
             public void onSuccess(int arg0) {
