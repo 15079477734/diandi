@@ -9,8 +9,6 @@ package com.bmob.im.demo;
 
 public final class Manifest {
     public static final class permission {
-        /**  Push SDK权限 
-         */
         public static final String push="cn.bmob.permission.push";
     }
 }
