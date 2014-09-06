@@ -2,65 +2,11 @@
 <pre-dex-items>
 
     <item
-        dex="C:\Users\Administrator\Desktop\diandi\diandi\app\build\intermediates\pre-dexed\debug\classes-ca7f32094bb6a208d7f7c8d0674f6a8a61a1a9d8.jar"
-        jar="C:\Users\Administrator\Desktop\diandi\diandi\app\build\intermediates\exploded-aar\diandi\bmoblibrary\unspecified\classes.jar"
+        dex="C:\Users\Administrator\Desktop\diandi\diandi\app\build\intermediates\pre-dexed\debug\umeng-update-v2.4.2-4df6a1aed11fbe84f4b238fed9927ff4f48aaa44.jar"
+        jar="C:\Users\Administrator\Desktop\diandi\diandi\libs\umeng-update-v2.4.2.jar"
         jumboMode="false"
         revision="19.1.0"
-        sha1="5e2a14a5f1d9d3f863771a38f3d6b260fc9f4a52"/>
-    <item
-        dex="C:\Users\Administrator\Desktop\diandi\diandi\app\build\intermediates\pre-dexed\debug\Bmob_IMSDK_v1.1.1beta-823ef5cc03a756f2ce135dffe916c03d3dcf64af.jar"
-        jar="C:\Users\Administrator\Desktop\diandi\diandi\libs\Bmob_IMSDK_v1.1.1beta.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="0789a75b69a42bfa298a28526ff2a15a0569d8d4"/>
-    <item
-        dex="C:\Users\Administrator\Desktop\diandi\3\BmobChatDemo\app\build\intermediates\pre-dexed\debug\open_sdk-23bce67945630aafb7d9046257f3dadb9dd31859.jar"
-        jar="C:\Users\Administrator\Desktop\diandi\3\BmobChatDemo\libs\open_sdk.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="af16b82c753e70cfea1761c8d43581287887e734"/>
-    <item
-        dex="C:\Users\Administrator\Desktop\diandi\diandi\app\build\intermediates\pre-dexed\debug\open_sdk-1406dd98a72ee80f4f66a9e2be2a5ccb4a74651e.jar"
-        jar="C:\Users\Administrator\Desktop\diandi\diandi\libs\open_sdk.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="af16b82c753e70cfea1761c8d43581287887e734"/>
-    <item
-        dex="C:\Users\Administrator\Desktop\diandi\3\BmobChatDemo\app\build\intermediates\pre-dexed\debug\mta-sdk-1.0.0-d348bb2c3687ff841157948455fd62d9f27dc2c5.jar"
-        jar="C:\Users\Administrator\Desktop\diandi\3\BmobChatDemo\libs\mta-sdk-1.0.0.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="1d1a215c3acd13ef011b8391cab495f7760c2a1d"/>
-    <item
-        dex="C:\Users\Administrator\Desktop\diandi\3\BmobChatDemo\app\build\intermediates\pre-dexed\debug\locSDK_4.2-e6059b278f65c77b1fd6b3e3b20ffff103c2f7eb.jar"
-        jar="C:\Users\Administrator\Desktop\diandi\3\BmobChatDemo\libs\locSDK_4.2.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="41b93335a2753c93f8b8f56741615cb81ea72437"/>
-    <item
-        dex="C:\Users\Administrator\Desktop\diandi\diandi\app\build\intermediates\pre-dexed\debug\mta-sdk-1.0.0-b9b3c0b9150de4c102cced64f52521946528a007.jar"
-        jar="C:\Users\Administrator\Desktop\diandi\diandi\libs\mta-sdk-1.0.0.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="1d1a215c3acd13ef011b8391cab495f7760c2a1d"/>
-    <item
-        dex="C:\Users\Administrator\Desktop\diandi\3\BmobChatDemo\app\build\intermediates\pre-dexed\debug\classes-2bc181917acd0f5fc1acc5c1d355487f54c68f1b.jar"
-        jar="C:\Users\Administrator\Desktop\diandi\3\BmobChatDemo\app\build\intermediates\exploded-aar\BmobChatDemo\library\unspecified\classes.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="962be505160a40c6ad8a9981346071f2fc26b19e"/>
-    <item
-        dex="C:\Users\Administrator\Desktop\diandi\3\BmobChatDemo\app\build\intermediates\pre-dexed\debug\bmob_v3.1.8-29cf4c23342bad001797efa8e2ba8a8022a1d70c.jar"
-        jar="C:\Users\Administrator\Desktop\diandi\3\BmobChatDemo\libs\bmob_v3.1.8.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="b2b2386e7a5145b476012732b1ecbba90fa297b8"/>
-    <item
-        dex="C:\Users\Administrator\Desktop\diandi\diandi\app\build\intermediates\pre-dexed\debug\android-support-v4-b00cd36ba60b0004f967ab4c5ccdff4f0dfb926e.jar"
-        jar="C:\Users\Administrator\Desktop\diandi\diandi\libs\android-support-v4.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="5896b0a4e377ac4242eb2bc785220c1c4fc052f4"/>
+        sha1="ee700e317f574886dc0a236b801f219df6fbd26d"/>
     <item
         dex="C:\Users\Administrator\Desktop\diandi\diandi\app\build\intermediates\pre-dexed\debug\bmob_v3.1.8-5001fa7a4d26351a301dec377d1b8a6d489d2df6.jar"
         jar="C:\Users\Administrator\Desktop\diandi\diandi\libs\bmob_v3.1.8.jar"
@@ -80,6 +26,12 @@
         revision="19.1.0"
         sha1="41b93335a2753c93f8b8f56741615cb81ea72437"/>
     <item
+        dex="C:\Users\Administrator\Desktop\diandi\diandi\app\build\intermediates\pre-dexed\debug\so-a95d651abcd278b0627c5c34e0d61c7fd5f61b49.jar"
+        jar="C:\Users\Administrator\Desktop\diandi\diandi\libs\so.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="5b42e8beea2466edddfbf24b7661305cb20fbc72"/>
+    <item
         dex="C:\Users\Administrator\Desktop\diandi\3\BmobChatDemo\app\build\intermediates\pre-dexed\debug\Bmob_IMSDK_v1.1.1beta-2262a0b2ccfc36ff0d653054264768f899bb5e1d.jar"
         jar="C:\Users\Administrator\Desktop\diandi\3\BmobChatDemo\libs\Bmob_IMSDK_v1.1.1beta.jar"
         jumboMode="false"
@@ -91,6 +43,24 @@
         jumboMode="false"
         revision="19.1.0"
         sha1="b9000943d77c17d231bf3141a712828f2636c2ea"/>
+    <item
+        dex="C:\Users\Administrator\Desktop\diandi\diandi\app\build\intermediates\pre-dexed\debug\Bmob_IMSDK_v1.1.1beta-823ef5cc03a756f2ce135dffe916c03d3dcf64af.jar"
+        jar="C:\Users\Administrator\Desktop\diandi\diandi\libs\Bmob_IMSDK_v1.1.1beta.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="0789a75b69a42bfa298a28526ff2a15a0569d8d4"/>
+    <item
+        dex="C:\Users\Administrator\Desktop\diandi\3\BmobChatDemo\app\build\intermediates\pre-dexed\debug\open_sdk-23bce67945630aafb7d9046257f3dadb9dd31859.jar"
+        jar="C:\Users\Administrator\Desktop\diandi\3\BmobChatDemo\libs\open_sdk.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="af16b82c753e70cfea1761c8d43581287887e734"/>
+    <item
+        dex="C:\Users\Administrator\Desktop\diandi\diandi\app\build\intermediates\pre-dexed\debug\open_sdk-1406dd98a72ee80f4f66a9e2be2a5ccb4a74651e.jar"
+        jar="C:\Users\Administrator\Desktop\diandi\diandi\libs\open_sdk.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="af16b82c753e70cfea1761c8d43581287887e734"/>
     <item
         dex="C:\Users\Administrator\Desktop\diandi\diandi\app\build\intermediates\pre-dexed\debug\radial-menu-v4-3cd7f5fa8475ad01ba3e3c4b07d5fb0382192f08.jar"
         jar="C:\Users\Administrator\Desktop\diandi\diandi\libs\radial-menu-v4.jar"
@@ -104,11 +74,23 @@
         revision="19.1.0"
         sha1="b39155228374e50c537705e9bfc10d3f69c2397a"/>
     <item
+        dex="C:\Users\Administrator\Desktop\diandi\3\BmobChatDemo\app\build\intermediates\pre-dexed\debug\mta-sdk-1.0.0-d348bb2c3687ff841157948455fd62d9f27dc2c5.jar"
+        jar="C:\Users\Administrator\Desktop\diandi\3\BmobChatDemo\libs\mta-sdk-1.0.0.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="1d1a215c3acd13ef011b8391cab495f7760c2a1d"/>
+    <item
         dex="C:\Users\Administrator\Desktop\diandi\3\BmobChatDemo\app\build\intermediates\pre-dexed\debug\android-support-v4-32c6ca46dc89efa10428219d3aff23f0fd1ccd6e.jar"
         jar="C:\Users\Administrator\Desktop\diandi\3\BmobChatDemo\libs\android-support-v4.jar"
         jumboMode="false"
         revision="19.1.0"
         sha1="5896b0a4e377ac4242eb2bc785220c1c4fc052f4"/>
+    <item
+        dex="C:\Users\Administrator\Desktop\diandi\3\BmobChatDemo\app\build\intermediates\pre-dexed\debug\locSDK_4.2-e6059b278f65c77b1fd6b3e3b20ffff103c2f7eb.jar"
+        jar="C:\Users\Administrator\Desktop\diandi\3\BmobChatDemo\libs\locSDK_4.2.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="41b93335a2753c93f8b8f56741615cb81ea72437"/>
     <item
         dex="C:\Users\Administrator\Desktop\diandi\diandi\app\build\intermediates\pre-dexed\debug\baidumapapi_v3_0_0-637d54830f956bfe5804329de263e8e1f190a435.jar"
         jar="C:\Users\Administrator\Desktop\diandi\diandi\libs\baidumapapi_v3_0_0.jar"
@@ -122,6 +104,18 @@
         revision="19.1.0"
         sha1="e33324b770223932d467e4ec39639b0c15f3b94e"/>
     <item
+        dex="C:\Users\Administrator\Desktop\diandi\diandi\app\build\intermediates\pre-dexed\debug\mta-sdk-1.0.0-b9b3c0b9150de4c102cced64f52521946528a007.jar"
+        jar="C:\Users\Administrator\Desktop\diandi\diandi\libs\mta-sdk-1.0.0.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="1d1a215c3acd13ef011b8391cab495f7760c2a1d"/>
+    <item
+        dex="C:\Users\Administrator\Desktop\diandi\3\BmobChatDemo\app\build\intermediates\pre-dexed\debug\classes-2bc181917acd0f5fc1acc5c1d355487f54c68f1b.jar"
+        jar="C:\Users\Administrator\Desktop\diandi\3\BmobChatDemo\app\build\intermediates\exploded-aar\BmobChatDemo\library\unspecified\classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="962be505160a40c6ad8a9981346071f2fc26b19e"/>
+    <item
         dex="C:\Users\Administrator\Desktop\diandi\3\BmobChatDemo\app\build\intermediates\pre-dexed\debug\photoview-library-1.2.2-39bf4c6218aea8635327f577ce577c95c9fa678c.jar"
         jar="C:\Users\Administrator\Desktop\diandi\3\BmobChatDemo\libs\photoview-library-1.2.2.jar"
         jumboMode="false"
@@ -133,5 +127,17 @@
         jumboMode="false"
         revision="19.1.0"
         sha1="e33324b770223932d467e4ec39639b0c15f3b94e"/>
+    <item
+        dex="C:\Users\Administrator\Desktop\diandi\3\BmobChatDemo\app\build\intermediates\pre-dexed\debug\bmob_v3.1.8-29cf4c23342bad001797efa8e2ba8a8022a1d70c.jar"
+        jar="C:\Users\Administrator\Desktop\diandi\3\BmobChatDemo\libs\bmob_v3.1.8.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="b2b2386e7a5145b476012732b1ecbba90fa297b8"/>
+    <item
+        dex="C:\Users\Administrator\Desktop\diandi\diandi\app\build\intermediates\pre-dexed\debug\android-support-v4-b00cd36ba60b0004f967ab4c5ccdff4f0dfb926e.jar"
+        jar="C:\Users\Administrator\Desktop\diandi\diandi\libs\android-support-v4.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="5896b0a4e377ac4242eb2bc785220c1c4fc052f4"/>
 
 </pre-dex-items>

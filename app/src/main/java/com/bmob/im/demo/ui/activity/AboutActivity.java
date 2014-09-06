@@ -5,10 +5,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.bmob.im.demo.R;
-
-import cn.bmob.v3.update.BmobUpdateAgent;
+import com.umeng.update.UmengUpdateAgent;
+import com.umeng.update.UmengUpdateListener;
+import com.umeng.update.UpdateResponse;
+import com.umeng.update.UpdateStatus;
 
 
 public class AboutActivity extends BaseActivity implements View.OnClickListener {
@@ -48,7 +51,28 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener 
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.activity_about_check_update_layout:
-                BmobUpdateAgent.forceUpdate(AboutActivity.this);
+                Toast.makeText(mContext, "正在检查。。。", Toast.LENGTH_SHORT).show();
+                UmengUpdateAgent.setUpdateAutoPopup(false);
+                UmengUpdateAgent.setUpdateListener(new UmengUpdateListener() {
+                    @Override
+                    public void onUpdateReturned(int updateStatus, UpdateResponse updateInfo) {
+                        switch (updateStatus) {
+                            case UpdateStatus.Yes: // has update
+                                UmengUpdateAgent.showUpdateDialog(mContext, updateInfo);
+                                break;
+                            case UpdateStatus.No: // has no update
+                                Toast.makeText(mContext, "没有更新", Toast.LENGTH_SHORT).show();
+                                break;
+                            case UpdateStatus.NoneWifi: // none wifi
+                                Toast.makeText(mContext, "没有wifi连接， 只在wifi下更新", Toast.LENGTH_SHORT).show();
+                                break;
+                            case UpdateStatus.Timeout: // time out
+                                Toast.makeText(mContext, "请检查网络", Toast.LENGTH_SHORT).show();
+                                break;
+                        }
+                    }
+                });
+                UmengUpdateAgent.forceUpdate(mContext);
                 break;
             case R.id.activity_about_share_layout:
                 Intent localIntent1 = new Intent("android.intent.action.SEND");

@@ -69,9 +69,10 @@
     <orderEntry type="library" exported="" name="universal-image-loader-1.9.2_sources" level="project" />
     <orderEntry type="library" exported="" name="radial-menu-v4" level="project" />
     <orderEntry type="library" exported="" name="bmob_v3.1.8" level="project" />
+    <orderEntry type="library" exported="" name="umeng-update-v2.4.2" level="project" />
     <orderEntry type="library" exported="" name="photoview-library-1.2.2" level="project" />
+    <orderEntry type="library" exported="" name="so" level="project" />
     <orderEntry type="library" exported="" name="baidumapapi_v3_0_0" level="project" />
-    <orderEntry type="module" module-name="bmoblibrary" exported="" />
   </component>
 </module>
 
