@@ -18,7 +18,6 @@ import com.bmob.im.demo.ui.activity.BlackListActivity;
 import com.bmob.im.demo.ui.activity.LoginActivity;
 import com.bmob.im.demo.ui.activity.MsgReciverSetActivity;
 import com.bmob.im.demo.ui.activity.SettingActivity;
-import com.bmob.im.demo.util.SharePreferenceUtil;
 
 import cn.bmob.im.BmobUserManager;
 
@@ -33,13 +32,10 @@ import cn.bmob.im.BmobUserManager;
 @SuppressLint("SimpleDateFormat")
 public class SettingsFragment extends BaseFragment implements OnClickListener {
 
-    Button btn_logout;
-    TextView tv_set_name;
+    Button mlogoutBtn;
+    TextView mNameText;
     TextView mUpdateText;
-    RelativeLayout layout_info, layout_blacklist, layout_msgreciver, layout_about;
-    boolean isUpdate = false;
-    SharePreferenceUtil mShareUtil;
-
+    RelativeLayout mInfoLayout, mBlanklistLayout, mMsgReciverLayout, mAboutLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,76 +53,65 @@ public class SettingsFragment extends BaseFragment implements OnClickListener {
         super.onActivityCreated(savedInstanceState);
         findView();
         initView();
-        initData();
         if (CustomApplication.getInstance().getSpUtil().isUpdate()) {
             mUpdateText.setText("有更新！");
         }
-
-    }
-
-    public void onResume() {
-        super.onResume();
-    }
-
-    public void initView() {
-        initData();
-        bindEvent();
-        initTopBarForOnlyTitle("设置");
-
-
     }
 
     @Override
     void findView() {
-        layout_blacklist = (RelativeLayout) findViewById(R.id.layout_blacklist);
-        layout_info = (RelativeLayout) findViewById(R.id.layout_info);
-        layout_about = (RelativeLayout) findViewById(R.id.fragment_setting_about_layout);
-        tv_set_name = (TextView) findViewById(R.id.tv_set_name);
-        btn_logout = (Button) findViewById(R.id.btn_logout);
-        mUpdateText = (TextView) findViewById(R.id.fragment_setting_update_text);
-        layout_msgreciver = (RelativeLayout) findViewById(R.id.fragment_setting_msg_reciver);
+        mBlanklistLayout = (RelativeLayout) findViewById(R.id.fragment_set_blanklist_layout);
+        mInfoLayout = (RelativeLayout) findViewById(R.id.fragment_set_info_layout);
+        mAboutLayout = (RelativeLayout) findViewById(R.id.fragment_setting_about_layout);
+        mNameText = (TextView) findViewById(R.id.fragment_set_info_text);
+        mlogoutBtn = (Button) findViewById(R.id.fragment_set_logout_btn);
+        mUpdateText = (TextView) findViewById(R.id.fragment_set_update_text);
+        mMsgReciverLayout = (RelativeLayout) findViewById(R.id.fragment_set_msg_reciver_layout);
+    }
 
+    public void initView() {
+        initTopBarForOnlyTitle("设置");
+        initData();
+        bindEvent();
     }
 
     void initData() {
-        tv_set_name.setText(BmobUserManager.getInstance(getActivity())
+        mNameText.setText(BmobUserManager.getInstance(getActivity())
                 .getCurrentUser().getNick());
     }
 
     @Override
     void bindEvent() {
-        btn_logout.setOnClickListener(this);
-        layout_info.setOnClickListener(this);
-        layout_blacklist.setOnClickListener(this);
-        layout_msgreciver.setOnClickListener(this);
-        layout_about.setOnClickListener(this);
-
+        mlogoutBtn.setOnClickListener(this);
+        mInfoLayout.setOnClickListener(this);
+        mBlanklistLayout.setOnClickListener(this);
+        mMsgReciverLayout.setOnClickListener(this);
+        mAboutLayout.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.layout_blacklist:// 启动到黑名单页面
-                startAnimActivity(new Intent(getActivity(), BlackListActivity.class));
-                break;
-            case R.id.layout_info:// 启动到个人资料页面
+            case R.id.fragment_set_info_layout:// 启动到个人资料页面
                 Intent intent = new Intent(getActivity(), SettingActivity.class);
                 intent.putExtra("from", "me");
                 startActivity(intent);
                 break;
-            case R.id.btn_logout:
+            case R.id.fragment_set_blanklist_layout:// 启动到黑名单页面
+                startAnimActivity(new Intent(getActivity(), BlackListActivity.class));
+                break;
+            case R.id.fragment_set_msg_reciver_layout://启动到消息设置页面
+                startActivity(new Intent(getActivity(), MsgReciverSetActivity.class));
+                break;
+            case R.id.fragment_setting_about_layout://启动到关于页面
+                startActivity(new Intent(getActivity(), AboutActivity.class));
+                break;
+            case R.id.fragment_set_logout_btn://登出
                 CustomApplication.getInstance().logout();
                 getActivity().finish();
                 startActivity(new Intent(getActivity(), LoginActivity.class));
                 break;
-            case R.id.fragment_setting_msg_reciver:
-                startActivity(new Intent(getActivity(), MsgReciverSetActivity.class));
-                break;
-            case R.id.fragment_setting_about_layout:
-                startActivity(new Intent(getActivity(), AboutActivity.class));
-                break;
+
         }
     }
-
-
 }

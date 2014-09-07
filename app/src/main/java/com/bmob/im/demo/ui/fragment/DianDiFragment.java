@@ -28,7 +28,6 @@ import com.bmob.im.demo.config.Constant;
 import com.bmob.im.demo.db.DatabaseUtil;
 import com.bmob.im.demo.ui.activity.CommentActivity;
 import com.bmob.im.demo.ui.activity.NewDiandiActivity;
-import com.bmob.im.demo.util.ActivityUtil;
 import com.bmob.im.demo.util.LogUtils;
 import com.bmob.im.demo.view.HeaderLayout.onRightImageButtonClickListener;
 import com.bmob.im.demo.view.xlist.XListView;
@@ -205,7 +204,7 @@ public class DianDiFragment extends BaseFragment implements XListView.IXListView
                     networkTips.setVisibility(View.INVISIBLE);
 
                 } else {
-                    ActivityUtil.show(getActivity(), "暂无更多数据~");
+                    ShowToast("暂无更多数据~");
                     pageNum--;
                 }
                 refreshPull();

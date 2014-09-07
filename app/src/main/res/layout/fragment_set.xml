@@ -10,7 +10,7 @@
         layout="@layout/include_action_bar"/>
 
     <RelativeLayout
-        android:id="@+id/layout_info"
+        android:id="@+id/fragment_set_info_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/btn_selector"
@@ -24,7 +24,7 @@
             android:text="@string/set_myinfo"/>
 
         <TextView
-            android:id="@+id/tv_set_name"
+            android:id="@+id/fragment_set_info_text"
             style="@style/Smile.TextView._Black"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
@@ -36,7 +36,7 @@
     <include layout="@layout/item_line"/>
 
     <RelativeLayout
-        android:id="@+id/layout_blacklist"
+        android:id="@+id/fragment_set_blanklist_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/btn_selector"
@@ -61,7 +61,7 @@
     <include layout="@layout/item_line"/>
 
     <RelativeLayout
-        android:id="@+id/fragment_setting_msg_reciver"
+        android:id="@+id/fragment_set_msg_reciver_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/btn_selector"
@@ -100,7 +100,7 @@
             android:text="关于点滴"/>
 
         <TextView
-            android:id="@+id/fragment_setting_update_text"
+            android:id="@+id/fragment_set_update_text"
             style="@style/Smile.TextView._Black"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
@@ -113,7 +113,7 @@
     <include layout="@layout/item_line"/>
 
     <Button
-        android:id="@+id/btn_logout"
+        android:id="@+id/fragment_set_logout_btn"
         style="@style/Smile.Button.logout"
         android:layout_width="fill_parent"
         android:layout_height="45dp"
