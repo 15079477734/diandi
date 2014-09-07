@@ -30,7 +30,7 @@
         jar="C:\Users\Administrator\Desktop\diandi\diandi\libs\so.jar"
         jumboMode="false"
         revision="19.1.0"
-        sha1="5b42e8beea2466edddfbf24b7661305cb20fbc72"/>
+        sha1="6a017714ca5b9b984814d0849bd9b5cadd091740"/>
     <item
         dex="C:\Users\Administrator\Desktop\diandi\3\BmobChatDemo\app\build\intermediates\pre-dexed\debug\Bmob_IMSDK_v1.1.1beta-2262a0b2ccfc36ff0d653054264768f899bb5e1d.jar"
         jar="C:\Users\Administrator\Desktop\diandi\3\BmobChatDemo\libs\Bmob_IMSDK_v1.1.1beta.jar"
@@ -92,12 +92,6 @@
         revision="19.1.0"
         sha1="41b93335a2753c93f8b8f56741615cb81ea72437"/>
     <item
-        dex="C:\Users\Administrator\Desktop\diandi\diandi\app\build\intermediates\pre-dexed\debug\baidumapapi_v3_0_0-637d54830f956bfe5804329de263e8e1f190a435.jar"
-        jar="C:\Users\Administrator\Desktop\diandi\diandi\libs\baidumapapi_v3_0_0.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="b39155228374e50c537705e9bfc10d3f69c2397a"/>
-    <item
         dex="C:\Users\Administrator\Desktop\diandi\diandi\app\build\intermediates\pre-dexed\debug\universal-image-loader-1.9.2_sources-4b2dab6e118d5fffe719a0b08ddc0427f4923b6c.jar"
         jar="C:\Users\Administrator\Desktop\diandi\diandi\libs\universal-image-loader-1.9.2_sources.jar"
         jumboMode="false"
@@ -133,6 +127,12 @@
         jumboMode="false"
         revision="19.1.0"
         sha1="b2b2386e7a5145b476012732b1ecbba90fa297b8"/>
+    <item
+        dex="C:\Users\Administrator\Desktop\diandi\diandi\app\build\intermediates\pre-dexed\debug\baidumapapi_v3_1_0-1ebff2d84f47035d08e87f0857b4981f65f97dba.jar"
+        jar="C:\Users\Administrator\Desktop\diandi\diandi\libs\baidumapapi_v3_1_0.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="166e529353682810f369946f3ce75ddb3e85e664"/>
     <item
         dex="C:\Users\Administrator\Desktop\diandi\diandi\app\build\intermediates\pre-dexed\debug\android-support-v4-b00cd36ba60b0004f967ab4c5ccdff4f0dfb926e.jar"
         jar="C:\Users\Administrator\Desktop\diandi\diandi\libs\android-support-v4.jar"

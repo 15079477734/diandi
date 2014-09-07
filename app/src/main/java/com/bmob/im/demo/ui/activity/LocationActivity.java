@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import cn.bmob.im.util.BmobLog;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -19,7 +18,7 @@ import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MarkerOptions;
-import com.baidu.mapapi.map.MyLocationConfigeration;
+import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
@@ -32,6 +31,8 @@ import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.bmob.im.demo.R;
 import com.bmob.im.demo.view.HeaderLayout.onRightImageButtonClickListener;
 
+import cn.bmob.im.util.BmobLog;
+
 /**
  * 用于发送位置的界面
  *
@@ -43,21 +44,16 @@ import com.bmob.im.demo.view.HeaderLayout.onRightImageButtonClickListener;
 public class LocationActivity extends BaseActivity implements
         OnGetGeoCoderResultListener {
 
+    static BDLocation lastLocation = null;
+    public MyLocationListenner myListener = new MyLocationListenner();
     // 定位相关
     LocationClient mLocClient;
-    public MyLocationListenner myListener = new MyLocationListenner();
     BitmapDescriptor mCurrentMarker;
-
     MapView mMapView;
     BaiduMap mBaiduMap;
-
-    private BaiduReceiver mReceiver;// 注册广播接收器，用于监听网络以及验证key
-
     GeoCoder mSearch = null; // 搜索模块，因为百度定位sdk能够得到经纬度，但是却无法得到具体的详细地址，因此需要采取反编码方式去搜索此经纬度代表的地址
-
-    static BDLocation lastLocation = null;
-
     BitmapDescriptor bdgeo = BitmapDescriptorFactory.fromResource(R.drawable.icon_geo);
+    private BaiduReceiver mReceiver;// 注册广播接收器，用于监听网络以及验证key
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -152,8 +148,8 @@ public class LocationActivity extends BaseActivity implements
     private void initLocClient() {
 //		 开启定位图层
         mBaiduMap.setMyLocationEnabled(true);
-        mBaiduMap.setMyLocationConfigeration(new MyLocationConfigeration(
-                com.baidu.mapapi.map.MyLocationConfigeration.LocationMode.NORMAL, true, null));
+        mBaiduMap.setMyLocationConfigeration(new MyLocationConfiguration(
+                com.baidu.mapapi.map.MyLocationConfiguration.LocationMode.NORMAL, true, null));
         // 定位初始化
         mLocClient = new LocationClient(this);
         mLocClient.registerLocationListener(myListener);
@@ -177,6 +173,53 @@ public class LocationActivity extends BaseActivity implements
             MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(ll);
             mBaiduMap.animateMapStatus(u);
         }
+    }
+
+    @Override
+    public void onGetGeoCodeResult(GeoCodeResult arg0) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void onGetReverseGeoCodeResult(ReverseGeoCodeResult result) {
+        // TODO Auto-generated method stub
+        if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
+            ShowToast("抱歉，未能找到结果");
+            return;
+        }
+        BmobLog.i("反编码得到的地址：" + result.getAddress());
+        lastLocation.setAddrStr(result.getAddress());
+    }
+
+    @Override
+    protected void onPause() {
+        mMapView.onPause();
+        super.onPause();
+        lastLocation = null;
+    }
+
+    @Override
+    protected void onResume() {
+        mMapView.onResume();
+        super.onResume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (mLocClient != null && mLocClient.isStarted()) {
+            // 退出时销毁定位
+            mLocClient.stop();
+        }
+        // 关闭定位图层
+        mBaiduMap.setMyLocationEnabled(false);
+        mMapView.onDestroy();
+        mMapView = null;
+        // 取消监听 SDK 广播
+        unregisterReceiver(mReceiver);
+        super.onDestroy();
+        // 回收 bitmap 资源
+        bdgeo.recycle();
     }
 
     /**
@@ -242,53 +285,6 @@ public class LocationActivity extends BaseActivity implements
                 ShowToast("网络出错");
             }
         }
-    }
-
-    @Override
-    public void onGetGeoCodeResult(GeoCodeResult arg0) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void onGetReverseGeoCodeResult(ReverseGeoCodeResult result) {
-        // TODO Auto-generated method stub
-        if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
-            ShowToast("抱歉，未能找到结果");
-            return;
-        }
-        BmobLog.i("反编码得到的地址：" + result.getAddress());
-        lastLocation.setAddrStr(result.getAddress());
-    }
-
-    @Override
-    protected void onPause() {
-        mMapView.onPause();
-        super.onPause();
-        lastLocation = null;
-    }
-
-    @Override
-    protected void onResume() {
-        mMapView.onResume();
-        super.onResume();
-    }
-
-    @Override
-    protected void onDestroy() {
-        if(mLocClient!=null && mLocClient.isStarted()){
-            // 退出时销毁定位
-            mLocClient.stop();
-        }
-        // 关闭定位图层
-        mBaiduMap.setMyLocationEnabled(false);
-        mMapView.onDestroy();
-        mMapView = null;
-        // 取消监听 SDK 广播
-        unregisterReceiver(mReceiver);
-        super.onDestroy();
-        // 回收 bitmap 资源
-        bdgeo.recycle();
     }
 
 }

@@ -23,7 +23,6 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile files('C:/Users/Administrator/Desktop/diandi/diandi/libs/android-support-v4.jar')
-    compile files('C:/Users/Administrator/Desktop/diandi/diandi/libs/baidumapapi_v3_0_0.jar')
     compile files('C:/Users/Administrator/Desktop/diandi/diandi/libs/locSDK_4.2.jar')
     compile files('C:/Users/Administrator/Desktop/diandi/diandi/libs/mta-sdk-1.0.0.jar')
     compile files('C:/Users/Administrator/Desktop/diandi/diandi/libs/open_sdk.jar')
@@ -34,4 +33,5 @@ dependencies {
     compile files('C:/Users/Administrator/Desktop/diandi/diandi/libs/bmob_v3.1.8.jar')
     compile files('C:/Users/Administrator/Desktop/diandi/diandi/libs/umeng-update-v2.4.2.jar')
     compile files('C:/Users/Administrator/Desktop/diandi/diandi/libs/so.jar')
+    compile files('C:/Users/Administrator/Desktop/diandi/diandi/libs/baidumapapi_v3_1_0.jar')
 }
