@@ -8,11 +8,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import cn.bmob.im.BmobUserManager;
 
 import com.bmob.im.demo.CustomApplication;
 import com.bmob.im.demo.R;
@@ -20,9 +17,10 @@ import com.bmob.im.demo.ui.activity.AboutActivity;
 import com.bmob.im.demo.ui.activity.BlackListActivity;
 import com.bmob.im.demo.ui.activity.LoginActivity;
 import com.bmob.im.demo.ui.activity.MsgReciverSetActivity;
-import com.bmob.im.demo.ui.activity.SetMyInfoActivity;
 import com.bmob.im.demo.ui.activity.SettingActivity;
 import com.bmob.im.demo.util.SharePreferenceUtil;
+
+import cn.bmob.im.BmobUserManager;
 
 /**
  * 设置
@@ -37,7 +35,10 @@ public class SettingsFragment extends BaseFragment implements OnClickListener {
 
     Button btn_logout;
     TextView tv_set_name;
+    TextView mUpdateText;
     RelativeLayout layout_info, layout_blacklist, layout_msgreciver, layout_about;
+    boolean isUpdate = false;
+    SharePreferenceUtil mShareUtil;
 
 
     @Override
@@ -54,16 +55,23 @@ public class SettingsFragment extends BaseFragment implements OnClickListener {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        findView();
         initView();
         initData();
+        if (CustomApplication.getInstance().getSpUtil().isUpdate()) {
+            mUpdateText.setText("有更新！");
+        }
+
+    }
+
+    public void onResume() {
+        super.onResume();
     }
 
     public void initView() {
-        findView();
         initData();
         bindEvent();
         initTopBarForOnlyTitle("设置");
-
 
 
     }
@@ -75,6 +83,7 @@ public class SettingsFragment extends BaseFragment implements OnClickListener {
         layout_about = (RelativeLayout) findViewById(R.id.fragment_setting_about_layout);
         tv_set_name = (TextView) findViewById(R.id.tv_set_name);
         btn_logout = (Button) findViewById(R.id.btn_logout);
+        mUpdateText = (TextView) findViewById(R.id.fragment_setting_update_text);
         layout_msgreciver = (RelativeLayout) findViewById(R.id.fragment_setting_msg_reciver);
 
     }
@@ -118,5 +127,6 @@ public class SettingsFragment extends BaseFragment implements OnClickListener {
                 break;
         }
     }
+
 
 }

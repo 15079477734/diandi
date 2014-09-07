@@ -1,10 +1,5 @@
 package com.bmob.im.demo.adapter;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -15,11 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import cn.bmob.im.BmobDownloadManager;
-import cn.bmob.im.BmobUserManager;
-import cn.bmob.im.bean.BmobMsg;
-import cn.bmob.im.config.BmobConfig;
-import cn.bmob.im.inteface.DownloadListener;
 
 import com.bmob.im.demo.CustomApplication;
 import com.bmob.im.demo.R;
@@ -27,18 +17,25 @@ import com.bmob.im.demo.adapter.base.BaseListAdapter;
 import com.bmob.im.demo.adapter.base.ViewHolder;
 import com.bmob.im.demo.ui.activity.ImageBrowserActivity;
 import com.bmob.im.demo.ui.activity.LocationActivity;
-import com.bmob.im.demo.ui.activity.SetMyInfoActivity;
 import com.bmob.im.demo.ui.activity.SettingActivity;
 import com.bmob.im.demo.util.FaceTextUtils;
-import com.bmob.im.demo.util.ImageLoadOptions;
 import com.bmob.im.demo.util.TimeUtil;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+
+import cn.bmob.im.BmobDownloadManager;
+import cn.bmob.im.BmobUserManager;
+import cn.bmob.im.bean.BmobMsg;
+import cn.bmob.im.config.BmobConfig;
+import cn.bmob.im.inteface.DownloadListener;
 
 
 /** 聊天适配器
@@ -65,7 +62,6 @@ public class ChatAdapter extends BaseListAdapter<BmobMsg> {
 
     String currentObjectId = "";
 
-    DisplayImageOptions options;
 
     private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
 
@@ -74,16 +70,7 @@ public class ChatAdapter extends BaseListAdapter<BmobMsg> {
         super(context, msgList);
         currentObjectId = BmobUserManager.getInstance(context).getCurrentUserObjectId();
 
-        options = new DisplayImageOptions.Builder()
-                .showImageForEmptyUri(R.drawable.ic_launcher)
-                .showImageOnFail(R.drawable.ic_launcher)
-                .resetViewBeforeLoading(true)
-                .cacheOnDisc(true)
-                .imageScaleType(ImageScaleType.EXACTLY)
-                .bitmapConfig(Bitmap.Config.RGB_565)
-                .considerExifParams(true)
-                .displayer(new FadeInBitmapDisplayer(300))
-                .build();
+
     }
 
     @Override
@@ -157,8 +144,6 @@ public class ChatAdapter extends BaseListAdapter<BmobMsg> {
         String avatar = item.getBelongAvatar();
         if(avatar!=null && !avatar.equals("")){//加载头像-为了不每次都加载头像
             ImageLoader.getInstance().displayImage(avatar, iv_avatar, CustomApplication.getInstance().getOptions(),animateFirstListener);
-        }else{
-            iv_avatar.setImageResource(R.drawable.head);
         }
 
         iv_avatar.setOnClickListener(new OnClickListener() {
@@ -414,7 +399,7 @@ public class ChatAdapter extends BaseListAdapter<BmobMsg> {
             //为了方便每次都是取本地图片显示
             ImageLoader.getInstance().displayImage(showUrl, iv_picture);
         }else{
-            ImageLoader.getInstance().displayImage(text, iv_picture,options,new ImageLoadingListener() {
+            ImageLoader.getInstance().displayImage(text, iv_picture, CustomApplication.getInstance().getOptions(), new ImageLoadingListener() {
 
                 @Override
                 public void onLoadingStarted(String imageUri, View view) {

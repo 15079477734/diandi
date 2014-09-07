@@ -33,24 +33,17 @@ import cn.bmob.v3.listener.FindListener;
 public class PersonalActivity extends ActivityBase implements XListView.IXListViewListener, AdapterView.OnItemClickListener, View.OnClickListener {
 
 
+    public static final int EDIT_USER = 1;
     private ImageView personalIcon;
     private TextView personalName;
     private TextView personalSign;
-
     private ImageView goSettings;
-
     private TextView personalTitle;
     private XListView mListView;
-
     private ArrayList<DianDi> mDianDis;
     private PersonCenterContentAdapter mAdapter;
-
     private User mUser;
-
     private int pageNum;
-
-    public static final int EDIT_USER = 1;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,18 +53,18 @@ public class PersonalActivity extends ActivityBase implements XListView.IXListVi
         loadData();
     }
 
- void findView() {
-        // TODO Auto-generated method stub
+    void findView() {
         setContentView(R.layout.fragment_personal);
         personalIcon = (ImageView) findViewById(R.id.personal_icon);
         personalName = (TextView) findViewById(R.id.personl_name);
         personalSign = (TextView) findViewById(R.id.personl_signature);
         goSettings = (ImageView) findViewById(R.id.go_settings);
         personalTitle = (TextView) findViewById(R.id.personl_title);
+
         mListView = (XListView) findViewById(R.id.pull_refresh_list_personal);
     }
 
-   void initView() {
+    void initView() {
         initData();
         initTopBarForLeft("个人中心");
         initMyPublish();
@@ -79,7 +72,7 @@ public class PersonalActivity extends ActivityBase implements XListView.IXListVi
         bindEvent();
     }
 
-  void initData() {
+    void initData() {
         mUser = CustomApplication.getInstance().getCurrentDianDi().getAuthor();
         updatePersonalInfo(mUser);
     }

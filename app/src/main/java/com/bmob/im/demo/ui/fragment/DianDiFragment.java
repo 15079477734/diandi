@@ -17,15 +17,12 @@ import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.AdapterView;
 import android.widget.TextView;
 
-
 import com.bmob.im.demo.CustomApplication;
 import com.bmob.im.demo.R;
-
-import com.bmob.im.demo.adapter.base.AIContentAdapter;
+import com.bmob.im.demo.adapter.AIContentAdapter;
 import com.bmob.im.demo.bean.DianDi;
 import com.bmob.im.demo.config.Constant;
 import com.bmob.im.demo.db.DatabaseUtil;
@@ -74,6 +71,12 @@ public class DianDiFragment extends BaseFragment implements XListView.IXListView
         super.onActivityCreated(savedInstanceState);
         findView();
         initView();
+        loadData();
+    }
+
+    public void onResume() {
+        super.onResume();
+        onRefresh();
     }
 
     void findView() {
@@ -84,10 +87,10 @@ public class DianDiFragment extends BaseFragment implements XListView.IXListView
     public void initView() {
         initData();
         initMenu();
-        initTopBarForRight("点滴", R.drawable.actionbar_more_icon, new onRightImageButtonClickListener() {
+        initTopBarForRight("点滴", R.drawable.ic_action_edit_selector, new onRightImageButtonClickListener() {
             @Override
             public void onClick() {
-                mPieMenu.show(mView);
+                startAnimActivity(NewDiandiActivity.class);
             }
         });
         initXListView();
@@ -109,9 +112,12 @@ public class DianDiFragment extends BaseFragment implements XListView.IXListView
         children.add(mLoveItem);
         children.add(mEditItem);
         mExpandMenu.setMenuChildren(children);
-
+     /*   WindowManager wm = getActivity().getWindowManager();
+        int width = wm.getDefaultDisplay().getWidth();
+        int height = wm.getDefaultDisplay().getHeight();*/
         mPieMenu.setAnimationSpeed(0L);
-        mPieMenu.setSourceLocation(200, 200);
+        mPieMenu.setSourceLocation(0, 0);
+        //     mPieMenu.setCenterLocation(width,height);
         mPieMenu.setIconSize(15, 30);
         mPieMenu.setTextSize(13);
         mPieMenu.setOutlineColor(Color.BLACK, 225);

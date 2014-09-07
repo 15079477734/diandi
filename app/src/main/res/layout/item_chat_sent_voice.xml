@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center_horizontal"
-    android:orientation="vertical"
-    android:paddingTop="13dp" >
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center_horizontal"
+              android:orientation="vertical"
+              android:paddingTop="13dp">
 
     <TextView
         android:id="@+id/tv_time"
         style="@style/chat_text_date_style"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_chat_top" >
+        android:layout_marginTop="@dimen/margin_chat_top">
 
         <ImageView
             android:id="@+id/iv_avatar"
@@ -24,9 +24,9 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_marginRight="@dimen/margin_chat_top"
-            android:background="@drawable/head"
+
             android:contentDescription="@string/add_avator"
-            android:scaleType="fitXY" />
+            android:scaleType="fitXY"/>
 
         <LinearLayout
             android:id="@+id/layout_voice"
@@ -36,13 +36,13 @@
             android:layout_marginTop="10dp"
             android:layout_toLeftOf="@id/iv_avatar"
             android:background="@drawable/chat_right_qp"
-            android:minWidth="80dp"
-            android:minHeight="45dp"
             android:gravity="right"
+            android:minHeight="45dp"
+            android:minWidth="80dp"
             android:paddingBottom="5dp"
             android:paddingLeft="5dp"
             android:paddingRight="15dp"
-            android:paddingTop="5dp" >
+            android:paddingTop="5dp">
 
             <ImageView
                 android:id="@+id/iv_voice"
@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/add_avator"
                 android:scaleType="fitCenter"
-                android:src="@drawable/voice_left3" />
+                android:src="@drawable/voice_left3"/>
         </LinearLayout>
 
         <TextView
@@ -61,7 +61,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@id/layout_voice"
-            android:gravity="center" />
+            android:gravity="center"/>
 
         <ImageView
             android:id="@+id/iv_fail_resend"
@@ -74,7 +74,7 @@
             android:contentDescription="@string/action_settings"
             android:scaleType="fitCenter"
             android:src="@drawable/btn_chat_fail_resend"
-            android:visibility="invisible" />
+            android:visibility="invisible"/>
 
         <TextView
             android:id="@+id/tv_send_status"
@@ -85,7 +85,7 @@
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@id/layout_voice"
             android:textSize="12sp"
-            android:visibility="invisible" />
+            android:visibility="invisible"/>
 
         <ProgressBar
             android:id="@+id/progress_load"
@@ -94,7 +94,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@id/layout_voice"
-            android:visibility="invisible" />
+            android:visibility="invisible"/>
     </RelativeLayout>
 
 </LinearLayout>

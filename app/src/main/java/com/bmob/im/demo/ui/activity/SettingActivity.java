@@ -54,34 +54,36 @@ import cn.bmob.v3.listener.UploadFileListener;
  * Copyright © sulinger .All Rights Reserved.
  */
 public class SettingActivity extends ActivityBase implements View.OnClickListener {
-    private ImageView mAvatarImg;
-    private TextView mNickText;
-    private TextView mAccountText;
-    private TextView mSignatureText;
-    private TextView mSexText;
-    private Button mAddFriendBtn;
-    private Button mLaunchChatBtn;
-    private Button mAddBlackBtn;
-
-    private RelativeLayout mAvatarLayout;
-    private RelativeLayout mNickLayout;
-    private RelativeLayout mAccountLayout;
-    private RelativeLayout mSignatrueLayout;
-    private RelativeLayout mSexLayout;
-    private String from = "";
-    private String username = "";
-    private User mUser;
-
+    public static final int UPDATE_NICK_CONTENT = 20;
+    public static final int UPDATE_SIGNATURE_CONTENT = 21;
+    public static final int UPDATE_SCHOOL_CONTENT = 22;
     static final int UPDATE_AVATAR = 11;
     static final int UPDATE_NICK = 12;
     static final int UPDATE_SEX = 13;
     static final int UPDATE_SIGN = 14;
     static final int EDIT_SIGN = 15;
     static final int GO_LOGIN = 16;
-
-    public static final int UPDATE_NICK_CONTENT = 20;
-    public static final int UPDATE_SIGNATURE_CONTENT = 21;
-
+    String[] sexs = new String[]{"女", "男"};
+    String dateTime;
+    AlertDialog albumDialog;
+    private ImageView mAvatarImg;
+    private TextView mNickText;
+    private TextView mAccountText;
+    private TextView mSignatureText;
+    private TextView mSexText;
+    private TextView mSchoolText;
+    private Button mAddFriendBtn;
+    private Button mLaunchChatBtn;
+    private Button mAddBlackBtn;
+    private RelativeLayout mAvatarLayout;
+    private RelativeLayout mNickLayout;
+    private RelativeLayout mAccountLayout;
+    private RelativeLayout mSignatrueLayout;
+    private RelativeLayout mSexLayout;
+    private RelativeLayout mSchoolLayout;
+    private String from = "";
+    private String username = "";
+    private User mUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,15 +98,19 @@ public class SettingActivity extends ActivityBase implements View.OnClickListene
         super.onResume();
         if (from.equals("me")) {
             initMeInfo();
+        } else {
+            loadData(mUser);
         }
     }
 
     void findView() {
         setContentView(R.layout.activity_settings);
+
         mAvatarLayout = (RelativeLayout) findViewById(R.id.activity_setting_user_avatar_layout);
         mNickLayout = (RelativeLayout) findViewById(R.id.activity_setting_user_nick_layout);
         mAccountLayout = (RelativeLayout) findViewById(R.id.activity_setting_user_account_layout);
         mSexLayout = (RelativeLayout) findViewById(R.id.activity_setting_sex_choice_layout);
+        mSchoolLayout = (RelativeLayout) findViewById(R.id.activity_setting_user_school_layout);
         mSignatrueLayout = (RelativeLayout) findViewById(R.id.activity_setting_user_sign_layout);
 
         mAvatarImg = (ImageView) findViewById(R.id.activity_setting_user_avatar_img);
@@ -112,6 +118,7 @@ public class SettingActivity extends ActivityBase implements View.OnClickListene
         mAccountText = (TextView) findViewById(R.id.activity_setting_user_account_text);
         mSignatureText = (TextView) findViewById(R.id.activity_setting_user_sign_text);
         mSexText = (TextView) findViewById(R.id.activity_setting_user_sex_text);
+        mSchoolText = (TextView) findViewById(R.id.activity_setting_user_school_text);
         mAddFriendBtn = (Button) findViewById(R.id.activity_add_friend_btn);
         mLaunchChatBtn = (Button) findViewById(R.id.activity_setting_launch_chat_btn);
         mAddBlackBtn = (Button) findViewById(R.id.activity_setting_add_black_btn);
@@ -128,6 +135,7 @@ public class SettingActivity extends ActivityBase implements View.OnClickListene
             mAvatarLayout.setOnClickListener(this);
             mNickLayout.setOnClickListener(this);
             mSignatrueLayout.setOnClickListener(this);
+            mSchoolLayout.setOnClickListener(this);
             mSexLayout.setOnClickListener(this);
             mAddFriendBtn.setVisibility(View.GONE);
             mLaunchChatBtn.setVisibility(View.GONE);
@@ -174,6 +182,7 @@ public class SettingActivity extends ActivityBase implements View.OnClickListene
             mNickText.setText(user.getNick());
             mSignatureText.setText(user.getSignature());
             mAccountText.setText(user.getUsername());
+            mSchoolText.setText(user.getSchool());
             if (user.getSex().equals(Constant.SEX_FEMALE)) {
                 mSexText.setText("女");
                 sputil.setValue("sex_settings", 0);
@@ -268,6 +277,13 @@ public class SettingActivity extends ActivityBase implements View.OnClickListene
                 intent2.putExtra(Constant.UPDATE_EDIT_HINT, "请输入签名");
                 this.startActivityForResult(intent2, UPDATE_SIGNATURE_CONTENT);
                 break;
+            case R.id.activity_setting_user_school_layout:  //修改签名
+                Intent intent3 = new Intent(SettingActivity.this, UpdateInfoActivity.class);
+                intent3.putExtra(Constant.UPDATE_ACTIONBAR_NAME, "学校");
+                intent3.putExtra(Constant.UPDATE_TEXT, "学校");
+                intent3.putExtra(Constant.UPDATE_EDIT_HINT, "请学校名称");
+                this.startActivityForResult(intent3, UPDATE_SCHOOL_CONTENT);
+                break;
         }
     }
 
@@ -287,6 +303,12 @@ public class SettingActivity extends ActivityBase implements View.OnClickListene
                     c = data.getExtras();
                     String signatrue = c.getString(Constant.UPDATE_BACK_CONTENT);
                     updateSign(signatrue);
+                    break;
+                case UPDATE_SCHOOL_CONTENT:
+                    Bundle d;
+                    d = data.getExtras();
+                    String school = d.getString(Constant.UPDATE_BACK_CONTENT);
+                    updateSchool(school);
                     break;
                 case UPDATE_SEX:
                     initMeInfo();
@@ -335,9 +357,6 @@ public class SettingActivity extends ActivityBase implements View.OnClickListene
         }
     }
 
-
-    String[] sexs = new String[]{"女", "男"};
-
     private void showSexChooseDialog() {
         new AlertDialog.Builder(this)
                 .setTitle("单选框")
@@ -372,17 +391,12 @@ public class SettingActivity extends ActivityBase implements View.OnClickListene
 
     }
 
-
     private void redictToLogin(int requestCode) {
         Intent intent = new Intent();
         intent.setClass(this, LoginActivity.class);
         startActivityForResult(intent, requestCode);
         ActivityUtil.show(mContext, "请先登录。");
     }
-
-    String dateTime;
-
-    AlertDialog albumDialog;
 
     public void showAlbumDialog() {
         albumDialog = new AlertDialog.Builder(mContext).create();
@@ -608,6 +622,28 @@ public class SettingActivity extends ActivityBase implements View.OnClickListene
             user.setSignature(signature);
             user.update(mContext, new UpdateListener() {
 
+                @Override
+                public void onSuccess() {
+                    LogUtils.i(TAG, "更新信息成功。");
+                }
+
+                @Override
+                public void onFailure(int arg0, String arg1) {
+                    // TODO Auto-generated method stub
+                    ActivityUtil.show(SettingActivity.this, "更新信息失败。请检查网络~");
+                    LogUtils.i(TAG, "更新失败1-->" + arg1);
+                }
+            });
+        } else {
+            redictToLogin(UPDATE_NICK);
+        }
+    }
+
+    private void updateSchool(String school) {
+        User user = BmobUser.getCurrentUser(mContext, User.class);
+        if (user != null) {
+            user.setSchool(school);
+            user.update(mContext, new UpdateListener() {
                 @Override
                 public void onSuccess() {
                     LogUtils.i(TAG, "更新信息成功。");

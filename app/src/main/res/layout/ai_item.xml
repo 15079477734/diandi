@@ -33,6 +33,7 @@
 	    android:src="@drawable/ic_action_fav_normal"
 	    android:layout_alignTop="@id/user_logo"
 	    android:layout_alignBottom="@id/user_logo"
+        android:visibility="gone"
 	    />
 	<TextView 
 	    android:id="@+id/content_text"

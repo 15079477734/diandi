@@ -8,8 +8,6 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import cn.bmob.im.BmobChat;
-import cn.bmob.v3.Bmob;
 
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
@@ -18,6 +16,9 @@ import com.baidu.mapapi.SDKInitializer;
 import com.bmob.im.demo.CustomApplication;
 import com.bmob.im.demo.R;
 import com.bmob.im.demo.config.Config;
+
+import cn.bmob.im.BmobChat;
+import cn.bmob.v3.Bmob;
 
 /**
  * 引导页
@@ -31,7 +32,22 @@ public class SplashActivity extends BaseActivity {
 
     private static final int GO_HOME = 100;
     private static final int GO_LOGIN = 200;
-
+    @SuppressLint("HandlerLeak")
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case GO_HOME:
+                    startAnimActivity(MainActivity.class);
+                    finish();
+                    break;
+                case GO_LOGIN:
+                    startAnimActivity(LoginActivity.class);
+                    finish();
+                    break;
+            }
+        }
+    };
     // 定位获取当前用户的地理位置
     private LocationClient mLocationClient;
     private BaiduReceiver mReceiver;// 注册广播接收器，用于监听网络以及验证key
@@ -41,7 +57,7 @@ public class SplashActivity extends BaseActivity {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        Bmob.initialize(this, "72b239a9eec267ae49cac1074292ef63");
+        Bmob.initialize(this, Config.applicationId);
         BmobChat.getInstance().init(this, Config.applicationId);
         initLocClient();
         IntentFilter iFilter = new IntentFilter();
@@ -57,6 +73,7 @@ public class SplashActivity extends BaseActivity {
         } else {
             mHandler.sendEmptyMessageDelayed(GO_LOGIN, 1000);
         }
+        CustomApplication.getInstance().getSpUtil().checkUpdate();
 
     }
 
@@ -82,11 +99,12 @@ public class SplashActivity extends BaseActivity {
 
     /**
      * 开启定位，更新当前用户的经纬度坐标
-     * @Title: initLocClient
-     * @Description: TODO
+     *
      * @param
      * @return void
      * @throws
+     * @Title: initLocClient
+     * @Description: TODO
      */
     private void initLocClient() {
         mLocationClient = CustomApplication.getInstance().mLocationClient;
@@ -99,22 +117,15 @@ public class SplashActivity extends BaseActivity {
         mLocationClient.start();
     }
 
-    @SuppressLint("HandlerLeak")
-    private Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case GO_HOME:
-                    startAnimActivity(MainActivity.class);
-                    finish();
-                    break;
-                case GO_LOGIN:
-                    startAnimActivity(LoginActivity.class);
-                    finish();
-                    break;
-            }
+    @Override
+    protected void onDestroy() {
+        // 退出时销毁定位
+        if (mLocationClient != null && mLocationClient.isStarted()) {
+            mLocationClient.stop();
         }
-    };
+        unregisterReceiver(mReceiver);
+        super.onDestroy();
+    }
 
     /**
      * 构造广播监听类，监听 SDK key 验证以及网络异常广播
@@ -129,16 +140,6 @@ public class SplashActivity extends BaseActivity {
                 ShowToast("当前网络连接不稳定，请检查您的网络设置!");
             }
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        // 退出时销毁定位
-        if (mLocationClient != null && mLocationClient.isStarted()) {
-            mLocationClient.stop();
-        }
-        unregisterReceiver(mReceiver);
-        super.onDestroy();
     }
 
 }

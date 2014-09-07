@@ -1,4 +1,4 @@
-package com.bmob.im.demo.adapter.base;
+package com.bmob.im.demo.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.bmob.im.demo.CustomApplication;
 import com.bmob.im.demo.R;
+import com.bmob.im.demo.adapter.base.BaseContentAdapter;
 import com.bmob.im.demo.bean.DianDi;
 import com.bmob.im.demo.bean.User;
 import com.bmob.im.demo.config.Constant;
@@ -26,7 +27,6 @@ import com.bmob.im.demo.util.ActivityUtil;
 import com.bmob.im.demo.util.LogUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
-
 
 import java.util.List;
 
@@ -45,7 +45,7 @@ import cn.bmob.v3.listener.UpdateListener;
  * TODO
  */
 
-public class AIContentAdapter extends BaseContentAdapter<DianDi>{
+public class AIContentAdapter extends BaseContentAdapter<DianDi> {
 
     public static final String TAG = "AIContentAdapter";
     public static final int SAVE_FAVOURITE = 2;
@@ -59,39 +59,39 @@ public class AIContentAdapter extends BaseContentAdapter<DianDi>{
     public View getConvertView(int position, View convertView, ViewGroup parent) {
         // TODO Auto-generated method stub
         final ViewHolder viewHolder;
-        if(convertView == null){
+        if (convertView == null) {
             viewHolder = new ViewHolder();
             convertView = mInflater.inflate(R.layout.ai_item, null);
-            viewHolder.userName = (TextView)convertView.findViewById(R.id.user_name);
-            viewHolder.userLogo = (ImageView)convertView.findViewById(R.id.user_logo);
-            viewHolder.favMark = (ImageView)convertView.findViewById(R.id.item_action_fav);
-            viewHolder.contentText = (TextView)convertView.findViewById(R.id.content_text);
-            viewHolder.contentImage = (ImageView)convertView.findViewById(R.id.content_image);
-            viewHolder.love = (TextView)convertView.findViewById(R.id.item_action_love);
-            viewHolder.hate = (TextView)convertView.findViewById(R.id.item_action_hate);
-            viewHolder.share = (TextView)convertView.findViewById(R.id.item_action_share);
-            viewHolder.comment = (TextView)convertView.findViewById(R.id.item_action_comment);
+            viewHolder.userName = (TextView) convertView.findViewById(R.id.user_name);
+            viewHolder.userLogo = (ImageView) convertView.findViewById(R.id.user_logo);
+            viewHolder.favMark = (ImageView) convertView.findViewById(R.id.item_action_fav);
+            viewHolder.contentText = (TextView) convertView.findViewById(R.id.content_text);
+            viewHolder.contentImage = (ImageView) convertView.findViewById(R.id.content_image);
+            viewHolder.love = (TextView) convertView.findViewById(R.id.item_action_love);
+            viewHolder.hate = (TextView) convertView.findViewById(R.id.item_action_hate);
+            viewHolder.share = (TextView) convertView.findViewById(R.id.item_action_share);
+            viewHolder.comment = (TextView) convertView.findViewById(R.id.item_action_comment);
             convertView.setTag(viewHolder);
-        }else{
-            viewHolder = (ViewHolder)convertView.getTag();
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
         }
         final DianDi entity = dataList.get(position);
-        LogUtils.i("user",entity.toString());
+        LogUtils.i("user", entity.toString());
         User user = entity.getAuthor();
-        if(user == null){
-            LogUtils.i("user","USER IS NULL");
+        if (user == null) {
+            LogUtils.i("user", "USER IS NULL");
         }
-        if(user.getAvatarImg()==null){
-            LogUtils.i("user","USER avatar IS NULL");
+        if (user.getAvatarImg() == null) {
+            LogUtils.i("user", "USER avatar IS NULL");
         }
         String avatarUrl = null;
-        if(user.getAvatarImg()!=null){
+        if (user.getAvatarImg() != null) {
             avatarUrl = user.getAvatarImg().getFileUrl();
         }
         ImageLoader.getInstance()
                 .displayImage(avatarUrl, viewHolder.userLogo,
                         CustomApplication.getInstance().getOptions(),
-                        new SimpleImageLoadingListener(){
+                        new SimpleImageLoadingListener() {
 
                             @Override
                             public void onLoadingComplete(String imageUri, View view,
@@ -100,13 +100,14 @@ public class AIContentAdapter extends BaseContentAdapter<DianDi>{
                                 super.onLoadingComplete(imageUri, view, loadedImage);
                             }
 
-                        });
+                        }
+                );
         viewHolder.userLogo.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                if(CustomApplication.getInstance().getCurrentUser()==null){
+                if (CustomApplication.getInstance().getCurrentUser() == null) {
                     ActivityUtil.show(mContext, "请先登录。");
                     Intent intent = new Intent();
                     intent.setClass(mContext, LoginActivity.class);
@@ -129,69 +130,71 @@ public class AIContentAdapter extends BaseContentAdapter<DianDi>{
         });
         viewHolder.userName.setText(entity.getAuthor().getNick());
         viewHolder.contentText.setText(entity.getContent());
-        if(null == entity.getContentfigureurl()){
+        if (null == entity.getContentfigureurl()) {
             viewHolder.contentImage.setVisibility(View.GONE);
-        }else{
+        } else {
             viewHolder.contentImage.setVisibility(View.VISIBLE);
             ImageLoader.getInstance()
-                    .displayImage(entity.getContentfigureurl().getFileUrl()==null?"":entity.getContentfigureurl().getFileUrl(), viewHolder.contentImage,
+                    .displayImage(entity.getContentfigureurl().getFileUrl() == null ? "" : entity.getContentfigureurl().getFileUrl(), viewHolder.contentImage,
                             CustomApplication.getInstance().getOptions(),
-                            new SimpleImageLoadingListener(){
+                            new SimpleImageLoadingListener() {
 
                                 @Override
                                 public void onLoadingComplete(String imageUri, View view,
                                                               Bitmap loadedImage) {
                                     // TODO Auto-generated method stub
                                     super.onLoadingComplete(imageUri, view, loadedImage);
-                                    float[] cons=ActivityUtil.getBitmapConfiguration(loadedImage, viewHolder.contentImage, 1.0f);
-                                    RelativeLayout.LayoutParams layoutParams=
-                                            new RelativeLayout.LayoutParams((int)cons[0], (int)cons[1]);
-                                    layoutParams.addRule(RelativeLayout.BELOW,R.id.content_text);
+                                    float[] cons = ActivityUtil.getBitmapConfiguration(loadedImage, viewHolder.contentImage, 1.0f);
+                                    RelativeLayout.LayoutParams layoutParams =
+                                            new RelativeLayout.LayoutParams((int) cons[0], (int) cons[1]);
+                                    layoutParams.addRule(RelativeLayout.BELOW, R.id.content_text);
                                     viewHolder.contentImage.setLayoutParams(layoutParams);
                                 }
 
-                            });
+                            }
+                    );
         }
-        viewHolder.love.setText(entity.getLove()+"");
-        LogUtils.i("love",entity.getMyLove()+"..");
-        if(entity.getMyLove()){
+        viewHolder.love.setText(entity.getLove() + "");
+        LogUtils.i("love", entity.getMyLove() + "..");
+        if (entity.getMyLove()) {
             viewHolder.love.setTextColor(Color.parseColor("#D95555"));
-        }else{
+        } else {
             viewHolder.love.setTextColor(Color.parseColor("#000000"));
         }
-        viewHolder.hate.setText(entity.getHate()+"");
+        viewHolder.hate.setText(entity.getHate() + "");
         viewHolder.love.setOnClickListener(new OnClickListener() {
             boolean oldFav = entity.getMyFav();
+
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                if(CustomApplication.getInstance().getCurrentUser()==null){
+                if (CustomApplication.getInstance().getCurrentUser() == null) {
                     ActivityUtil.show(mContext, "请先登录。");
                     Intent intent = new Intent();
                     intent.setClass(mContext, LoginActivity.class);
                     CustomApplication.getInstance().getTopActivity().startActivity(intent);
                     return;
                 }
-                if(entity.getMyLove()){
+                if (entity.getMyLove()) {
                     ActivityUtil.show(mContext, "您已赞过啦");
                     return;
                 }
 
-                if(DatabaseUtil.getInstance(mContext).isLoved(entity)){
+                if (DatabaseUtil.getInstance(mContext).isLoved(entity)) {
                     ActivityUtil.show(mContext, "您已赞过啦");
                     entity.setMyLove(true);
-                    entity.setLove(entity.getLove()+1);
+                    entity.setLove(entity.getLove() + 1);
                     viewHolder.love.setTextColor(Color.parseColor("#D95555"));
-                    viewHolder.love.setText(entity.getLove()+"");
+                    viewHolder.love.setText(entity.getLove() + "");
                     return;
                 }
 
-                entity.setLove(entity.getLove()+1);
+                entity.setLove(entity.getLove() + 1);
                 viewHolder.love.setTextColor(Color.parseColor("#D95555"));
-                viewHolder.love.setText(entity.getLove()+"");
+                viewHolder.love.setText(entity.getLove() + "");
 
-                entity.increment("love",1);
-                if(entity.getMyFav()){
+                entity.increment("love", 1);
+                if (entity.getMyFav()) {
                     entity.setMyFav(false);
                 }
                 entity.update(mContext, new UpdateListener() {
@@ -220,9 +223,9 @@ public class AIContentAdapter extends BaseContentAdapter<DianDi>{
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                entity.setHate(entity.getHate()+1);
-                viewHolder.hate.setText(entity.getHate()+"");
-                entity.increment("hate",1);
+                entity.setHate(entity.getHate() + 1);
+                viewHolder.hate.setText(entity.getHate() + "");
+                entity.increment("hate", 1);
                 entity.update(mContext, new UpdateListener() {
 
                     @Override
@@ -246,7 +249,7 @@ public class AIContentAdapter extends BaseContentAdapter<DianDi>{
                 // TODO Auto-generated method stub
                 //share to sociaty
                 ActivityUtil.show(mContext, "分享给好友看哦~");
-                final TencentShare tencentShare=new TencentShare(CustomApplication.getInstance().getTopActivity(), getQQShareEntity(entity));
+                final TencentShare tencentShare = new TencentShare(CustomApplication.getInstance().getTopActivity(), getQQShareEntity(entity));
                 tencentShare.shareToQQ();
             }
         });
@@ -257,7 +260,7 @@ public class AIContentAdapter extends BaseContentAdapter<DianDi>{
                 // TODO Auto-generated method stub
                 //评论
 //				CustomApplication.getInstance().setCurrentDianDi(entity);
-                if(CustomApplication.getInstance().getCurrentUser()==null){
+                if (CustomApplication.getInstance().getCurrentUser() == null) {
                     ActivityUtil.show(mContext, "请先登录。");
                     Intent intent = new Intent();
                     intent.setClass(mContext, LoginActivity.class);
@@ -271,9 +274,9 @@ public class AIContentAdapter extends BaseContentAdapter<DianDi>{
             }
         });
 
-        if(entity.getMyFav()){
+        if (entity.getMyFav()) {
             viewHolder.favMark.setImageResource(R.drawable.ic_action_fav_choose);
-        }else{
+        } else {
             viewHolder.favMark.setImageResource(R.drawable.ic_action_fav_normal);
         }
         viewHolder.favMark.setOnClickListener(new OnClickListener() {
@@ -283,7 +286,7 @@ public class AIContentAdapter extends BaseContentAdapter<DianDi>{
                 // TODO Auto-generated method stub
                 //收藏
                 ActivityUtil.show(mContext, "收藏");
-                onClickFav(v,entity);
+                onClickFav(v, entity);
 
             }
         });
@@ -291,44 +294,30 @@ public class AIContentAdapter extends BaseContentAdapter<DianDi>{
     }
 
     private TencentShareEntity getQQShareEntity(DianDi qy) {
-        String title= "这里好多美丽的风景";
-        String comment="来领略最美的风景吧";
-        String img= null;
-        if(qy.getContentfigureurl()!=null){
+        String title = "这里好多美丽的风景";
+        String comment = "来领略最美的风景吧";
+        String img = null;
+        if (qy.getContentfigureurl() != null) {
             img = qy.getContentfigureurl().getFileUrl();
-        }else{
+        } else {
             img = "http://www.codenow.cn/appwebsite/website/yyquan/uploads/53af6851d5d72.png";
         }
-        String summary=qy.getContent();
+        String summary = qy.getContent();
 
-        String targetUrl="http://yuanquan.bmob.cn";
-        TencentShareEntity entity=new TencentShareEntity(title, img, targetUrl, summary, comment);
+        String targetUrl = "http://yuanquan.bmob.cn";
+        TencentShareEntity entity = new TencentShareEntity(title, img, targetUrl, summary, comment);
         return entity;
     }
 
-
-    public static class ViewHolder{
-        public ImageView userLogo;
-        public TextView userName;
-        public TextView contentText;
-        public ImageView contentImage;
-
-        public ImageView favMark;
-        public TextView love;
-        public TextView hate;
-        public TextView share;
-        public TextView comment;
-    }
-
-    private void onClickFav(View v,final DianDi DianDi) {
+    private void onClickFav(View v, final DianDi DianDi) {
         // TODO Auto-generated method stub
         User user = BmobUser.getCurrentUser(mContext, User.class);
-        if(user != null && user.getSessionToken()!=null){
+        if (user != null && user.getSessionToken() != null) {
             BmobRelation favRelaton = new BmobRelation();
 
             DianDi.setMyFav(!DianDi.getMyFav());
-            if(DianDi.getMyFav()){
-                ((ImageView)v).setImageResource(R.drawable.ic_action_fav_choose);
+            if (DianDi.getMyFav()) {
+                ((ImageView) v).setImageResource(R.drawable.ic_action_fav_choose);
                 favRelaton.add(DianDi);
                 user.setFavorite(favRelaton);
                 ActivityUtil.show(mContext, "收藏成功。");
@@ -347,12 +336,12 @@ public class AIContentAdapter extends BaseContentAdapter<DianDi>{
                     public void onFailure(int arg0, String arg1) {
                         // TODO Auto-generated method stub
                         LogUtils.i(TAG, "收藏失败。请检查网络~");
-                        ActivityUtil.show(mContext, "收藏失败。请检查网络~"+arg0);
+                        ActivityUtil.show(mContext, "收藏失败。请检查网络~" + arg0);
                     }
                 });
 
-            }else{
-                ((ImageView)v).setImageResource(R.drawable.ic_action_fav_normal);
+            } else {
+                ((ImageView) v).setImageResource(R.drawable.ic_action_fav_normal);
                 favRelaton.remove(DianDi);
                 user.setFavorite(favRelaton);
                 ActivityUtil.show(mContext, "取消收藏。");
@@ -371,13 +360,13 @@ public class AIContentAdapter extends BaseContentAdapter<DianDi>{
                     public void onFailure(int arg0, String arg1) {
                         // TODO Auto-generated method stub
                         LogUtils.i(TAG, "取消收藏失败。请检查网络~");
-                        ActivityUtil.show(mContext, "取消收藏失败。请检查网络~"+arg0);
+                        ActivityUtil.show(mContext, "取消收藏失败。请检查网络~" + arg0);
                     }
                 });
             }
 
 
-        }else{
+        } else {
             //前往登录注册界面
             ActivityUtil.show(mContext, "收藏前请先登录。");
             Intent intent = new Intent();
@@ -386,9 +375,9 @@ public class AIContentAdapter extends BaseContentAdapter<DianDi>{
         }
     }
 
-    private void getMyFavourite(){
+    private void getMyFavourite() {
         User user = BmobUser.getCurrentUser(mContext, User.class);
-        if(user!=null){
+        if (user != null) {
             BmobQuery<DianDi> query = new BmobQuery<DianDi>();
             query.addWhereRelatedTo("favorite", new BmobPointer(user));
             query.include("user");
@@ -400,7 +389,7 @@ public class AIContentAdapter extends BaseContentAdapter<DianDi>{
                 public void onSuccess(List<DianDi> data) {
                     // TODO Auto-generated method stub
                     LogUtils.i(TAG, "get fav success!" + data.size());
-                    ActivityUtil.show(mContext, "fav size:"+data.size());
+                    ActivityUtil.show(mContext, "fav size:" + data.size());
                 }
 
                 @Override
@@ -409,12 +398,25 @@ public class AIContentAdapter extends BaseContentAdapter<DianDi>{
                     ActivityUtil.show(mContext, "获取收藏失败。请检查网络~");
                 }
             });
-        }else{
+        } else {
             //前往登录注册界面
             ActivityUtil.show(mContext, "获取收藏前请先登录。");
             Intent intent = new Intent();
             intent.setClass(mContext, LoginActivity.class);
-            CustomApplication.getInstance().getTopActivity().startActivityForResult(intent,Constant.GET_FAVOURITE);
+            CustomApplication.getInstance().getTopActivity().startActivityForResult(intent, Constant.GET_FAVOURITE);
         }
+    }
+
+    public static class ViewHolder {
+        public ImageView userLogo;
+        public TextView userName;
+        public TextView contentText;
+        public ImageView contentImage;
+
+        public ImageView favMark;
+        public TextView love;
+        public TextView hate;
+        public TextView share;
+        public TextView comment;
     }
 }

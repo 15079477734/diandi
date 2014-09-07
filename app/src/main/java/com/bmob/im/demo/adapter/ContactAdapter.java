@@ -1,11 +1,7 @@
 package com.bmob.im.demo.adapter;
 
-import java.util.List;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +13,9 @@ import android.widget.TextView;
 import com.bmob.im.demo.CustomApplication;
 import com.bmob.im.demo.R;
 import com.bmob.im.demo.bean.User;
-import com.bmob.im.demo.util.ImageLoadOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+
+import java.util.List;
 
 /** 好友列表
  * @ClassName: UserFriendAdapter
@@ -89,14 +85,12 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
         User friend = data.get(position);
         final String name = friend.getNick();
         String avatarUrl=null;
-        if(friend.getAvatarImg()!=null)
+        if (friend.getAvatar() != null)
         {
-            avatarUrl=friend.getAvatarImg().getFileUrl();
+            avatarUrl = friend.getAvatar();
         }
-        ImageLoader.getInstance()
-                .displayImage(avatarUrl, viewHolder.avatar,
-                        CustomApplication.getInstance().getOptions()
-                       );
+        ImageLoader.getInstance().displayImage(avatarUrl, viewHolder.avatar,
+                CustomApplication.getInstance().getOptions());
         viewHolder.name.setText(name);
 
         // 根据position获取分类的首字母的Char ascii值
@@ -110,12 +104,6 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
         }
 
         return convertView;
-    }
-
-    static class ViewHolder {
-        TextView alpha;// 首字母提示
-        ImageView avatar;
-        TextView name;
     }
 
     /**
@@ -133,7 +121,7 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
         for (int i = 0; i < getCount(); i++) {
             String sortStr = data.get(i).getSortLetters();
             char firstChar = sortStr.toUpperCase().charAt(0);
-            if (firstChar == section){
+            if (firstChar == section) {
                 return i;
             }
         }
@@ -144,6 +132,12 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
     @Override
     public Object[] getSections() {
         return null;
+    }
+
+    static class ViewHolder {
+        TextView alpha;// 首字母提示
+        ImageView avatar;
+        TextView name;
     }
 
 }

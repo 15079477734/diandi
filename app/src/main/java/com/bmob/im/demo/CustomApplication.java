@@ -1,9 +1,5 @@
 package com.bmob.im.demo;
 
-import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
-
 import android.app.Activity;
 import android.app.Application;
 import android.app.NotificationManager;
@@ -12,15 +8,6 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.preference.PreferenceManager;
-
-import cn.bmob.im.BmobChat;
-import cn.bmob.im.BmobUserManager;
-import cn.bmob.im.bean.BmobChatUser;
-import cn.bmob.im.db.BmobDB;
-import cn.bmob.im.util.BmobLog;
-import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.datatype.BmobGeoPoint;
-import cn.bmob.v3.update.BmobUpdateAgent;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -42,6 +29,18 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.nostra13.universalimageloader.utils.StorageUtils;
 
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+
+import cn.bmob.im.BmobChat;
+import cn.bmob.im.BmobUserManager;
+import cn.bmob.im.bean.BmobChatUser;
+import cn.bmob.im.db.BmobDB;
+import cn.bmob.im.util.BmobLog;
+import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.datatype.BmobGeoPoint;
+
 /**
  * 自定义全局Applcation类
  *
@@ -57,7 +56,7 @@ public class CustomApplication extends Application {
     public static CustomApplication mInstance;
     public static BmobGeoPoint lastPoint = null;// 上一次定位到的经纬度
     public final String PREF_LONGTITUDE = "longtitude";// 经度
-    public final String PREF_LATITUDE = "latitude";// 经度
+    public final String PREF_LATITUDE = "latitude";// 纬度
     public LocationClient mLocationClient;
     public MyLocationListener mMyLocationListener;
     // 单例模式，才能及时返回数据
@@ -157,13 +156,10 @@ public class CustomApplication extends Application {
 
     @Override
     public void onCreate() {
-        // TODO Auto-generated method stub
         super.onCreate();
         TAG = this.getClass().getSimpleName();
-        // 是否开启debug模式--默认开启状态
         BmobChat.DEBUG_MODE = true;
         mInstance = this;
-        BmobUpdateAgent.forceUpdate(this);
         init();
     }
 

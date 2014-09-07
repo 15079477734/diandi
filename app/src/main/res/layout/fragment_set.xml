@@ -100,12 +100,14 @@
             android:text="关于点滴"/>
 
         <TextView
+            android:id="@+id/fragment_setting_update_text"
             style="@style/Smile.TextView._Black"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:drawablePadding="10dp"
-            android:drawableRight="@drawable/register_bottom_arrow"/>
+            android:drawableRight="@drawable/register_bottom_arrow"
+            android:textColor="@color/red"/>
     </RelativeLayout>
 
     <include layout="@layout/item_line"/>

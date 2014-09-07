@@ -3,6 +3,7 @@ package com.bmob.im.demo.ui.activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -58,6 +59,7 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener 
                     public void onUpdateReturned(int updateStatus, UpdateResponse updateInfo) {
                         switch (updateStatus) {
                             case UpdateStatus.Yes: // has update
+                                Log.e(TAG, "有更新");
                                 UmengUpdateAgent.showUpdateDialog(mContext, updateInfo);
                                 break;
                             case UpdateStatus.No: // has no update
