@@ -1,27 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
     <include
         android:id="@+id/common_actionbar"
-        layout="@layout/include_action_bar" />
+        layout="@layout/include_action_bar"/>
 
 
     <com.bmob.im.demo.view.xlist.XListView
-        android:layout_below="@id/common_actionbar"
         android:id="@+id/fragment_diandi_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/common_actionbar"
         android:cacheColorHint="@android:color/transparent"
         android:divider="@drawable/base_horizontal_line"
         android:dividerHeight="1dp"
         android:fadingEdgeLength="0dp"
         android:fastScrollEnabled="true"
-        android:paddingBottom="10dp" />
-
+        android:paddingBottom="10dp"/>
 
 
     <TextView
@@ -30,9 +29,22 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="请检查网络并下拉刷新"
-        android:textSize="18sp"
         android:textColor="@android:color/black"
-        android:visibility="visible" />
+        android:textSize="18sp"
+        android:visibility="visible"/>
 
+    <android.view.ext.SatelliteMenu
+        android:id="@+id/menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_gravity="bottom|left"
+        android:layout_margin="8dp"
+        app:closeOnClick="true"
+        app:expandDuration="500"
+        app:mainImage="@drawable/ic_launcher"
+        app:satelliteDistance="170dp"
+        app:totalSpacingDegree="90"/>
 
 </RelativeLayout>

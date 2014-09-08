@@ -8,6 +8,12 @@
         revision="19.1.0"
         sha1="ee700e317f574886dc0a236b801f219df6fbd26d"/>
     <item
+        dex="C:\Users\Administrator\Desktop\diandi\diandi\app\build\intermediates\pre-dexed\debug\classes-9c42482afef92675958f8b2ab68c244a7e65fc30.jar"
+        jar="C:\Users\Administrator\Desktop\diandi\diandi\app\build\intermediates\exploded-aar\diandi\widgetlibrary\unspecified\classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="99c89a005a2221b2275bd7f04a3bb34ca6c4f958"/>
+    <item
         dex="C:\Users\Administrator\Desktop\diandi\diandi\app\build\intermediates\pre-dexed\debug\Bmob_IMSDK_v1.1.1beta-823ef5cc03a756f2ce135dffe916c03d3dcf64af.jar"
         jar="C:\Users\Administrator\Desktop\diandi\diandi\libs\Bmob_IMSDK_v1.1.1beta.jar"
         jumboMode="false"
@@ -91,12 +97,6 @@
         jumboMode="false"
         revision="19.1.0"
         sha1="b9000943d77c17d231bf3141a712828f2636c2ea"/>
-    <item
-        dex="C:\Users\Administrator\Desktop\diandi\diandi\app\build\intermediates\pre-dexed\debug\radial-menu-v4-3cd7f5fa8475ad01ba3e3c4b07d5fb0382192f08.jar"
-        jar="C:\Users\Administrator\Desktop\diandi\diandi\libs\radial-menu-v4.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="5d8365e03c7b428815d3d8584332b1df298cbb9c"/>
     <item
         dex="C:\Users\Administrator\Desktop\diandi\3\BmobChatDemo\app\build\intermediates\pre-dexed\debug\baidumapapi_v3_0_0-163fa617f89333486262ca49bc6de71d5eecd463.jar"
         jar="C:\Users\Administrator\Desktop\diandi\3\BmobChatDemo\libs\baidumapapi_v3_0_0.jar"

@@ -11,12 +11,14 @@ package com.bmob.im.demo.ui.fragment;
  */
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ext.SatelliteMenu;
+import android.view.ext.SatelliteMenu.SateliteClickedListener;
+import android.view.ext.SatelliteMenuItem;
 import android.widget.AdapterView;
 import android.widget.TextView;
 
@@ -31,8 +33,6 @@ import com.bmob.im.demo.ui.activity.NewDiandiActivity;
 import com.bmob.im.demo.util.LogUtils;
 import com.bmob.im.demo.view.HeaderLayout.onRightImageButtonClickListener;
 import com.bmob.im.demo.view.xlist.XListView;
-import com.touchmenotapps.widget.radialmenu.menu.v1.RadialMenuItem;
-import com.touchmenotapps.widget.radialmenu.menu.v1.RadialMenuWidget;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -50,10 +50,7 @@ public class DianDiFragment extends BaseFragment implements XListView.IXListView
 
     private XListView mListView;
     private TextView networkTips;
-    private RadialMenuWidget mPieMenu;
-    private RadialMenuItem mNormalMenu, mCloseMenu, mExpandMenu;
-    private RadialMenuItem mMainMenu, mLoveItem, mEditItem;
-    private ArrayList<RadialMenuItem> children = new ArrayList<RadialMenuItem>(0);
+    private SatelliteMenu menu;
     private View mView;
 
     private int pageNum;
@@ -81,6 +78,7 @@ public class DianDiFragment extends BaseFragment implements XListView.IXListView
     void findView() {
         mListView = (XListView) findViewById(R.id.fragment_diandi_list);
         networkTips = (TextView) findViewById(R.id.networkTips);
+        menu = (SatelliteMenu) findViewById(R.id.menu);
     }
 
     public void initView() {
@@ -93,45 +91,31 @@ public class DianDiFragment extends BaseFragment implements XListView.IXListView
             }
         });
         initXListView();
+        List<SatelliteMenuItem> items = new ArrayList<SatelliteMenuItem>();
+        items.add(new SatelliteMenuItem(4, R.drawable.ic_1));
+        items.add(new SatelliteMenuItem(4, R.drawable.ic_3));
+        items.add(new SatelliteMenuItem(4, R.drawable.ic_4));
+        items.add(new SatelliteMenuItem(3, R.drawable.ic_5));
+        items.add(new SatelliteMenuItem(2, R.drawable.ic_6));
+        items.add(new SatelliteMenuItem(1, R.drawable.ic_2));
+
+        menu.addItems(items);
         bindEvent();
     }
 
     private void initMenu() {
-        mPieMenu = new RadialMenuWidget(getActivity());
-        mCloseMenu = new RadialMenuItem("关闭", null);
-        mCloseMenu.setDisplayIcon(android.R.drawable.ic_menu_close_clear_cancel);
 
-        mNormalMenu = new RadialMenuItem("脚印", "脚印");
-        mExpandMenu = new RadialMenuItem("更多", "更多");
-        mMainMenu = new RadialMenuItem("主页", "主页");
-        mLoveItem = new RadialMenuItem("收藏", "收藏");
-        mEditItem = new RadialMenuItem("纪念", "纪念");
 
-        children.add(mMainMenu);
-        children.add(mLoveItem);
-        children.add(mEditItem);
-        mExpandMenu.setMenuChildren(children);
      /*   WindowManager wm = getActivity().getWindowManager();
         int width = wm.getDefaultDisplay().getWidth();
         int height = wm.getDefaultDisplay().getHeight();*/
-        mPieMenu.setAnimationSpeed(0L);
-        mPieMenu.setSourceLocation(0, 0);
-        //     mPieMenu.setCenterLocation(width,height);
-        mPieMenu.setIconSize(15, 30);
-        mPieMenu.setTextSize(13);
-        mPieMenu.setOutlineColor(Color.BLACK, 225);
-        mPieMenu.setInnerRingColor(0xAA66CC, 999);
-        mPieMenu.setOuterRingColor(0x0099CC, 999);
-        //pieMenu.setHeader("Test Menu", 20);
-        mPieMenu.setCenterCircle(mCloseMenu);
-        mPieMenu.addMenuEntry(mNormalMenu);
-        mPieMenu.addMenuEntry(mExpandMenu);
     }
 
 
     void initData() {
         mListItems = new ArrayList<DianDi>();
         pageNum = 0;
+
     }
 
     private void initXListView() {
@@ -145,26 +129,14 @@ public class DianDiFragment extends BaseFragment implements XListView.IXListView
     }
 
     void bindEvent() {
-        mNormalMenu.setOnMenuItemPressed(new RadialMenuItem.RadialMenuItemClickListener() {
-            @Override
-            public void execute() {
-                mPieMenu.dismiss();
-                startAnimActivity(NewDiandiActivity.class);
+
+        menu.setOnItemClickedListener(new SateliteClickedListener() {
+
+            public void eventOccured(int id) {
+                ShowToast("Clicked on " + id);
             }
         });
-        mEditItem.setOnMenuItemPressed(new RadialMenuItem.RadialMenuItemClickListener() {
-            @Override
-            public void execute() {
-                startAnimActivity(NewDiandiActivity.class);
-                mPieMenu.dismiss();
-            }
-        });
-        mCloseMenu.setOnMenuItemPressed(new RadialMenuItem.RadialMenuItemClickListener() {
-            @Override
-            public void execute() {
-                mPieMenu.dismiss();
-            }
-        });
+
 
     }
 
